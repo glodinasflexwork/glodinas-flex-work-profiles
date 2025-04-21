@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Breadcrumb from '../components/Breadcrumb';
 
 export default function Services() {
   return (
@@ -7,6 +8,11 @@ export default function Services() {
         <title>Our Services - Glodinas Flex Work B.V.</title>
         <meta name="description" content="Discover the staffing, payroll, and housing services offered by Glodinas Flex Work B.V." />
       </Head>
+
+      {/* Breadcrumb */}
+      <div className="max-w-6xl mx-auto px-4 pt-4">
+        <Breadcrumb currentPage="Services" />
+      </div>
 
       {/* Hero Section */}
       <section
