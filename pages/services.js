@@ -9,11 +9,6 @@ export default function Services() {
         <meta name="description" content="Discover the staffing, payroll, and housing services offered by Glodinas Flex Work B.V." />
       </Head>
 
-      {/* Breadcrumb */}
-      <div className="max-w-6xl mx-auto px-4 pt-4">
-        <Breadcrumb currentPage="Services" />
-      </div>
-
       {/* Hero Section */}
       <section
         className="relative h-[400px] flex items-center justify-center text-white text-center px-4"
@@ -30,6 +25,10 @@ export default function Services() {
         </div>
       </section>
 
+ {/* Breadcrumb */}
+      <div className="max-w-6xl mx-auto px-4 pt-4">
+        <Breadcrumb currentPage="Services" />
+      </div>
       {/* Services Overview */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-gray-800">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
