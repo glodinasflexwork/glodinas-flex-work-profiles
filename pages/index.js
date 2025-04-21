@@ -1,8 +1,3 @@
-// Updated homepage with:
-// 1. Image hover effects on trust logos
-// 2. Alt text improvements
-// 3. Better mobile spacing
-
 import Head from 'next/head';
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -12,7 +7,7 @@ export default function Home() {
     <>
       <Head>
         <title>Glodinas Flex Work B.V. - Staffing Solutions</title>
-               <meta
+        <meta
           name="description"
           content="Looking for reliable staffing services in logistics, hospitality, cleaning, and more? Glodinas Flex Work B.V. connects skilled workers with top employers across the Netherlands."
         />
@@ -20,22 +15,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content="staffing Netherlands, temporary work, job agency, Glodinas Flex Work, employment agency Netherlands, logistics jobs, hospitality staffing" />
         <meta name="author" content="Glodinas Flex Work B.V." />
-
-        {/* Open Graph */}
         <meta property="og:title" content="Glodinas Flex Work B.V." />
         <meta property="og:description" content="Reliable employment solutions for businesses and workers in the Netherlands." />
         <meta property="og:image" content="https://glodinas-flex-site.vercel.app/images/hero.jpg" />
         <meta property="og:url" content="https://glodinas-flex-site.vercel.app/" />
         <meta property="og:type" content="website" />
-
-        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Glodinas Flex Work B.V." />
         <meta name="twitter:description" content="Employment services for job seekers and companies across the Netherlands." />
         <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/hero.jpg" />
       </Head>
 
-      {/* Hero Section */}
       <section
         className="relative h-[500px] flex items-center justify-center text-white text-center px-4"
         style={{
@@ -65,7 +55,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust Indicators */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h2 className="text-2xl font-semibold mb-8">We Are Certified & Compliant</h2>
@@ -86,20 +75,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Social Proof */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">Trusted by Companies Across the Netherlands</h2>
           <div className="flex justify-center flex-wrap gap-6 items-center">
-            <img src="/images/client1.png" alt="Client Logo 1" className="h-12" />
-            <img src="/images/client2.png" alt="Client Logo 2" className="h-12" />
-            <img src="/images/client3.png" alt="Client Logo 3" className="h-12" />
-            <img src="/images/client4.png" alt="Client Logo 4" className="h-12" />
+            {[
+              { img: '/images/client-logos/philips.png', alt: 'Philips Logo' },
+              { img: '/images/client-logos/ing.png', alt: 'ING Logo' },
+              { img: '/images/client-logos/shell.png', alt: 'Shell Logo' },
+              { img: '/images/client-logos/unilever.png', alt: 'Unilever Logo' },
+            ].map((logo, idx) => (
+              <img key={idx} src={logo.img} alt={logo.alt} className="h-12" />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
       <section className="py-20 px-4 bg-white text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-6">What Our Clients Say</h2>
@@ -108,7 +99,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Industries Section */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-center">
         <h2 className="text-3xl font-bold mb-4">Industries We Serve</h2>
         <p className="mb-10">From logistics to hospitality, we support businesses in diverse sectors.</p>
@@ -131,7 +121,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="bg-orange-500 text-white py-20 text-center">
         <h2 className="text-3xl font-bold mb-4">Start Working With Us Today</h2>
         <p className="mb-6">Looking for a job or staff? Contact our team and let's get started.</p>
