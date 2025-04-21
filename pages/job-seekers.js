@@ -3,10 +3,32 @@ import Head from 'next/head';
 export default function JobSeekers() {
   return (
     <>
-      <Head>
-        <title>Job Seekers - Glodinas Flex Work B.V.</title>
-        <meta name="description" content="Find your next job with Glodinas Flex Work B.V. We connect you with employers in logistics, food, hospitality and more across the Netherlands." />
-      </Head>
+<Head>
+  <title>Job Seekers - Glodinas Flex Work B.V.</title>
+  <meta
+    name="description"
+    content="Find your next job with Glodinas Flex Work B.V. We connect you with employers in logistics, food, hospitality and more across the Netherlands."
+  />
+  <meta
+    name="keywords"
+    content="job Netherlands, logistics work, hospitality jobs, job agency, Glodinas Flex Work, temporary work Netherlands, EU jobs, multilingual employment"
+  />
+  <meta name="author" content="Glodinas Flex Work B.V." />
+
+  {/* Open Graph */}
+  <meta property="og:title" content="Job Seekers - Glodinas Flex Work B.V." />
+  <meta property="og:description" content="Looking for a job in logistics, food, or hospitality? Register with Glodinas Flex Work today." />
+  <meta property="og:image" content="https://glodinas-flex-site.vercel.app/images/jobseekers-hero.jpg" />
+  <meta property="og:url" content="https://glodinas-flex-site.vercel.app/job-seekers" />
+  <meta property="og:type" content="website" />
+
+  {/* Twitter Card */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Glodinas Flex Work B.V. - Job Seekers" />
+  <meta name="twitter:description" content="We help job seekers find work in the Netherlands with full support, housing, and fast payments." />
+  <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/jobseekers-hero.jpg" />
+</Head>
+
 
       {/* Hero Section */}
       <section
