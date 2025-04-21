@@ -16,6 +16,8 @@ export default function Home() {
           name="description"
           content="Looking for reliable staffing services in logistics, hospitality, cleaning, and more? Glodinas Flex Work B.V. connects skilled workers with top employers across the Netherlands."
         />
+        <link rel="canonical" href="https://glodinas-flex-site.vercel.app/" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content="staffing Netherlands, temporary work, job agency, Glodinas Flex Work, employment agency Netherlands, logistics jobs, hospitality staffing" />
         <meta name="author" content="Glodinas Flex Work B.V." />
 
