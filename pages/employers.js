@@ -6,7 +6,23 @@ export default function Employers() {
       <Head>
         <title>Employers - Glodinas Flex Work B.V.</title>
         <meta name="description" content="Partner with Glodinas Flex Work B.V. for reliable and efficient staffing solutions across various industries in the Netherlands." />
+        <meta name="keywords" content="hire staff Netherlands, employment agency, staffing logistics, hospitality workers, Glodinas Flex Work, multilingual recruitment" />
+        <meta name="author" content="Glodinas Flex Work B.V." />
+
+        {/* Open Graph */}
+        <meta property="og:title" content="Employers - Glodinas Flex Work B.V." />
+        <meta property="og:description" content="Staffing support in logistics, agriculture, cleaning and more across the Netherlands." />
+        <meta property="og:image" content="https://glodinas-flex-site.vercel.app/images/hero-employers.jpg" />
+        <meta property="og:url" content="https://glodinas-flex-site.vercel.app/employers" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Glodinas Flex Work B.V. - For Employers" />
+        <meta name="twitter:description" content="We help you hire the right people — quickly and compliantly." />
+        <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/hero-employers.jpg" />
       </Head>
+
       <section
         className="relative h-[400px] flex items-center justify-center text-white text-center px-4"
         style={{
