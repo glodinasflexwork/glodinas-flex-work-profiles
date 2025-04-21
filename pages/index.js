@@ -10,24 +10,36 @@ export default function Home() {
       </Head>
       <main className="text-gray-800 bg-white">
 
-        {/* Hero Section */}
-        <section className="relative bg-gray-100 text-center py-20 px-4">
-          <div className="bg-gray-300 h-64 w-full rounded-md mb-8 flex items-center justify-center text-gray-600 text-sm">
-            [ Hero background image placeholder ]
-          </div>
+            {/* Hero Section */}
+      <section
+        className="relative h-[500px] flex items-center justify-center text-white text-center px-4"
+        style={{
+          backgroundImage: "url('/images/hero.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="bg-black/50 absolute inset-0 z-0" />
+        <div className="relative z-10 max-w-3xl">
           <h1 className="text-4xl font-bold mb-4">Connecting People with Opportunities</h1>
-          <p className="text-lg mb-6 max-w-2xl mx-auto">
-            Flexible staffing, multilingual support, and fast job placements across the Netherlands.
+          <p className="mb-6">
+            Flexible staffing solutions, multilingual support, and reliable service across the Netherlands.
           </p>
-          <div className="space-x-4">
-            <Link href="/jobseekers">
-              <a className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded font-semibold">I'm Looking for Work</a>
+          <div className="flex justify-center gap-4">
+            <Link href="/job-seekers">
+              <a className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded">
+                I'm Looking for Work
+              </a>
             </Link>
             <Link href="/employers">
-              <a className="border border-orange-500 hover:bg-orange-100 text-orange-600 px-6 py-3 rounded font-semibold">I Need Workers</a>
+              <a className="bg-white text-orange-600 font-semibold px-6 py-2 rounded border border-orange-500">
+                I Need Workers
+              </a>
             </Link>
           </div>
-        </section>
+        </div>
+      </section>
+
 
         {/* About Section */}
         <section className="py-20 px-4 max-w-5xl mx-auto text-center">
