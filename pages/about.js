@@ -7,6 +7,24 @@ export default function About() {
         <title>About Us - Glodinas Flex Work B.V.</title>
         <meta name="description" content="Learn more about Glodinas Flex Work B.V. and our mission to connect workers with employers across the Netherlands." />
       </Head>
+
+      {/* Hero Banner */}
+      <section
+        className="relative h-[400px] flex items-center justify-center text-white text-center px-4"
+        style={{
+          backgroundImage: "url('/images/about-hero.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="bg-black/40 absolute inset-0 z-0" />
+        <div className="relative z-10 max-w-3xl">
+          <h1 className="text-4xl font-bold mb-2">About Us</h1>
+          <p className="text-lg">Discover who we are and what drives Glodinas Flex Work B.V.</p>
+        </div>
+      </section>
+
+      {/* Main About Section */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-gray-800">
         <h1 className="text-4xl font-bold mb-6 text-center">About Glodinas Flex Work B.V.</h1>
         <p className="text-lg mb-6 text-center max-w-3xl mx-auto">
