@@ -79,38 +79,29 @@ export default function Home() {
 </section>
 
 
-        {/* Industries Section */}
-        <section className="py-20 px-4 max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Industries We Serve</h2>
-          <p className="mb-6">We support employers in diverse sectors across the Netherlands.</p>
-          <div className="flex flex-wrap justify-center gap-4">
-            {['Logistics', 'Hospitality', 'Cleaning', 'Food Production', 'Technical', 'Agriculture'].map((sector, idx) => (
-              <span key={idx} className="bg-gray-200 px-4 py-2 rounded text-sm">{sector}</span>
-            ))}
-          </div>
-        </section>
+       {/* Industries Section */}
+<section className="py-20 px-4 max-w-6xl mx-auto text-center">
+  <h2 className="text-3xl font-bold mb-4">Industries We Serve</h2>
+  <p className="mb-10">We support employers in diverse sectors across the Netherlands.</p>
+  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+    {[
+      { title: 'Logistics', img: '/images/industries/logistics.jpg' },
+      { title: 'Hospitality', img: '/images/industries/hospitality.jpg' },
+      { title: 'Cleaning', img: '/images/industries/cleaning.jpg' },
+      { title: 'Food Production', img: '/images/industries/food.jpg' },
+      { title: 'Technical', img: '/images/industries/technical.jpg' },
+      { title: 'Agriculture', img: '/images/industries/agriculture.jpg' },
+    ].map((item, idx) => (
+      <div key={idx} className="bg-white p-4 border rounded shadow-sm">
+        <div className="relative h-40 mb-3 overflow-hidden rounded">
+          <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
+        </div>
+        <h3 className="text-lg font-semibold">{item.title}</h3>
+      </div>
+    ))}
+  </div>
+</section>
 
-        {/* Why Choose Us */}
-        <section className="bg-white py-20 px-4 max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-10">Why Choose Glodinas?</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div>
-              <div className="bg-gray-200 h-24 w-24 mx-auto rounded-full mb-4">[ icon ]</div>
-              <h3 className="text-xl font-semibold mb-2">Multilingual Team</h3>
-              <p>We speak Dutch, English, Polish, Romanian, Bulgarian and more.</p>
-            </div>
-            <div>
-              <div className="bg-gray-200 h-24 w-24 mx-auto rounded-full mb-4">[ icon ]</div>
-              <h3 className="text-xl font-semibold mb-2">Fast Placement</h3>
-              <p>We connect people with jobs quickly and efficiently.</p>
-            </div>
-            <div>
-              <div className="bg-gray-200 h-24 w-24 mx-auto rounded-full mb-4">[ icon ]</div>
-              <h3 className="text-xl font-semibold mb-2">Reliable & Transparent</h3>
-              <p>No surprises. Just honest communication and strong partnerships.</p>
-            </div>
-          </div>
-        </section>
 
         {/* Contact CTA */}
         <section className="bg-orange-500 text-white py-16 text-center">
