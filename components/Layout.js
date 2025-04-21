@@ -15,7 +15,7 @@ export default function Layout({ children }) {
   return (
     <div className="min-h-screen bg-white text-gray-800">
       {/* Header */}
-      <header className="w-full px-6 py-4 border-b bg-white shadow-sm">
+      <header className="w-full px-6 py-3 border-b bg-white shadow-sm">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link href="/">
             <a className="flex items-center space-x-2">
@@ -38,7 +38,7 @@ export default function Layout({ children }) {
       </header>
 
       {/* Main content */}
-      <main className="max-w-6xl mx-auto px-4 py-6">{children}</main>
+      <main>{children}</main>
     </div>
   );
 }
