@@ -1,14 +1,30 @@
 import Head from 'next/head';
 import Breadcrumb from '../components/Breadcrumb';
+
 export default function About() {
   return (
     <>
       <Head>
         <title>About Us - Glodinas Flex Work B.V.</title>
-        <meta name="description" content="Learn more about Glodinas Flex Work B.V. and our mission to connect workers with employers across the Netherlands." />
+        <meta name="description" content="Learn more about Glodinas Flex Work B.V. and our mission to connect job seekers with employers across multiple industries in the Netherlands." />
+        <meta name="keywords" content="About Glodinas, Employment Agency Netherlands, Dutch Staffing Agency, multilingual job support" />
+        <meta name="author" content="Glodinas Flex Work B.V." />
+
+        {/* Open Graph */}
+        <meta property="og:title" content="About Us - Glodinas Flex Work B.V." />
+        <meta property="og:description" content="We build bridges between job seekers and employers in logistics, agriculture, hospitality, and more." />
+        <meta property="og:image" content="https://glodinas-flex-site.vercel.app/images/about-hero.jpg" />
+        <meta property="og:url" content="https://glodinas-flex-site.vercel.app/about" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Glodinas Flex Work B.V." />
+        <meta name="twitter:description" content="Get to know who we are and how we help connect people with jobs across the Netherlands." />
+        <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/about-hero.jpg" />
       </Head>
 
-      {/* Hero Banner */}
+      {/* Hero Section */}
       <section
         className="relative h-[400px] flex items-center justify-center text-white text-center px-4"
         style={{
@@ -24,12 +40,12 @@ export default function About() {
         </div>
       </section>
 
-        {/* Breadcrumb */}
-          <div className="bg-white px-4 py-3 max-w-6xl mx-auto">
-            <Breadcrumb />
-          </div>
+      {/* Breadcrumb */}
+      <div className="max-w-6xl mx-auto px-4 pt-4">
+        <Breadcrumb currentPage="About" />
+      </div>
 
-      {/* Main About Section */}
+      {/* Main Content */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-gray-800">
         <h1 className="text-4xl font-bold mb-6 text-center">About Glodinas Flex Work B.V.</h1>
         <p className="text-lg mb-6 text-center max-w-3xl mx-auto">
