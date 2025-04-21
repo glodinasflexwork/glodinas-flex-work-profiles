@@ -6,6 +6,21 @@ export default function Register() {
       <Head>
         <title>Register - Glodinas Flex Work B.V.</title>
         <meta name="description" content="Register to find flexible job opportunities with Glodinas Flex Work B.V." />
+        <meta name="keywords" content="job registration, work Netherlands, Glodinas Flex Work, employment registration, staffing, flexible jobs" />
+        <meta name="author" content="Glodinas Flex Work B.V." />
+
+        {/* Open Graph */}
+        <meta property="og:title" content="Register for Jobs - Glodinas Flex Work B.V." />
+        <meta property="og:description" content="Join our network and find work in logistics, hospitality, cleaning, and more across the Netherlands." />
+        <meta property="og:image" content="https://glodinas-flex-site.vercel.app/images/register-hero.jpg" />
+        <meta property="og:url" content="https://glodinas-flex-site.vercel.app/register" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Register for Jobs - Glodinas Flex Work B.V." />
+        <meta name="twitter:description" content="Apply now for jobs in logistics, hospitality, and more across the Netherlands." />
+        <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/register-hero.jpg" />
       </Head>
 
       {/* Hero Section */}
