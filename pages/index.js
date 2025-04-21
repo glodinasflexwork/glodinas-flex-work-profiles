@@ -84,6 +84,19 @@ export default function Home() {
           ))}
         </div>
       </section>
+       
+        {/* Trust Indicators Section */}
+        <section className="py-16 bg-gray-100">
+          <div className="max-w-6xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-6">We Are Applying For:</h2>
+            <p className="mb-8 text-gray-700">Demonstrating our commitment to compliance, quality, and worker protection.</p>
+            <div className="flex flex-wrap justify-center items-center gap-10">
+              <img src="/images/logos/nbbu-logo.png" alt="NBBU Logo" className="h-16 w-auto object-contain" />
+              <img src="/images/logos/sna-logo.png" alt="SNA Logo" className="h-16 w-auto object-contain" />
+              <img src="/images/logos/snf-logo.png" alt="SNF Logo" className="h-16 w-auto object-contain" />
+            </div>
+          </div>
+        </section>
 
       {/* Contact CTA */}
       <section className="bg-orange-500 text-white py-16 text-center">
