@@ -5,18 +5,55 @@ export default function Register() {
     <>
       <Head>
         <title>Register - Glodinas Flex Work B.V.</title>
+        <meta name="description" content="Register to find flexible job opportunities with Glodinas Flex Work B.V." />
       </Head>
-      <section className="py-20 px-4 max-w-4xl mx-auto text-gray-800">
-        <h1 className="text-4xl font-bold mb-6 text-center">Register with Us</h1>
-        <p className="text-lg mb-6 text-center">
-          Whether you're looking for a job or seeking new workers, fill out our form and we'll get in touch with you.
-        </p>
-        <form className="bg-white p-6 rounded shadow-md grid gap-4">
-          <input type="text" placeholder="Full Name" className="border px-4 py-2 rounded" required />
-          <input type="email" placeholder="Email Address" className="border px-4 py-2 rounded" required />
-          <input type="tel" placeholder="Phone Number" className="border px-4 py-2 rounded" />
-          <textarea placeholder="Tell us more..." rows="4" className="border px-4 py-2 rounded" />
-          <button type="submit" className="bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600">
+
+      {/* Hero Section */}
+      <section
+        className="relative h-[400px] flex items-center justify-center text-white text-center px-4"
+        style={{
+          backgroundImage: "url('/images/register-hero.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="bg-black/40 absolute inset-0 z-0" />
+        <div className="relative z-10 max-w-2xl">
+          <h1 className="text-4xl font-bold mb-2">Join Our Workforce</h1>
+          <p className="text-lg">Register now to discover job opportunities across the Netherlands.</p>
+        </div>
+      </section>
+
+      {/* Registration Section */}
+      <section className="py-20 px-4 max-w-3xl mx-auto text-gray-800">
+        <h2 className="text-2xl font-bold mb-4 text-center">Start Your Application</h2>
+        <p className="mb-8 text-center">Complete the form below and our team will get in touch with you.</p>
+
+        <form className="space-y-6">
+          <div>
+            <label className="block mb-1 font-medium">Full Name</label>
+            <input type="text" className="w-full border px-4 py-2 rounded" required />
+          </div>
+          <div>
+            <label className="block mb-1 font-medium">Email Address</label>
+            <input type="email" className="w-full border px-4 py-2 rounded" required />
+          </div>
+          <div>
+            <label className="block mb-1 font-medium">Phone Number</label>
+            <input type="tel" className="w-full border px-4 py-2 rounded" required />
+          </div>
+          <div>
+            <label className="block mb-1 font-medium">Preferred Job Sector</label>
+            <select className="w-full border px-4 py-2 rounded">
+              <option>Logistics</option>
+              <option>Hospitality</option>
+              <option>Cleaning</option>
+              <option>Food Production</option>
+              <option>Technical</option>
+              <option>Agriculture</option>
+            </select>
+          </div>
+          <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded">
             Submit
           </button>
         </form>
