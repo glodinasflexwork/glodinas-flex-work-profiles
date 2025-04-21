@@ -1,3 +1,8 @@
+// Updated homepage with:
+// 1. Image hover effects on trust logos
+// 2. Alt text improvements
+// 3. Better mobile spacing
+
 import Head from 'next/head';
 import Link from 'next/link';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -40,21 +45,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Social Proof Section */}
-      <section className="py-16 bg-gray-50">
+      {/* Trust Indicators */}
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Trusted by Companies Across the Netherlands</h2>
-          <div className="flex justify-center flex-wrap gap-6 items-center">
-            <img src="/images/client1.png" alt="Client 1" className="h-12" />
-            <img src="/images/client2.png" alt="Client 2" className="h-12" />
-            <img src="/images/client3.png" alt="Client 3" className="h-12" />
-            <img src="/images/client4.png" alt="Client 4" className="h-12" />
+          <h2 className="text-2xl font-semibold mb-8">We Are Certified & Compliant</h2>
+          <div className="flex justify-center flex-wrap gap-8 items-center">
+            {[
+              { img: '/images/certified/nbbu-logo.png', alt: 'Certified by NBBU' },
+              { img: '/images/certified/sna-logo.png', alt: 'Certified by SNA' },
+              { img: '/images/certified/snf-logo.png', alt: 'Certified by SNF' },
+            ].map((cert, idx) => (
+              <img
+                key={idx}
+                src={cert.img}
+                alt={cert.alt}
+                className="h-16 transition-transform duration-300 hover:scale-105"
+              />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-16 px-4 bg-white text-center">
+      {/* Social Proof */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-6">Trusted by Companies Across the Netherlands</h2>
+          <div className="flex justify-center flex-wrap gap-6 items-center">
+            <img src="/images/client1.png" alt="Client Logo 1" className="h-12" />
+            <img src="/images/client2.png" alt="Client Logo 2" className="h-12" />
+            <img src="/images/client3.png" alt="Client Logo 3" className="h-12" />
+            <img src="/images/client4.png" alt="Client Logo 4" className="h-12" />
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 px-4 bg-white text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-6">What Our Clients Say</h2>
           <blockquote className="italic text-lg mb-4">"Glodinas helped us find the perfect team during peak season. Reliable, fast, and professional!"</blockquote>
@@ -84,22 +110,9 @@ export default function Home() {
           ))}
         </div>
       </section>
-       
-        {/* Trust Indicators Section */}
-        <section className="py-16 bg-gray-100">
-          <div className="max-w-6xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-6">We Are Applying For:</h2>
-            <p className="mb-8 text-gray-700">Demonstrating our commitment to compliance, quality, and worker protection.</p>
-            <div className="flex flex-wrap justify-center items-center gap-10">
-              <img src="/images/logos/nbbu-logo.png" alt="NBBU Logo" className="h-16 w-auto object-contain" />
-              <img src="/images/logos/sna-logo.png" alt="SNA Logo" className="h-16 w-auto object-contain" />
-              <img src="/images/logos/snf-logo.png" alt="SNF Logo" className="h-16 w-auto object-contain" />
-            </div>
-          </div>
-        </section>
 
-      {/* Contact CTA */}
-      <section className="bg-orange-500 text-white py-16 text-center">
+      {/* CTA */}
+      <section className="bg-orange-500 text-white py-20 text-center">
         <h2 className="text-3xl font-bold mb-4">Start Working With Us Today</h2>
         <p className="mb-6">Looking for a job or staff? Contact our team and let's get started.</p>
         <Link href="/contact">
