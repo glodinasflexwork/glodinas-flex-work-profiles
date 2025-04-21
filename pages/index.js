@@ -39,26 +39,45 @@ export default function Home() {
           </p>
         </section>
 
-        {/* Services Section */}
-        <section className="bg-gray-50 py-20 px-4">
-          <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-10">Our Services</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { title: 'Temporary Staffing', desc: 'Fast placements for various industries.' },
-                { title: 'Recruitment', desc: 'We find the right person for the right role.' },
-                { title: 'Payroll Services', desc: 'We handle contracts, salaries, and compliance.' },
-                { title: 'Housing Support', desc: 'Help with accommodation for international workers.' }
-              ].map((item, idx) => (
-                <div key={idx} className="p-6 border bg-white rounded shadow-sm">
-                  <div className="bg-gray-200 h-32 mb-4 rounded">[ image placeholder ]</div>
-                  <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                  <p>{item.desc}</p>
-                </div>
-              ))}
-            </div>
+       {/* Services Section */}
+<section className="bg-gray-50 py-20 px-4">
+  <div className="max-w-6xl mx-auto text-center">
+    <h2 className="text-3xl font-bold mb-10">Our Services</h2>
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[
+        {
+          title: 'Temporary Staffing',
+          desc: 'Fast placements for various industries.',
+          img: '/images/temp-staffing.jpg',
+        },
+        {
+          title: 'Recruitment',
+          desc: 'We find the right person for the right role.',
+          img: '/images/recruitment.jpg',
+        },
+        {
+          title: 'Payroll Services',
+          desc: 'We handle contracts, salaries, and compliance.',
+          img: '/images/payroll.jpg',
+        },
+        {
+          title: 'Housing Support',
+          desc: 'Help with accommodation for international workers.',
+          img: '/images/housing.jpg',
+        },
+      ].map((item, idx) => (
+        <div key={idx} className="p-4 border bg-white rounded shadow-sm">
+          <div className="relative h-40 mb-4 rounded overflow-hidden">
+            <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
           </div>
-        </section>
+          <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+          <p>{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
         {/* Industries Section */}
         <section className="py-20 px-4 max-w-5xl mx-auto text-center">
