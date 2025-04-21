@@ -26,6 +26,7 @@ export default function Home() {
         <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/hero.jpg" />
       </Head>
 
+      {/* Hero Section */}
       <section
         className="relative h-[500px] flex items-center justify-center text-white text-center px-4"
         style={{
@@ -55,10 +56,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Trust Indicators */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-semibold mb-8">We Are Certified & Compliant</h2>
-          <div className="flex justify-center flex-wrap gap-8 items-center">
+          <h2 className="text-2xl font-semibold mb-10">We Are Certified & Compliant</h2>
+          <div className="flex justify-center flex-wrap gap-10 items-center">
             {[
               { img: '/images/certified/nbbu-logo.png', alt: 'Certified by NBBU' },
               { img: '/images/certified/sna-logo.png', alt: 'Certified by SNA' },
@@ -68,29 +70,37 @@ export default function Home() {
                 key={idx}
                 src={cert.img}
                 alt={cert.alt}
-                className="h-16 transition-transform duration-300 hover:scale-105"
+                className="h-24 md:h-28 grayscale hover:grayscale-0 transition-all duration-300 ease-in-out"
               />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      {/* Social Proof */}
+      <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Trusted by Companies Across the Netherlands</h2>
-          <div className="flex justify-center flex-wrap gap-6 items-center">
+          <h2 className="text-3xl font-bold mb-10">Trusted by Companies Across the Netherlands</h2>
+          <div className="flex justify-center flex-wrap gap-10 items-center">
             {[
-              { img: '/images/client_logos/philips.png', alt: 'Philips Logo' },
-              { img: '/images/client_logos/ing.png', alt: 'ING Logo' },
-              { img: '/images/client_logos/shell.png', alt: 'Shell Logo' },
-              { img: '/images/client_logos/unilever.png', alt: 'Unilever Logo' },
+              { img: '/images/client-logos/philips.png', alt: 'Philips Logo' },
+              { img: '/images/client-logos/ing.png', alt: 'ING Logo' },
+              { img: '/images/client-logos/shell.png', alt: 'Shell Logo' },
+              { img: '/images/client-logos/unilever.png', alt: 'Unilever Logo' },
             ].map((logo, idx) => (
-              <img key={idx} src={logo.img} alt={logo.alt} className="h-12" />
+              <div key={idx} className="p-4 bg-white rounded shadow hover:shadow-lg transition duration-300">
+                <img
+                  src={logo.img}
+                  alt={logo.alt}
+                  className="h-16 md:h-20 grayscale hover:grayscale-0 transition duration-300 ease-in-out"
+                />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Testimonials */}
       <section className="py-20 px-4 bg-white text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-6">What Our Clients Say</h2>
@@ -99,6 +109,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Industries Section */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-center">
         <h2 className="text-3xl font-bold mb-4">Industries We Serve</h2>
         <p className="mb-10">From logistics to hospitality, we support businesses in diverse sectors.</p>
@@ -106,7 +117,7 @@ export default function Home() {
           {[
             { title: 'Logistics 🚚', img: '/images/industries/logistics.jpg' },
             { title: 'Hospitality 🍽️', img: '/images/industries/hospitality.jpg' },
-            { title: 'Cleaning 🧽', img: '/images/industries/cleaning.jpg' },
+            { title: 'Cleaning 🩽', img: '/images/industries/cleaning.jpg' },
             { title: 'Food Production 🥦', img: '/images/industries/food.jpg' },
             { title: 'Technical ⚙️', img: '/images/industries/technical.jpg' },
             { title: 'Agriculture 🌱', img: '/images/industries/agriculture.jpg' },
@@ -121,6 +132,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CTA */}
       <section className="bg-orange-500 text-white py-20 text-center">
         <h2 className="text-3xl font-bold mb-4">Start Working With Us Today</h2>
         <p className="mb-6">Looking for a job or staff? Contact our team and let's get started.</p>
