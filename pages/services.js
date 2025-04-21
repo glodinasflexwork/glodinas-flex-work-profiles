@@ -5,22 +5,58 @@ export default function Services() {
     <>
       <Head>
         <title>Our Services - Glodinas Flex Work B.V.</title>
+        <meta name="description" content="Discover the staffing, payroll, and housing services offered by Glodinas Flex Work B.V." />
       </Head>
+
+      {/* Hero Section */}
+      <section
+        className="relative h-[400px] flex items-center justify-center text-white text-center px-4"
+        style={{
+          backgroundImage: "url('/images/services-hero.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="bg-black/40 absolute inset-0 z-0" />
+        <div className="relative z-10 max-w-3xl">
+          <h1 className="text-4xl font-bold mb-2">Our Services</h1>
+          <p className="text-lg">We connect talent with opportunity — reliably and efficiently.</p>
+        </div>
+      </section>
+
+      {/* Services Overview */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-gray-800">
-        <h1 className="text-4xl font-bold mb-6 text-center">Our Services</h1>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div>
-            <h2 className="text-2xl font-semibold mb-2">Temporary Staffing</h2>
-            <p className="mb-4">Fast placements in logistics, cleaning, production, and more.</p>
-            <h2 className="text-2xl font-semibold mb-2">Recruitment</h2>
-            <p className="mb-4">We find long-term matches between employees and employers.</p>
-          </div>
-          <div>
-            <h2 className="text-2xl font-semibold mb-2">Payroll Services</h2>
-            <p className="mb-4">We handle salary administration, contracts, and taxes.</p>
-            <h2 className="text-2xl font-semibold mb-2">Housing Support</h2>
-            <p className="mb-4">Support with accommodation for international employees.</p>
-          </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          {[
+            {
+              title: 'Temporary Staffing',
+              desc: 'Fast placements for various industries across the Netherlands.',
+              img: '/images/temp-staffing.jpg',
+            },
+            {
+              title: 'Recruitment',
+              desc: 'We match talent to permanent roles with precision and care.',
+              img: '/images/recruitment.jpg',
+            },
+            {
+              title: 'Payroll Services',
+              desc: 'Let us handle contracts, salaries, taxes and compliance.',
+              img: '/images/payroll.jpg',
+            },
+            {
+              title: 'Housing Support',
+              desc: 'We assist international workers with suitable accommodation.',
+              img: '/images/housing.jpg',
+            },
+          ].map((item, idx) => (
+            <div key={idx} className="p-4 border bg-white rounded shadow-sm">
+              <div className="relative h-40 mb-4 rounded overflow-hidden">
+                <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+              <p>{item.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
     </>
