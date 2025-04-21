@@ -1,5 +1,5 @@
 import Head from 'next/head';
-
+import Breadcrumb from '../components/Breadcrumb';
 export default function About() {
   return (
     <>
@@ -7,7 +7,7 @@ export default function About() {
         <title>About Us - Glodinas Flex Work B.V.</title>
         <meta name="description" content="Learn more about Glodinas Flex Work B.V. and our mission to connect workers with employers across the Netherlands." />
       </Head>
-
+      <Breadcrumb /> 
       {/* Hero Banner */}
       <section
         className="relative h-[400px] flex items-center justify-center text-white text-center px-4"
