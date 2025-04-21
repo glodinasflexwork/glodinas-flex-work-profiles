@@ -12,7 +12,25 @@ export default function Home() {
     <>
       <Head>
         <title>Glodinas Flex Work B.V. - Staffing Solutions</title>
-        <meta name="description" content="Connecting skilled workers with top employers across the Netherlands in logistics, hospitality, and more." />
+               <meta
+          name="description"
+          content="Looking for reliable staffing services in logistics, hospitality, cleaning, and more? Glodinas Flex Work B.V. connects skilled workers with top employers across the Netherlands."
+        />
+        <meta name="keywords" content="staffing Netherlands, temporary work, job agency, Glodinas Flex Work, employment agency Netherlands, logistics jobs, hospitality staffing" />
+        <meta name="author" content="Glodinas Flex Work B.V." />
+
+        {/* Open Graph */}
+        <meta property="og:title" content="Glodinas Flex Work B.V." />
+        <meta property="og:description" content="Reliable employment solutions for businesses and workers in the Netherlands." />
+        <meta property="og:image" content="https://glodinas-flex-site.vercel.app/images/hero.jpg" />
+        <meta property="og:url" content="https://glodinas-flex-site.vercel.app/" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Glodinas Flex Work B.V." />
+        <meta name="twitter:description" content="Employment services for job seekers and companies across the Netherlands." />
+        <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/hero.jpg" />
       </Head>
 
       {/* Hero Section */}
