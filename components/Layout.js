@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import Footer from './Footer';
 
 export default function Layout({ children }) {
   const { t } = useTranslation();
@@ -20,11 +21,10 @@ export default function Layout({ children }) {
           <Link href="/">
             <a className="flex items-center space-x-3 sm:space-x-4">
               <img
-  src="/images/logo.png"
-  alt="Logo"
-  className="h-12 w-auto max-w-[48px] sm:max-w-[56px]"
-/>
-
+                src="/images/logo.png"
+                alt="Logo"
+                className="h-12 w-auto max-w-[48px] sm:max-w-[56px]"
+              />
               <span className="text-xl font-bold hidden sm:inline">Glodinas Flex Work B.V.</span>
             </a>
           </Link>
@@ -44,6 +44,9 @@ export default function Layout({ children }) {
 
       {/* Main content */}
       <main>{children}</main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
