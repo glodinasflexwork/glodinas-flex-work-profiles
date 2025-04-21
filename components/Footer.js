@@ -13,9 +13,10 @@ export default function Footer() {
         <div>
           <h4 className="font-semibold mb-2">Quick Links</h4>
           <ul className="space-y-1">
-            <li><a href="/privacy" className="hover:underline">Privacy Policy</a></li>
             <li><a href="/register" className="hover:underline">Register</a></li>
             <li><a href="/faq" className="hover:underline">FAQ</a></li>
+            <li><a href="/privacy" className="hover:underline">Privacy Policy</a></li>
+            <li><a href="/terms" className="hover:underline">Terms & Conditions</a></li>
           </ul>
         </div>
         <div>
