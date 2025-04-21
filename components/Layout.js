@@ -18,8 +18,13 @@ export default function Layout({ children }) {
       <header className="w-full px-6 py-3 border-b bg-white shadow-sm">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link href="/">
-            <a className="flex items-center space-x-2">
-              <img src="/images/logo.png" alt="Logo" className="h-10 w-auto" />
+            <a className="flex items-center space-x-3 sm:space-x-4">
+              <img
+  src="/images/logo.png"
+  alt="Logo"
+  className="h-12 w-auto max-w-[48px] sm:max-w-[56px]"
+/>
+
               <span className="text-xl font-bold hidden sm:inline">Glodinas Flex Work B.V.</span>
             </a>
           </Link>
