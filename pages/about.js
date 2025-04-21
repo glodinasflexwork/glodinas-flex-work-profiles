@@ -7,7 +7,7 @@ export default function About() {
         <title>About Us - Glodinas Flex Work B.V.</title>
         <meta name="description" content="Learn more about Glodinas Flex Work B.V. and our mission to connect workers with employers across the Netherlands." />
       </Head>
-      <Breadcrumb /> 
+
       {/* Hero Banner */}
       <section
         className="relative h-[400px] flex items-center justify-center text-white text-center px-4"
@@ -23,6 +23,11 @@ export default function About() {
           <p className="text-lg">Discover who we are and what drives Glodinas Flex Work B.V.</p>
         </div>
       </section>
+
+        {/* Breadcrumb */}
+          <div className="bg-white px-4 py-3 max-w-6xl mx-auto">
+            <Breadcrumb />
+          </div>
 
       {/* Main About Section */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-gray-800">
