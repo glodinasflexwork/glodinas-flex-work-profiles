@@ -80,10 +80,10 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-6">Trusted by Companies Across the Netherlands</h2>
           <div className="flex justify-center flex-wrap gap-6 items-center">
             {[
-              { img: '/images/client-logos/philips.png', alt: 'Philips Logo' },
-              { img: '/images/client-logos/ing.png', alt: 'ING Logo' },
-              { img: '/images/client-logos/shell.png', alt: 'Shell Logo' },
-              { img: '/images/client-logos/unilever.png', alt: 'Unilever Logo' },
+              { img: '/images/client_logos/philips.png', alt: 'Philips Logo' },
+              { img: '/images/client_logos/ing.png', alt: 'ING Logo' },
+              { img: '/images/client_logos/shell.png', alt: 'Shell Logo' },
+              { img: '/images/client_logos/unilever.png', alt: 'Unilever Logo' },
             ].map((logo, idx) => (
               <img key={idx} src={logo.img} alt={logo.alt} className="h-12" />
             ))}
