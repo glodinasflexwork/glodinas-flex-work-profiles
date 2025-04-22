@@ -1,3 +1,4 @@
+
 import Head from 'next/head';
 
 export default function Register() {
@@ -6,21 +7,6 @@ export default function Register() {
       <Head>
         <title>Register - Glodinas Flex Work B.V.</title>
         <meta name="description" content="Register to find flexible job opportunities with Glodinas Flex Work B.V." />
-        <meta name="keywords" content="job registration, work Netherlands, Glodinas Flex Work, employment registration, staffing, flexible jobs" />
-        <meta name="author" content="Glodinas Flex Work B.V." />
-
-        {/* Open Graph */}
-        <meta property="og:title" content="Register for Jobs - Glodinas Flex Work B.V." />
-        <meta property="og:description" content="Join our network and find work in logistics, hospitality, cleaning, and more across the Netherlands." />
-        <meta property="og:image" content="https://glodinas-flex-site.vercel.app/images/register-hero.jpg" />
-        <meta property="og:url" content="https://glodinas-flex-site.vercel.app/register" />
-        <meta property="og:type" content="website" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Register for Jobs - Glodinas Flex Work B.V." />
-        <meta name="twitter:description" content="Apply now for jobs in logistics, hospitality, and more across the Netherlands." />
-        <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/register-hero.jpg" />
       </Head>
 
       {/* Hero Section */}
@@ -58,6 +44,10 @@ export default function Register() {
             <input type="tel" className="w-full border px-4 py-2 rounded" required />
           </div>
           <div>
+            <label className="block mb-1 font-medium">Nationality</label>
+            <input type="text" className="w-full border px-4 py-2 rounded" />
+          </div>
+          <div>
             <label className="block mb-1 font-medium">Preferred Job Sector</label>
             <select className="w-full border px-4 py-2 rounded">
               <option>Logistics</option>
@@ -67,6 +57,22 @@ export default function Register() {
               <option>Technical</option>
               <option>Agriculture</option>
             </select>
+          </div>
+          <div>
+            <label className="block mb-1 font-medium">Preferred Location in NL</label>
+            <input type="text" className="w-full border px-4 py-2 rounded" />
+          </div>
+          <div>
+            <label className="block mb-1 font-medium">Languages Spoken</label>
+            <input type="text" className="w-full border px-4 py-2 rounded" />
+          </div>
+          <div>
+            <label className="block mb-1 font-medium">Upload CV (optional)</label>
+            <input type="file" className="w-full border px-4 py-2 rounded" />
+          </div>
+          <div>
+            <label className="block mb-1 font-medium">Additional Info</label>
+            <textarea className="w-full border px-4 py-2 rounded" rows="4" />
           </div>
           <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded">
             Submit
