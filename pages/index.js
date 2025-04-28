@@ -157,7 +157,10 @@ export default function Home() {
               href: '/industries/agriculture',
             },
           ].map((item, idx) => (
-            <div key={idx} className="bg-white p-6 rounded-lg shadow hover:shadow-md transition duration-300 text-center">
+            <div
+              key={idx}
+              className="bg-white p-6 rounded-lg shadow transition-transform transform hover:scale-105 hover:shadow-lg duration-300 text-center"
+            >
               <h3 className="text-xl font-bold mb-2">{item.emoji} {item.title}</h3>
               <p className="text-gray-600 mb-4 text-sm">{item.description}</p>
               <Link href={item.href}>
