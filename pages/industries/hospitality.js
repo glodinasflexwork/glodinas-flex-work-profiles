@@ -1,3 +1,5 @@
+// pages/industries/hospitality.js
+
 import Head from 'next/head';
 import Link from 'next/link';
 import Breadcrumb from '../../components/Breadcrumb';
@@ -11,21 +13,6 @@ export default function Hospitality() {
           name="description"
           content="Professional staffing solutions for the hospitality sector across the Netherlands. Find hotel, catering, and restaurant jobs with Glodinas Flex Work B.V."
         />
-        <meta name="keywords" content="hospitality staffing Netherlands, hotel jobs, restaurant jobs Netherlands, catering staffing Netherlands" />
-        <meta name="author" content="Glodinas Flex Work B.V." />
-
-        {/* Open Graph */}
-        <meta property="og:title" content="Hospitality Jobs & Staffing - Glodinas Flex Work B.V." />
-        <meta property="og:description" content="Connecting hospitality professionals with employers across the Netherlands." />
-        <meta property="og:image" content="https://glodinas-flex-site.vercel.app/images/industries/hospitality-hero.jpg" />
-        <meta property="og:url" content="https://glodinasflexwork.nl/industries/hospitality" />
-        <meta property="og:type" content="website" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Hospitality Staffing - Glodinas Flex Work B.V." />
-        <meta name="twitter:description" content="Find hotel, restaurant, and catering jobs across the Netherlands with Glodinas Flex Work B.V." />
-        <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/industries/hospitality-hero.jpg" />
       </Head>
 
       {/* Hero Section */}
@@ -49,16 +36,11 @@ export default function Hospitality() {
         <Breadcrumb currentPage="Hospitality" />
       </div>
 
-      {/* Info Section - Different Layout */}
+      {/* Info Section with Detail Image */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-gray-800">
-        <h2 className="text-3xl font-bold mb-8 text-center">Specialized Hospitality Staffing Services</h2>
-
-        <div className="flex flex-col md:flex-row gap-12 items-center">
-          <div className="flex-1">
-            <img src="/images/industries/hospitality-hero.jpg" alt="Hospitality Jobs" className="rounded shadow-md w-full h-auto object-cover" />
-          </div>
-
-          <div className="flex-1">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-3xl font-bold mb-6">Specialized Hospitality Staffing Services</h2>
             <p className="text-lg mb-6">
               At Glodinas Flex Work B.V., we support hotels, restaurants, event venues, and catering businesses by providing them with skilled hospitality professionals ready to deliver excellent service.
             </p>
@@ -69,9 +51,12 @@ export default function Hospitality() {
               <li>Multilingual communication and onboarding assistance</li>
             </ul>
           </div>
+          <div>
+            <img src="/images/industries/hospitality-detail.jpg" alt="Hospitality Work" className="rounded shadow-md w-full h-auto object-cover" />
+          </div>
         </div>
 
-        {/* CTA */}
+        {/* CTA Section */}
         <div className="mt-16 text-center">
           <h2 className="text-2xl font-bold mb-4">Find Work or Staff in Hospitality?</h2>
           <p className="mb-6">Join our network or hire your next hospitality team member today.</p>
