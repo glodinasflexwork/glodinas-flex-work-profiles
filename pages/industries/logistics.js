@@ -1,3 +1,5 @@
+// pages/industries/logistics.js
+
 import Head from 'next/head';
 import Link from 'next/link';
 import Breadcrumb from '../../components/Breadcrumb';
@@ -11,21 +13,6 @@ export default function Logistics() {
           name="description"
           content="Efficient logistics staffing services across the Netherlands. Find warehouse jobs or hire experienced workers with Glodinas Flex Work B.V."
         />
-        <meta name="keywords" content="logistics staffing Netherlands, warehouse jobs, distribution center staffing, logistics jobs Netherlands" />
-        <meta name="author" content="Glodinas Flex Work B.V." />
-
-        {/* Open Graph */}
-        <meta property="og:title" content="Logistics Jobs & Staffing - Glodinas Flex Work B.V." />
-        <meta property="og:description" content="Connecting skilled logistics workers with employers across the Netherlands." />
-        <meta property="og:image" content="https://glodinas-flex-site.vercel.app/images/industries/logistics-hero.jpg" />
-        <meta property="og:url" content="https://glodinasflexwork.nl/industries/logistics" />
-        <meta property="og:type" content="website" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Logistics Staffing - Glodinas Flex Work B.V." />
-        <meta name="twitter:description" content="Find warehouse jobs or hire experienced logistics workers across the Netherlands." />
-        <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/industries/logistics-hero.jpg" />
       </Head>
 
       {/* Hero Section */}
@@ -49,11 +36,11 @@ export default function Logistics() {
         <Breadcrumb currentPage="Logistics" />
       </div>
 
-      {/* Info Section with slight layout variation */}
+      {/* Info Section with Detail Image */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-gray-800">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-bold mb-6">Your Logistics Workforce Partner</h2>
+            <h2 className="text-3xl font-bold mb-6">Logistics Jobs & Staffing Solutions</h2>
             <p className="text-lg mb-6">
               Glodinas Flex Work B.V. provides specialized logistics staffing across the Netherlands. From warehouse operators and forklift drivers to logistics coordinators, we ensure you get the right people exactly when you need them.
             </p>
@@ -61,11 +48,11 @@ export default function Logistics() {
               <li>Flexible short-term and long-term staffing options</li>
               <li>Certified workers with relevant warehouse experience</li>
               <li>Assistance with housing, transport, and Dutch registration</li>
-              <li>Multilingual communication support (Dutch, English, Polish, Romanian)</li>
+              <li>Multilingual communication support</li>
             </ul>
           </div>
-          <div className="rounded overflow-hidden shadow-lg">
-            <img src="/images/industries/logistics-hero.jpg" alt="Logistics Work" className="w-full h-auto object-cover" />
+          <div>
+            <img src="/images/industries/logistics-detail.jpg" alt="Logistics Work" className="rounded shadow-md w-full h-auto object-cover" />
           </div>
         </div>
 
