@@ -26,6 +26,24 @@ export default function Home() {
         <meta name="twitter:title" content="Glodinas Flex Work B.V. - Staffing Solutions" />
         <meta name="twitter:description" content="Reliable employment solutions for businesses and workers in the Netherlands." />
         <meta name="twitter:image" content="https://glodinasflexwork.nl/images/og-image.jpg" />
+
+        {/* Organization JSON-LD Structured Data */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: `
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Glodinas Flex Work B.V.",
+          "url": "https://glodinasflexwork.nl/",
+          "logo": "https://glodinasflexwork.nl/images/logo.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+31 6 4583 3789",
+            "contactType": "customer service",
+            "areaServed": "NL",
+            "availableLanguage": ["English", "Dutch", "Polish", "Romanian", "Bulgarian"]
+          }
+        }
+        `}} />
       </Head>
 
       {/* Hero Section */}
