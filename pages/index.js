@@ -118,12 +118,12 @@ export default function Home() {
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           {[
-            { title: 'Logistics 🚚', img: '/images/industries/logistics.jpg', href: '#' },
-            { title: 'Hospitality 🍽️', img: '/images/industries/hospitality.jpg', href: '#' },
-            { title: 'Cleaning 🩽', img: '/images/industries/cleaning.jpg', href: '#' },
-            { title: 'Food Production 🥦', img: '/images/industries/food.jpg', href: '#' },
-            { title: 'Technical ⚙️', img: '/images/industries/technical.jpg', href: '#' },
-            { title: 'Agriculture 🌱', img: '/images/industries/agriculture.jpg', href: '/industries/agriculture' },
+            { title: 'Logistics 🚚', img: '/images/industries/logistics-hero.jpg', href: '/industries/logistics' },
+            { title: 'Hospitality 🍽️', img: '/images/industries/hospitality-hero.jpg', href: '/industries/hospitality' },
+            { title: 'Cleaning 🧹', img: '/images/industries/cleaning-hero.jpg', href: '/industries/cleaning' },
+            { title: 'Food Production 🥦', img: '/images/industries/food-production-hero.jpg', href: '/industries/food-production' },
+            { title: 'Technical ⚙️', img: '/images/industries/technical-hero.jpg', href: '/industries/technical' },
+            { title: 'Agriculture 🌱', img: '/images/industries/agriculture-hero.jpg', href: '/industries/agriculture' },
           ].map((item, idx) => (
             <Link key={idx} href={item.href}>
               <a className="block bg-white p-4 border rounded shadow-sm hover:shadow-md transition duration-300">
@@ -135,6 +135,7 @@ export default function Home() {
             </Link>
           ))}
         </div>
+
       </section>
 
       {/* CTA */}
