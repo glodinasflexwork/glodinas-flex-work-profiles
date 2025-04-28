@@ -123,36 +123,42 @@ export default function Home() {
             {
               title: 'Logistics',
               emoji: '🚚',
+              img: '/images/industries/logistics-hero.jpg',
               description: 'Efficient staffing solutions for warehouses, transport, and distribution centers.',
               href: '/industries/logistics',
             },
             {
               title: 'Hospitality',
               emoji: '🍽️',
+              img: '/images/industries/hospitality-hero.jpg',
               description: 'Professional staff for hotels, restaurants, and event venues to deliver excellent service.',
               href: '/industries/hospitality',
             },
             {
               title: 'Cleaning',
               emoji: '🧹',
+              img: '/images/industries/cleaning-hero.jpg',
               description: 'Reliable cleaning teams for offices, hotels, healthcare, and educational facilities.',
               href: '/industries/cleaning',
             },
             {
               title: 'Food Production',
               emoji: '🥦',
+              img: '/images/industries/food-production-hero.jpg',
               description: 'Workers specialized in food processing, packaging, and quality control environments.',
               href: '/industries/food-production',
             },
             {
               title: 'Technical',
               emoji: '⚙️',
+              img: '/images/industries/technical-hero.jpg',
               description: 'Experienced technicians and engineers supporting manufacturing and construction industries.',
               href: '/industries/technical',
             },
             {
               title: 'Agriculture',
               emoji: '🌱',
+              img: '/images/industries/agriculture-hero.jpg',
               description: 'Seasonal and year-round agricultural labor for farms, greenhouses, and horticulture.',
               href: '/industries/agriculture',
             },
@@ -161,8 +167,18 @@ export default function Home() {
               key={idx}
               className="bg-white p-6 rounded-lg shadow transition-transform transform hover:scale-105 hover:shadow-lg duration-300 text-center"
             >
+              {/* Image */}
+              <div className="relative h-40 mb-4 overflow-hidden rounded">
+                <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
+              </div>
+
+              {/* Title + Emoji */}
               <h3 className="text-xl font-bold mb-2">{item.emoji} {item.title}</h3>
+
+              {/* Description */}
               <p className="text-gray-600 mb-4 text-sm">{item.description}</p>
+
+              {/* Learn More */}
               <Link href={item.href}>
                 <a className="text-orange-500 hover:underline font-semibold">
                   Learn More
