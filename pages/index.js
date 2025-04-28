@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function Home() {
@@ -7,23 +8,24 @@ export default function Home() {
     <>
       <Head>
         <title>Glodinas Flex Work B.V. - Staffing Solutions</title>
-        <meta
-          name="description"
-          content="Looking for reliable staffing services in logistics, hospitality, cleaning, and more? Glodinas Flex Work B.V. connects skilled workers with top employers across the Netherlands."
-        />
+        <meta name="description" content="Looking for reliable staffing services in logistics, hospitality, cleaning, and more? Glodinas Flex Work B.V. connects skilled workers with top employers across the Netherlands." />
+
+        {/* Canonical */}
         <link rel="canonical" href="https://glodinasflexwork.nl/" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="keywords" content="staffing Netherlands, temporary work, job agency, Glodinas Flex Work, employment agency Netherlands, logistics jobs, hospitality staffing" />
-        <meta name="author" content="Glodinas Flex Work B.V." />
-        <meta property="og:title" content="Glodinas Flex Work B.V." />
-        <meta property="og:description" content="Reliable employment solutions for businesses and workers in the Netherlands." />
-        <meta property="og:image" content="https://glodinas-flex-site.vercel.app/images/hero.jpg" />
-        <meta property="og:url" content="https://glodinas-flex-site.vercel.app/" />
+
+        {/* Open Graph */}
         <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://glodinasflexwork.nl/" />
+        <meta property="og:title" content="Glodinas Flex Work B.V. - Staffing Solutions" />
+        <meta property="og:description" content="Reliable employment solutions for businesses and workers in the Netherlands." />
+        <meta property="og:image" content="https://glodinasflexwork.nl/images/og-image.jpg" />
+
+        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Glodinas Flex Work B.V." />
-        <meta name="twitter:description" content="Employment services for job seekers and companies across the Netherlands." />
-        <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/hero.jpg" />
+        <meta name="twitter:url" content="https://glodinasflexwork.nl/" />
+        <meta name="twitter:title" content="Glodinas Flex Work B.V. - Staffing Solutions" />
+        <meta name="twitter:description" content="Reliable employment solutions for businesses and workers in the Netherlands." />
+        <meta name="twitter:image" content="https://glodinasflexwork.nl/images/og-image.jpg" />
       </Head>
 
       {/* Hero Section */}
@@ -66,10 +68,12 @@ export default function Home() {
               { img: '/images/certified/sna-logo.png', alt: 'Certified by SNA' },
               { img: '/images/certified/snf-logo.png', alt: 'Certified by SNF' },
             ].map((cert, idx) => (
-              <img
+              <Image
                 key={idx}
                 src={cert.img}
                 alt={cert.alt}
+                width={150}
+                height={100}
                 className="h-24 md:h-28 grayscale hover:grayscale-0 transition-all duration-300 ease-in-out"
               />
             ))}
@@ -89,9 +93,11 @@ export default function Home() {
               { img: '/images/client_logos/unilever.png', alt: 'Unilever Logo' },
             ].map((logo, idx) => (
               <div key={idx} className="p-4 bg-white rounded shadow hover:shadow-lg transition duration-300">
-                <img
+                <Image
                   src={logo.img}
                   alt={logo.alt}
+                  width={120}
+                  height={80}
                   className="h-16 md:h-20 grayscale hover:grayscale-0 transition duration-300 ease-in-out"
                 />
               </div>
@@ -167,18 +173,17 @@ export default function Home() {
               key={idx}
               className="bg-white p-6 rounded-lg shadow transition-transform transform hover:scale-105 hover:shadow-lg duration-300 text-center"
             >
-              {/* Image */}
               <div className="relative h-40 mb-4 overflow-hidden rounded">
-                <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
+                <Image
+                  src={item.img}
+                  alt={item.title}
+                  layout="fill"
+                  objectFit="cover"
+                  priority={idx < 3}
+                />
               </div>
-
-              {/* Title + Emoji */}
               <h3 className="text-xl font-bold mb-2">{item.emoji} {item.title}</h3>
-
-              {/* Description */}
               <p className="text-gray-600 mb-4 text-sm">{item.description}</p>
-
-              {/* Learn More */}
               <Link href={item.href}>
                 <a className="text-orange-500 hover:underline font-semibold">
                   Learn More
