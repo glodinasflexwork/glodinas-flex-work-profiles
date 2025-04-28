@@ -16,7 +16,7 @@ export default function Agriculture() {
       <section
         className="relative h-[400px] flex items-center justify-center text-white text-center px-4"
         style={{
-          backgroundImage: "url('/images/industries/agriculture.jpg')", // you can update this
+          backgroundImage: "url('/images/industries/agriculture-hero.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -62,14 +62,10 @@ export default function Agriculture() {
           <p className="mb-6">Apply today or contact us to hire your next agricultural workforce.</p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link href="/register">
-              <a className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded">
-                I'm Looking for Work
-              </a>
+              <a className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded">I'm Looking for Work</a>
             </Link>
             <Link href="/contact">
-              <a className="bg-white text-orange-600 border border-orange-500 font-semibold px-6 py-3 rounded">
-                I Need Workers
-              </a>
+              <a className="bg-white text-orange-600 border border-orange-500 font-semibold px-6 py-3 rounded">I Need Workers</a>
             </Link>
           </div>
         </div>
