@@ -114,28 +114,60 @@ export default function Home() {
       {/* Industries Section */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-center">
         <h2 className="text-3xl font-bold mb-4">Industries We Serve</h2>
-        <p className="mb-10">From logistics to hospitality, we support businesses in diverse sectors.</p>
+        <p className="mb-10 text-gray-700">
+          From logistics and hospitality to agriculture and technical services, Glodinas Flex Work B.V. connects skilled professionals with employers across diverse sectors in the Netherlands.
+        </p>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
           {[
-            { title: 'Logistics 🚚', img: '/images/industries/logistics-hero.jpg', href: '/industries/logistics' },
-            { title: 'Hospitality 🍽️', img: '/images/industries/hospitality-hero.jpg', href: '/industries/hospitality' },
-            { title: 'Cleaning 🧹', img: '/images/industries/cleaning-hero.jpg', href: '/industries/cleaning' },
-            { title: 'Food Production 🥦', img: '/images/industries/food-production-hero.jpg', href: '/industries/food-production' },
-            { title: 'Technical ⚙️', img: '/images/industries/technical-hero.jpg', href: '/industries/technical' },
-            { title: 'Agriculture 🌱', img: '/images/industries/agriculture-hero.jpg', href: '/industries/agriculture' },
+            {
+              title: 'Logistics',
+              emoji: '🚚',
+              description: 'Efficient staffing solutions for warehouses, transport, and distribution centers.',
+              href: '/industries/logistics',
+            },
+            {
+              title: 'Hospitality',
+              emoji: '🍽️',
+              description: 'Professional staff for hotels, restaurants, and event venues to deliver excellent service.',
+              href: '/industries/hospitality',
+            },
+            {
+              title: 'Cleaning',
+              emoji: '🧹',
+              description: 'Reliable cleaning teams for offices, hotels, healthcare, and educational facilities.',
+              href: '/industries/cleaning',
+            },
+            {
+              title: 'Food Production',
+              emoji: '🥦',
+              description: 'Workers specialized in food processing, packaging, and quality control environments.',
+              href: '/industries/food-production',
+            },
+            {
+              title: 'Technical',
+              emoji: '⚙️',
+              description: 'Experienced technicians and engineers supporting manufacturing and construction industries.',
+              href: '/industries/technical',
+            },
+            {
+              title: 'Agriculture',
+              emoji: '🌱',
+              description: 'Seasonal and year-round agricultural labor for farms, greenhouses, and horticulture.',
+              href: '/industries/agriculture',
+            },
           ].map((item, idx) => (
-            <Link key={idx} href={item.href}>
-              <a className="block bg-white p-4 border rounded shadow-sm hover:shadow-md transition duration-300">
-                <div className="relative h-40 mb-3 overflow-hidden rounded">
-                  <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
-                </div>
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-              </a>
-            </Link>
+            <div key={idx} className="bg-white p-6 rounded-lg shadow hover:shadow-md transition duration-300 text-center">
+              <h3 className="text-xl font-bold mb-2">{item.emoji} {item.title}</h3>
+              <p className="text-gray-600 mb-4 text-sm">{item.description}</p>
+              <Link href={item.href}>
+                <a className="text-orange-500 hover:underline font-semibold">
+                  Learn More
+                </a>
+              </Link>
+            </div>
           ))}
         </div>
-
       </section>
 
       {/* CTA */}
