@@ -1,15 +1,15 @@
 {
-  "title_home": "Ihr Zuverlässiger Personaldienstleister",
+  "title_home": "Ihr zuverlässiger Personaldienstleister",
   "hero_subheading": "Wir verbinden qualifizierte Arbeitskräfte mit Top-Arbeitgebern in Logistik, Lebensmittelproduktion, Hospitality und mehr.",
-  "cta_work": "Ich Suche Arbeit",
-  "cta_workers": "Ich Brauche Mitarbeiter",
+  "cta_work": "Ich suche Arbeit",
+  "cta_workers": "Ich brauche Mitarbeiter",
 
-  "certified_title": "Wir Sind Zertifiziert & Konform",
-  "trusted_by_title": "Vertrauenswürdig von Unternehmen in den Niederlanden",
+  "certified_title": "Wir sind zertifiziert & compliant",
+  "trusted_by_title": "Vertraut von Unternehmen in den Niederlanden",
 
   "testimonial": "Glodinas half uns, das perfekte Team in der Hochsaison zu finden. Zuverlässig, schnell und professionell!",
 
-  "industries_we_serve": "Branchen, Die Wir Bedienen",
+  "industries_we_serve": "Branchen, die wir bedienen",
   "industries_intro": "Von Logistik und Hospitality bis hin zu Landwirtschaft und technischen Dienstleistungen verbindet Glodinas Flex Work B.V. Fachkräfte mit Arbeitgebern in verschiedenen Sektoren in den Niederlanden.",
 
   "industry": {
@@ -40,13 +40,13 @@
     },
     "agriculture": {
       "title": "Landwirtschaft 🌱",
-      "description": "Saisonale und ganzjährige Landarbeitskräfte für Höfe, Gewächshäuser und Gartenbau.",
+      "description": "Saisonale und ganzjährige Arbeitskräfte für Landwirtschaft, Gewächshäuser und Gartenbau.",
       "link": "Mehr erfahren"
     }
   },
 
-  "start_working_with_us": "Starten Sie Noch Heute Mit Uns",
-  "cta_subheading": "Auf Jobsuche oder Personalbedarf? Kontaktieren Sie unser Team und legen wir los.",
+  "start_working_with_us": "Starten Sie noch heute mit uns",
+  "cta_subheading": "Auf der Suche nach Arbeit oder Personal? Kontaktieren Sie unser Team und legen wir los.",
   "contact_us": "Kontakt aufnehmen",
 
   "nav": {
@@ -56,5 +56,30 @@
     "Job Seekers": "Arbeitssuchende",
     "Employers": "Arbeitgeber",
     "Contact": "Kontakt"
-  }
+  },
+
+  "about_meta_description": "Erfahren Sie mehr über Glodinas Flex Work B.V. und unsere Mission, Arbeitssuchende und Arbeitgeber in verschiedenen Branchen in den Niederlanden zu verbinden.",
+  "about_meta_keywords": "Über Glodinas, Personaldienstleistungen Niederlande, Mehrsprachige Unterstützung",
+
+  "about_hero_subheading": "Entdecken Sie, wer wir sind und was Glodinas Flex Work B.V. antreibt.",
+
+  "about_intro": "Glodinas Flex Work B.V. ist eine niederländische Personalagentur, die Brücken zwischen Arbeitssuchenden und Arbeitgebern in Logistik, Landwirtschaft, Lebensmittelproduktion, Reinigung und Hospitality baut.",
+
+  "about_our_mission_title": "Unsere Mission",
+  "about_our_mission_text": "Schnelle, zuverlässige und mehrsprachige Personaldienstleistungen für Einzelpersonen und Unternehmen. Wir vereinfachen den Einstellungsprozess und fördern langfristige Partnerschaften durch Transparenz und Professionalität.",
+
+  "about_our_vision_title": "Unsere Vision",
+  "about_our_vision_text": "Wir streben eine Zukunft an, in der jeder, unabhängig von Hintergrund oder Sprache, sinnvolle Arbeit finden und unterstützt werden kann.",
+
+  "about_what_sets_us_apart_title": "Was uns unterscheidet",
+  "about_differentiators": [
+    "Mehrsprachige Unterstützung in Niederländisch, Englisch, Polnisch, Rumänisch und Bulgarisch",
+    "Unterstützung bei Unterkunft und Lohnabrechnung für internationale Mitarbeiter",
+    "Schnelle Reaktionszeiten und klare Kommunikation",
+    "Umfangreiches Netzwerk von Arbeitgebern in verschiedenen Branchen",
+    "Verpflichtung zu Fairness, Compliance und Mitarbeiterwohl"
+  ],
+
+  "about_cta_heading": "Möchten Sie mit uns arbeiten?",
+  "about_cta_subheading": "Ob Sie Personal suchen oder Arbeit finden möchten – wir stehen Ihnen zur Seite."
 }

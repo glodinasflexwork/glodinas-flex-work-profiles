@@ -1,15 +1,15 @@
 {
-  "title_home": "Partenerul Tău de Încredere în Resurse Umane",
+  "title_home": "Partenerul tău de încredere în resurse umane",
   "hero_subheading": "Conectăm lucrători calificați cu angajatori de top în logistică, producție alimentară, ospitalitate și altele.",
-  "cta_work": "Caut Lucru",
-  "cta_workers": "Am Nevoie de Angajați",
+  "cta_work": "Caut lucru",
+  "cta_workers": "Am nevoie de angajați",
 
-  "certified_title": "Suntem Certificați și Conformi",
-  "trusted_by_title": "De Încredere de Companii din Țările de Jos",
+  "certified_title": "Suntem certificați și conformi",
+  "trusted_by_title": "De încredere de companii din Țările de Jos",
 
   "testimonial": "Glodinas ne-a ajutat să găsim echipa perfectă în sezonul de vârf. De încredere, rapid și profesionist!",
 
-  "industries_we_serve": "Domenii în Care Activăm",
+  "industries_we_serve": "Domenii în care activăm",
   "industries_intro": "De la logistică și ospitalitate până la agricultură și servicii tehnice, Glodinas Flex Work B.V. conectează profesioniști cu angajatori în diverse sectoare din Țările de Jos.",
 
   "industry": {
@@ -45,16 +45,41 @@
     }
   },
 
-  "start_working_with_us": "Începe să Colaborezi Astăzi",
-  "cta_subheading": "Cauți un loc de muncă sau personal? Contactează-ne și să începem!",
+  "start_working_with_us": "Începe să colaborezi astăzi",
+  "cta_subheading": "Cauți un loc de muncă sau angajați? Contactează-ne și să începem!",
   "contact_us": "Contactează-ne",
 
   "nav": {
     "Home": "Acasă",
     "About Us": "Despre noi",
     "Industries": "Domenii",
-    "Job Seekers": "Căutători de locuri de muncă",
+    "Job Seekers": "Căutători de muncă",
     "Employers": "Angajatori",
     "Contact": "Contact"
-  }
+  },
+
+  "about_meta_description": "Află mai multe despre Glodinas Flex Work B.V. și misiunea noastră de a conecta lucrătorii cu angajatorii în diverse industrii din Țările de Jos.",
+  "about_meta_keywords": "Despre Glodinas, agenție de muncă Olanda, suport multilingv",
+
+  "about_hero_subheading": "Descoperă cine suntem și ce ne motivează la Glodinas Flex Work B.V.",
+
+  "about_intro": "Glodinas Flex Work B.V. este o agenție de recrutare din Țările de Jos care leagă lucrători și angajatori în logistică, agricultură, producție alimentară, curățenie și hospitality.",
+
+  "about_our_mission_title": "Misiunea noastră",
+  "about_our_mission_text": "Oferim servicii de personal rapide, de încredere și multilingve pentru persoane și companii, simplificând procesul de angajare și construind parteneriate de lungă durată prin transparență și profesionalism.",
+
+  "about_our_vision_title": "Viziunea noastră",
+  "about_our_vision_text": "Vizăm un viitor în care toată lumea, indiferent de fundal sau limbă, poate găsi un loc de muncă semnificativ și se poate simți susținută în parcursul său.",
+
+  "about_what_sets_us_apart_title": "Ce ne diferențiază",
+  "about_differentiators": [
+    "Suport în mai multe limbi: neerlandeză, engleză, poloneză, română și bulgară",
+    "Asistență pentru cazare și salarizare pentru angajații internaționali",
+    "Timp de răspuns rapid și comunicare clară",
+    "Rețea extinsă de angajatori în multiple sectoare",
+    "Angajament pentru echitate, conformitate și bunăstarea angajaților"
+  ],
+
+  "about_cta_heading": "Vrei să colaborezi cu noi?",
+  "about_cta_subheading": "Fie că ești o companie care caută personal flexibil sau un profesionist gata de muncă — suntem aici să te ajutăm."
 }
