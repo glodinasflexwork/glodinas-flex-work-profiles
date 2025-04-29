@@ -1,9 +1,10 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 export default function Home() {
+  const { t } = useTranslation(); 
   return (
     <>
       <Head>
@@ -57,19 +58,16 @@ export default function Home() {
       >
         <div className="bg-black/40 absolute inset-0 z-0" />
         <div className="relative z-10 max-w-3xl">
-          <h1 className="text-5xl font-bold mb-4">Your Trusted Employment Partner</h1>
-          <p className="mb-6 text-lg">
-            Connecting skilled workers with top employers in logistics, food production, hospitality, and more.
-          </p>
+          <h1 className="text-5xl font-bold mb-4">{t('title_home')}</h1>
+          <p className="mb-6 text-lg">{t('industries_we_serve')}</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/job-seekers">
-              <a className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded shadow">
-                I'm Looking for Work
-              </a>
+              <a className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded shadow"> {t('cta_work')}
+                </a>
             </Link>
             <Link href="/employers">
               <a className="bg-white text-orange-600 font-semibold px-6 py-3 rounded shadow border border-orange-500">
-                I Need Workers
+                {t('cta_workers')}
               </a>
             </Link>
           </div>
@@ -129,7 +127,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-6">What Our Clients Say</h2>
           <blockquote className="italic text-lg mb-4">
-            "Glodinas helped us find the perfect team during peak season. Reliable, fast, and professional!"
+              {t('testimonial')}
           </blockquote>
           <p className="text-sm text-gray-500">— Logistics Manager, Rotterdam</p>
         </div>
@@ -214,11 +212,11 @@ export default function Home() {
 
       {/* CTA */}
       <section className="bg-orange-500 text-white py-20 text-center">
-        <h2 className="text-3xl font-bold mb-4">Start Working With Us Today</h2>
+        <h2 className="text-3xl font-bold mb-4">{t('start_working_with_us')}</h2>
         <p className="mb-6">Looking for a job or staff? Contact our team and let's get started.</p>
         <Link href="/contact">
           <a className="bg-white text-orange-600 px-8 py-3 font-semibold rounded hover:bg-gray-100">
-            Contact Us
+            {t('contact_us')}
           </a>
         </Link>
       </section>
