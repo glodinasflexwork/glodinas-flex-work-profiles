@@ -1,8 +1,9 @@
 {
-  "title": "Glodinas Flex Work B.V.",
-  "welcome": "Witamy w Glodinas Flex Work",
-  "intro": "Tw\u00f3j zaufany partner w zakresie elastycznego zatrudnienia i rozwi\u0105za\u0144 kadrowych w Holandii.",
-  "jobseekers": "Dla poszukuj\u0105cych pracy",
-  "employers": "Dla pracodawc\u00f3w",
-  "contact": "Skontaktuj si\u0119 z nami"
+  "title_home": "Twój Zaufany Partner Zatrudnienia",
+  "cta_work": "Szukam Pracy",
+  "cta_workers": "Potrzebuję Pracowników",
+  "industries_we_serve": "Branże, Które Obsługujemy",
+  "start_working_with_us": "Rozpocznij Pracę z Nami Już Dziś",
+  "contact_us": "Skontaktuj Się z Nami",
+  "testimonial": "Glodinas pomogło nam znaleźć idealny zespół w szczycie sezonu. Niezawodni, szybcy i profesjonalni!"
 }

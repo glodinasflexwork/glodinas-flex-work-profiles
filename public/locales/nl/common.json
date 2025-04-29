@@ -1,8 +1,9 @@
 {
-  "title": "Glodinas Flex Work B.V.",
-  "welcome": "Welkom bij Glodinas Flex Work",
-  "intro": "Jouw vertrouwde partner voor flexibele arbeid en personeelsoplossingen in Nederland.",
-  "jobseekers": "Voor Werkzoekenden",
-  "employers": "Voor Werkgevers",
-  "contact": "Contacteer ons"
+  "title_home": "Uw Vertrouwde Arbeidspartner",
+  "cta_work": "Ik Zoek Werk",
+  "cta_workers": "Ik Heb Werknemers Nodig",
+  "industries_we_serve": "Sectoren Die Wij Bedienen",
+  "start_working_with_us": "Begin Vandaag met Werken met Ons",
+  "contact_us": "Neem Contact Met Ons Op",
+  "testimonial": "Glodinas heeft ons geholpen het perfecte team te vinden tijdens het hoogseizoen. Betrouwbaar, snel en professioneel!"
 }
