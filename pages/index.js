@@ -88,7 +88,7 @@ export default function Home() {
         />
       </Head>
 
-      {/* Hero */}
+      {/* Hero Section */}
       <section
         className="relative h-[500px] flex items-center justify-center text-white text-center px-4"
         style={{
@@ -180,13 +180,11 @@ export default function Home() {
           <blockquote className="italic text-lg mb-4">
             {t('testimonial')}
           </blockquote>
-          <p className="text-sm text-gray-500">
-            — Logistics Manager, Rotterdam
-          </p>
+          <p className="text-sm text-gray-500">— Logistics Manager, Rotterdam</p>
         </div>
       </section>
 
-      {/* Industries */}
+      {/* Industries Section */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-center">
         <h2 className="text-3xl font-bold mb-4">
           {t('industries_we_serve')}
@@ -196,37 +194,40 @@ export default function Home() {
         </p>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {industries.map((key) => (
-            <div
-              key={key}
-              className="bg-white p-6 rounded-lg shadow transition-transform transform hover:scale-105 hover:shadow-lg duration-300 text-center"
-            >
-              <div className="relative h-40 mb-4 overflow-hidden rounded">
-                <Image
-                  src={`/images/industries/${key}-hero.jpg`}
-                  alt={t(`industry.${key}.title`)}
-                  layout="fill"
-                  objectFit="cover"
-                  priority={industries.indexOf(key) < 3}
-                />
+          {industries.map((key) => {
+            const slug = key.replace(/_/g, '-');
+            return (
+              <div
+                key={key}
+                className="bg-white p-6 rounded-lg shadow transition-transform transform hover:scale-105 hover:shadow-lg duration-300 text-center"
+              >
+                <div className="relative h-40 mb-4 overflow-hidden rounded">
+                  <Image
+                    src={`/images/industries/${slug}-hero.jpg`}
+                    alt={t(`industry.${key}.title`)}
+                    layout="fill"
+                    objectFit="cover"
+                    priority={industries.indexOf(key) < 3}
+                  />
+                </div>
+                <h3 className="text-xl font-bold mb-2">
+                  {t(`industry.${key}.title`)}
+                </h3>
+                <p className="text-gray-600 mb-4 text-sm">
+                  {t(`industry.${key}.description`)}
+                </p>
+                <Link href={`/industries/${slug}`}>
+                  <a className="text-orange-500 hover:underline font-semibold">
+                    {t(`industry.${key}.link`)}
+                  </a>
+                </Link>
               </div>
-              <h3 className="text-xl font-bold mb-2">
-                {t(`industry.${key}.title`)}
-              </h3>
-              <p className="text-gray-600 mb-4 text-sm">
-                {t(`industry.${key}.description`)}
-              </p>
-              <Link href={`/industries/${key.replace('_', '-')}`}>
-                <a className="text-orange-500 hover:underline font-semibold">
-                  {t(`industry.${key}.link`)}
-                </a>
-              </Link>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA Section */}
       <section className="bg-orange-500 text-white py-20 text-center">
         <h2 className="text-3xl font-bold mb-4">
           {t('start_working_with_us')}
