@@ -1,27 +1,32 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import Breadcrumb from '../components/Breadcrumb';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function About() {
+  const { t } = useTranslation('common');
+
   return (
     <>
       <Head>
-        <title>About Us - Glodinas Flex Work B.V.</title>
-        <meta name="description" content="Learn more about Glodinas Flex Work B.V. and our mission to connect job seekers with employers across multiple industries in the Netherlands." />
-        <meta name="keywords" content="About Glodinas, Employment Agency Netherlands, Dutch Staffing Agency, multilingual job support" />
+        <title>{t('nav.About Us')} - Glodinas Flex Work B.V.</title>
+        <meta name="description" content={t('about_meta_description')} />
+        <meta name="keywords" content={t('about_meta_keywords')} />
         <meta name="author" content="Glodinas Flex Work B.V." />
 
         {/* Open Graph */}
-        <meta property="og:title" content="About Us - Glodinas Flex Work B.V." />
-        <meta property="og:description" content="We build bridges between job seekers and employers in logistics, agriculture, hospitality, and more." />
-        <meta property="og:image" content="https://glodinas-flex-site.vercel.app/images/about-hero.jpg" />
-        <meta property="og:url" content="https://glodinas-flex-site.vercel.app/about" />
+        <meta property="og:title" content={`${t('nav.About Us')} - Glodinas Flex Work B.V.`} />
+        <meta property="og:description" content={t('about_meta_description')} />
+        <meta property="og:image" content="https://glodinasflexwork.nl/images/about-hero.jpg" />
+        <meta property="og:url" content="https://glodinasflexwork.nl/about" />
         <meta property="og:type" content="website" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About Glodinas Flex Work B.V." />
-        <meta name="twitter:description" content="Get to know who we are and how we help connect people with jobs across the Netherlands." />
-        <meta name="twitter:image" content="https://glodinas-flex-site.vercel.app/images/about-hero.jpg" />
+        <meta name="twitter:title" content={`${t('nav.About Us')} - Glodinas Flex Work B.V.`} />
+        <meta name="twitter:description" content={t('about_meta_description')} />
+        <meta name="twitter:image" content="https://glodinasflexwork.nl/images/about-hero.jpg" />
       </Head>
 
       {/* Hero Section */}
@@ -35,56 +40,59 @@ export default function About() {
       >
         <div className="bg-black/40 absolute inset-0 z-0" />
         <div className="relative z-10 max-w-3xl">
-          <h1 className="text-4xl font-bold mb-2">About Us</h1>
-          <p className="text-lg">Discover who we are and what drives Glodinas Flex Work B.V.</p>
+          <h1 className="text-4xl font-bold mb-2">{t('nav.About Us')}</h1>
+          <p className="text-lg">{t('about_hero_subheading')}</p>
         </div>
       </section>
 
       {/* Breadcrumb */}
       <div className="max-w-6xl mx-auto px-4 pt-4">
-        <Breadcrumb currentPage="About" />
+        <Breadcrumb currentPage={t('nav.About Us')} />
       </div>
 
       {/* Main Content */}
       <section className="py-20 px-4 max-w-6xl mx-auto text-gray-800">
-        <h1 className="text-4xl font-bold mb-6 text-center">About Glodinas Flex Work B.V.</h1>
+        <h2 className="text-4xl font-bold mb-6 text-center">{t('nav.About Us')}</h2>
         <p className="text-lg mb-6 text-center max-w-3xl mx-auto">
-          Glodinas Flex Work B.V. is a dedicated Dutch employment agency that builds bridges between job seekers and employers in various industries such as logistics, agriculture, food production, cleaning, and hospitality.
+          {t('about_intro')}
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 mt-10">
           <div>
-            <h2 className="text-2xl font-semibold mb-3">Our Mission</h2>
-            <p className="mb-4">
-              To provide fast, reliable, and multilingual staffing services that support both individuals and businesses. We aim to simplify the hiring process and ensure long-term partnerships through transparency and professionalism.
-            </p>
-            <h2 className="text-2xl font-semibold mb-3">Our Vision</h2>
-            <p className="mb-4">
-              We envision a future where everyone, regardless of their background or language, can find meaningful work and feel respected and supported in their journey.
-            </p>
+            <h3 className="text-2xl font-semibold mb-3">{t('about_our_mission_title')}</h3>
+            <p className="mb-4">{t('about_our_mission_text')}</p>
+
+            <h3 className="text-2xl font-semibold mb-3">{t('about_our_vision_title')}</h3>
+            <p className="mb-4">{t('about_our_vision_text')}</p>
           </div>
           <div>
-            <h2 className="text-2xl font-semibold mb-3">What Makes Us Different?</h2>
+            <h3 className="text-2xl font-semibold mb-3">{t('about_what_sets_us_apart_title')}</h3>
             <ul className="list-disc pl-5 space-y-2">
-              <li>Multilingual support in Dutch, English, Polish, Romanian, and Bulgarian</li>
-              <li>Dedicated housing and payroll assistance for international workers</li>
-              <li>Fast response time and clear communication</li>
-              <li>Extensive network of employers in multiple sectors</li>
-              <li>Commitment to fairness, compliance, and worker wellbeing</li>
+              {t('about_differentiators', { returnObjects: true }).map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
           </div>
         </div>
 
         <div className="mt-16 text-center">
-          <h2 className="text-2xl font-bold mb-4">Want to Work With Us?</h2>
-          <p className="mb-6">
-            Whether you're a company in need of flexible staffing or a motivated individual ready to work — we're here to help.
-          </p>
-          <a href="/contact" className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded">
-            Contact Us
-          </a>
+          <h3 className="text-2xl font-bold mb-4">{t('about_cta_heading')}</h3>
+          <p className="mb-6">{t('about_cta_subheading')}</p>
+          <Link href="/contact">
+            <a className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded">
+              {t('contact_us')}
+            </a>
+          </Link>
         </div>
       </section>
     </>
   );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 }
