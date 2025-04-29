@@ -1,16 +1,60 @@
 {
   "title_home": "Your Trusted Employment Partner",
+  "hero_subheading": "Connecting skilled workers with top employers in logistics, food production, hospitality, and more.",
   "cta_work": "I'm Looking for Work",
   "cta_workers": "I Need Workers",
-  "industries_we_serve": "Industries We Serve",
-  "start_working_with_us": "Start Working With Us Today",
-  "contact_us": "Contact Us",
+
+  "certified_title": "We Are Certified & Compliant",
+  "trusted_by_title": "Trusted by Companies Across the Netherlands",
+
   "testimonial": "Glodinas helped us find the perfect team during peak season. Reliable, fast, and professional!",
 
-  "Home": "Home",
-  "About Us": "About Us",
-  "Industries": "Industries",
-  "Job Seekers": "Job Seekers",
-  "Employers": "Employers",
-  "Contact": "Contact"
+  "industries_we_serve": "Industries We Serve",
+  "industries_intro": "From logistics and hospitality to agriculture and technical services, Glodinas Flex Work B.V. connects skilled professionals with employers across diverse sectors in the Netherlands.",
+
+  "industry": {
+    "logistics": {
+      "title": "Logistics 🚚",
+      "description": "Efficient staffing solutions for warehouses, transport, and distribution centers.",
+      "link": "Learn More"
+    },
+    "hospitality": {
+      "title": "Hospitality 🍽️",
+      "description": "Professional staff for hotels, restaurants, and event venues to deliver excellent service.",
+      "link": "Learn More"
+    },
+    "cleaning": {
+      "title": "Cleaning 🧹",
+      "description": "Reliable cleaning teams for offices, hotels, healthcare, and educational facilities.",
+      "link": "Learn More"
+    },
+    "food_production": {
+      "title": "Food Production 🥦",
+      "description": "Workers specialized in food processing, packaging, and quality control environments.",
+      "link": "Learn More"
+    },
+    "technical": {
+      "title": "Technical ⚙️",
+      "description": "Experienced technicians and engineers supporting manufacturing and construction industries.",
+      "link": "Learn More"
+    },
+    "agriculture": {
+      "title": "Agriculture 🌱",
+      "description": "Seasonal and year-round agricultural labor for farms, greenhouses, and horticulture.",
+      "link": "Learn More"
+    }
+  },
+
+  "start_working_with_us": "Start Working With Us Today",
+  "cta_subheading": "Looking for a job or staff? Contact our team and let's get started.",
+  "contact_us": "Contact Us",
+
+  "nav": {
+    "Home": "Home",
+    "About Us": "About Us",
+    "Industries": "Industries",
+    "Job Seekers": "Job Seekers",
+    "Employers": "Employers",
+    "Contact": "Contact"
+  }
 }

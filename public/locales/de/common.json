@@ -1,16 +1,60 @@
 {
-  "title_home": "Ihr Vertrauensvoller Arbeitspartner",
+  "title_home": "Ihr Zuverlässiger Personaldienstleister",
+  "hero_subheading": "Wir verbinden qualifizierte Arbeitskräfte mit Top-Arbeitgebern in Logistik, Lebensmittelproduktion, Hospitality und mehr.",
   "cta_work": "Ich Suche Arbeit",
-  "cta_workers": "Ich Brauche Arbeitskräfte",
-  "industries_we_serve": "Branchen, Die Wir Bedienen",
-  "start_working_with_us": "Beginnen Sie Noch Heute Mit Uns Zu Arbeiten",
-  "contact_us": "Kontaktieren Sie Uns",
-  "testimonial": "Glodinas hat uns geholfen, während der Hochsaison das perfekte Team zu finden. Zuverlässig, schnell und professionell!",
+  "cta_workers": "Ich Brauche Mitarbeiter",
 
-  "Home": "Startseite",
-  "About Us": "Über Uns",
-  "Industries": "Branchen",
-  "Job Seekers": "Arbeitssuchende",
-  "Employers": "Arbeitgeber",
-  "Contact": "Kontakt"
+  "certified_title": "Wir Sind Zertifiziert & Konform",
+  "trusted_by_title": "Vertrauenswürdig von Unternehmen in den Niederlanden",
+
+  "testimonial": "Glodinas half uns, das perfekte Team in der Hochsaison zu finden. Zuverlässig, schnell und professionell!",
+
+  "industries_we_serve": "Branchen, Die Wir Bedienen",
+  "industries_intro": "Von Logistik und Hospitality bis hin zu Landwirtschaft und technischen Dienstleistungen verbindet Glodinas Flex Work B.V. Fachkräfte mit Arbeitgebern in verschiedenen Sektoren in den Niederlanden.",
+
+  "industry": {
+    "logistics": {
+      "title": "Logistik 🚚",
+      "description": "Effiziente Personallösungen für Lagerhäuser, Transport und Verteilzentren.",
+      "link": "Mehr erfahren"
+    },
+    "hospitality": {
+      "title": "Hospitality 🍽️",
+      "description": "Professionelles Personal für Hotels, Restaurants und Veranstaltungsorte.",
+      "link": "Mehr erfahren"
+    },
+    "cleaning": {
+      "title": "Reinigung 🧹",
+      "description": "Zuverlässige Reinigungsteams für Büros, Hotels, Gesundheitseinrichtungen und Schulen.",
+      "link": "Mehr erfahren"
+    },
+    "food_production": {
+      "title": "Lebensmittelproduktion 🥦",
+      "description": "Mitarbeiter für Lebensmittelverarbeitung, Verpackung und Qualitätskontrolle.",
+      "link": "Mehr erfahren"
+    },
+    "technical": {
+      "title": "Technik ⚙️",
+      "description": "Erfahrene Techniker und Ingenieure für Industrie und Bau.",
+      "link": "Mehr erfahren"
+    },
+    "agriculture": {
+      "title": "Landwirtschaft 🌱",
+      "description": "Saisonale und ganzjährige Landarbeitskräfte für Höfe, Gewächshäuser und Gartenbau.",
+      "link": "Mehr erfahren"
+    }
+  },
+
+  "start_working_with_us": "Starten Sie Noch Heute Mit Uns",
+  "cta_subheading": "Auf Jobsuche oder Personalbedarf? Kontaktieren Sie unser Team und legen wir los.",
+  "contact_us": "Kontakt aufnehmen",
+
+  "nav": {
+    "Home": "Startseite",
+    "About Us": "Über uns",
+    "Industries": "Branchen",
+    "Job Seekers": "Arbeitssuchende",
+    "Employers": "Arbeitgeber",
+    "Contact": "Kontakt"
+  }
 }

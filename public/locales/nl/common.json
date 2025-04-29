@@ -1,16 +1,60 @@
 {
-  "title_home": "Uw Vertrouwde Arbeidspartner",
+  "title_home": "Uw Vertrouwde Personeels­partner",
+  "hero_subheading": "We brengen vakbekwame medewerkers in contact met topwerkgevers in logistiek, voedselproductie, hospitality en meer.",
   "cta_work": "Ik Zoek Werk",
-  "cta_workers": "Ik Heb Werknemers Nodig",
-  "industries_we_serve": "Sectoren Die Wij Bedienen",
-  "start_working_with_us": "Begin Vandaag met Werken met Ons",
-  "contact_us": "Neem Contact Met Ons Op",
-  "testimonial": "Glodinas heeft ons geholpen het perfecte team te vinden tijdens het hoogseizoen. Betrouwbaar, snel en professioneel!",
+  "cta_workers": "Ik Heb Medewerkers Nodig",
 
-  "Home": "Home",
-  "About Us": "Over Ons",
-  "Industries": "Sectoren",
-  "Job Seekers": "Werkzoekenden",
-  "Employers": "Werkgevers",
-  "Contact": "Contact"
+  "certified_title": "We ZIJN Gecertificeerd & Compliant",
+  "trusted_by_title": "Vertrouwd door Bedrijven in Heel Nederland",
+
+  "testimonial": "Glodinas hielp ons het perfecte team te vinden tijdens het hoogseizoen. Betrouwbaar, snel en professioneel!",
+
+  "industries_we_serve": "Sectoren Die We Bedienen",
+  "industries_intro": "Van logistiek en hospitality tot landbouw en technische diensten, verbindt Glodinas Flex Work B.V. vakmensen met werkgevers in diverse sectoren in Nederland.",
+
+  "industry": {
+    "logistics": {
+      "title": "Logistiek 🚚",
+      "description": "Efficiënte personeelsoplossingen voor magazijnen, transport en distributiecentra.",
+      "link": "Lees meer"
+    },
+    "hospitality": {
+      "title": "Hospitality 🍽️",
+      "description": "Professioneel personeel voor hotels, restaurants en evenementenlocaties.",
+      "link": "Lees meer"
+    },
+    "cleaning": {
+      "title": "Schoonmaak 🧹",
+      "description": "Betrouwbare schoonmaakteams voor kantoren, hotels, zorginstellingen en scholen.",
+      "link": "Lees meer"
+    },
+    "food_production": {
+      "title": "Voedselproductie 🥦",
+      "description": "Medewerkers gespecialiseerd in voedselverwerking, verpakking en kwaliteitscontrole.",
+      "link": "Lees meer"
+    },
+    "technical": {
+      "title": "Technisch ⚙️",
+      "description": "Ervaren technici en ingenieurs voor industriële en bouwprojecten.",
+      "link": "Lees meer"
+    },
+    "agriculture": {
+      "title": "Landbouw 🌱",
+      "description": "Seizoens- en jaar­lange landbouwarbeid voor boerderijen, kassen en tuinbouw.",
+      "link": "Lees meer"
+    }
+  },
+
+  "start_working_with_us": "Begin Vandaag nog met Ons Samenwerken",
+  "cta_subheading": "Op zoek naar werk of personeel? Neem contact met ons op en laten we beginnen.",
+  "contact_us": "Contact opnemen",
+
+  "nav": {
+    "Home": "Home",
+    "About Us": "Over Ons",
+    "Industries": "Sectoren",
+    "Job Seekers": "Werkzoekenden",
+    "Employers": "Werkgevers",
+    "Contact": "Contact"
+  }
 }

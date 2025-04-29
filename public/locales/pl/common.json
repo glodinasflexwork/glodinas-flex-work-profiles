@@ -1,16 +1,60 @@
 {
-  "title_home": "Twój Zaufany Partner Zatrudnienia",
+  "title_home": "Twój Zaufany Partner Kadrowy",
+  "hero_subheading": "Łączymy wykwalifikowanych pracowników z najlepszymi pracodawcami w logistyce, produkcji żywności, hotelarstwie i innych branżach.",
   "cta_work": "Szukam Pracy",
   "cta_workers": "Potrzebuję Pracowników",
-  "industries_we_serve": "Branże, Które Obsługujemy",
-  "start_working_with_us": "Rozpocznij Pracę z Nami Już Dziś",
-  "contact_us": "Skontaktuj Się z Nami",
-  "testimonial": "Glodinas pomogło nam znaleźć idealny zespół w szczycie sezonu. Niezawodni, szybcy i profesjonalni!",
 
-  "Home": "Strona Główna",
-  "About Us": "O Nas",
-  "Industries": "Branże",
-  "Job Seekers": "Szukający Pracy",
-  "Employers": "Pracodawcy",
-  "Contact": "Kontakt"
+  "certified_title": "Jesteśmy Certyfikowani i Zgodni",
+  "trusted_by_title": "Zaufani przez firmy w całej Holandii",
+
+  "testimonial": "Glodinas pomógł nam znaleźć idealny zespół w sezonie szczytowym. Niezawodny, szybki i profesjonalny!",
+
+  "industries_we_serve": "Branże, w Których Działamy",
+  "industries_intro": "Od logistyki i hotelarstwa po rolnictwo i usługi techniczne – Glodinas Flex Work B.V. łączy specjalistów z pracodawcami w różnych sektorach w Holandii.",
+
+  "industry": {
+    "logistics": {
+      "title": "Logistyka 🚚",
+      "description": "Efektywne rozwiązania kadrowe dla magazynów, transportu i centrów dystrybucji.",
+      "link": "Dowiedz się więcej"
+    },
+    "hospitality": {
+      "title": "Hospitalarstwo 🍽️",
+      "description": "Profesjonalny personel dla hoteli, restauracji i miejsc eventowych.",
+      "link": "Dowiedz się więcej"
+    },
+    "cleaning": {
+      "title": "Sprzątanie 🧹",
+      "description": "Niezawodne zespoły sprzątające dla biur, hoteli, placówek medycznych i edukacyjnych.",
+      "link": "Dowiedz się więcej"
+    },
+    "food_production": {
+      "title": "Produkcja żywności 🥦",
+      "description": "Pracownicy do przetwórstwa, pakowania i kontroli jakości żywności.",
+      "link": "Dowiedz się więcej"
+    },
+    "technical": {
+      "title": "Technika ⚙️",
+      "description": "Doświadczeni technicy i inżynierowie wspierający przemysł i budownictwo.",
+      "link": "Dowiedz się więcej"
+    },
+    "agriculture": {
+      "title": "Rolnictwo 🌱",
+      "description": "Sezonowi i całoroczni pracownicy rolniczy dla farm, szklarni i ogrodnictwa.",
+      "link": "Dowiedz się więcej"
+    }
+  },
+
+  "start_working_with_us": "Rozpocznij Współpracę Już Dziś",
+  "cta_subheading": "Szukasz pracy lub pracowników? Skontaktuj się z naszym zespołem i zaczynamy!",
+  "contact_us": "Skontaktuj się",
+
+  "nav": {
+    "Home": "Strona główna",
+    "About Us": "O nas",
+    "Industries": "Branże",
+    "Job Seekers": "Poszukujący pracy",
+    "Employers": "Pracodawcy",
+    "Contact": "Kontakt"
+  }
 }

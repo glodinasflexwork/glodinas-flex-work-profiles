@@ -1,16 +1,60 @@
 {
-  "title_home": "Partenerul Tău De Încredere În Angajare",
-  "cta_work": "Caut Un Loc De Muncă",
-  "cta_workers": "Am Nevoie De Lucrători",
-  "industries_we_serve": "Industrii Pe Care Le Servim",
-  "start_working_with_us": "Începe Să Lucrezi Cu Noi Astăzi",
-  "contact_us": "Contactează-ne",
-  "testimonial": "Glodinas ne-a ajutat să găsim echipa perfectă în timpul sezonului de vârf. Fiabili, rapizi și profesioniști!",
+  "title_home": "Partenerul Tău de Încredere în Resurse Umane",
+  "hero_subheading": "Conectăm lucrători calificați cu angajatori de top în logistică, producție alimentară, ospitalitate și altele.",
+  "cta_work": "Caut Lucru",
+  "cta_workers": "Am Nevoie de Angajați",
 
-  "Home": "Acasă",
-  "About Us": "Despre Noi",
-  "Industries": "Industrii",
-  "Job Seekers": "Căutători De Locuri De Muncă",
-  "Employers": "Angajatori",
-  "Contact": "Contact"
+  "certified_title": "Suntem Certificați și Conformi",
+  "trusted_by_title": "De Încredere de Companii din Țările de Jos",
+
+  "testimonial": "Glodinas ne-a ajutat să găsim echipa perfectă în sezonul de vârf. De încredere, rapid și profesionist!",
+
+  "industries_we_serve": "Domenii în Care Activăm",
+  "industries_intro": "De la logistică și ospitalitate până la agricultură și servicii tehnice, Glodinas Flex Work B.V. conectează profesioniști cu angajatori în diverse sectoare din Țările de Jos.",
+
+  "industry": {
+    "logistics": {
+      "title": "Logistică 🚚",
+      "description": "Soluții eficiente de personal pentru depozite, transport și centre de distribuție.",
+      "link": "Află mai multe"
+    },
+    "hospitality": {
+      "title": "Ospitalitate 🍽️",
+      "description": "Personal profesionist pentru hoteluri, restaurante și locații de evenimente.",
+      "link": "Află mai multe"
+    },
+    "cleaning": {
+      "title": "Curățenie 🧹",
+      "description": "Echipe de curățenie de încredere pentru birouri, hoteluri, unități medicale și educaționale.",
+      "link": "Află mai multe"
+    },
+    "food_production": {
+      "title": "Producție alimentară 🥦",
+      "description": "Lucrători specializați în procesarea, ambalarea și controlul calității alimentelor.",
+      "link": "Află mai multe"
+    },
+    "technical": {
+      "title": "Tehnic ⚙️",
+      "description": "Tehnicieni și ingineri cu experiență pentru sectoare industriale și de construcții.",
+      "link": "Află mai multe"
+    },
+    "agriculture": {
+      "title": "Agricultură 🌱",
+      "description": "Muncitori agricoli sezonieri și pe termen lung pentru ferme, sere și horticultură.",
+      "link": "Află mai multe"
+    }
+  },
+
+  "start_working_with_us": "Începe să Colaborezi Astăzi",
+  "cta_subheading": "Cauți un loc de muncă sau personal? Contactează-ne și să începem!",
+  "contact_us": "Contactează-ne",
+
+  "nav": {
+    "Home": "Acasă",
+    "About Us": "Despre noi",
+    "Industries": "Domenii",
+    "Job Seekers": "Căutători de locuri de muncă",
+    "Employers": "Angajatori",
+    "Contact": "Contact"
+  }
 }
