@@ -3,9 +3,9 @@ import { google } from 'googleapis';
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '10mb' // allow for CV uploads
-    }
-  }
+      sizeLimit: '10mb', // allow for CV uploads
+    },
+  },
 };
 
 export default async function handler(req, res) {
@@ -15,8 +15,9 @@ export default async function handler(req, res) {
 
   try {
     const { file, fileName, contentType } = req.body;
-    if (!file || !fileName) {
-      return res.status(400).json({ error: 'Missing file or filename' });
+
+    if (!file || !fileName || !contentType) {
+      return res.status(400).json({ error: 'Missing file, filename, or content type' });
     }
 
     const auth = new google.auth.GoogleAuth({
@@ -32,11 +33,11 @@ export default async function handler(req, res) {
       requestBody: {
         name: fileName,
         mimeType: contentType,
-        parents: ['1XNi54FMuTOsVYL_MqsOIy90frNB2H1yW'], // your shared Drive folder ID
+        parents: ['1XNi54FMuTOsVYL_MqsOIy90frNB2H1yW'], // replace with your Drive folder ID
       },
       media: {
         mimeType: contentType,
-        body: Buffer.from(buffer),
+        body: require('stream').Readable.from(buffer),
       },
     });
 
