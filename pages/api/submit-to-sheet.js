@@ -5,7 +5,19 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { fullName, email, phone, nationality, location, languages, sector, additional, cvUrl } = req.body;
+  const {
+    fullName,
+    email,
+    phone,
+    nationality,
+    location,
+    languages,
+    sector,
+    additional,
+    cvUrl,
+    fullBodyUrl,
+    idCopyUrl,
+  } = req.body;
 
   try {
     const auth = new google.auth.GoogleAuth({
@@ -30,7 +42,9 @@ export default async function handler(req, res) {
           languages,
           sector,
           additional,
-          cvUrl || ''
+          fullBodyUrl || '',
+          idCopyUrl || '',
+          cvUrl || '',
         ]],
       },
     });
@@ -40,7 +54,6 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('❌ Google Sheets API Error:', error.message);
-    console.error(error); // full stack
     res.status(500).json({ error: 'Failed to append to sheet', details: error.message });
   }
 }

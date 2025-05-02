@@ -5,6 +5,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 export default function Register() {
   const [formData, setFormData] = useState({});
   const [cvFile, setCvFile] = useState(null);
+  const [fullBodyFile, setFullBodyFile] = useState(null);
+  const [idFile, setIdFile] = useState(null);
   const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
@@ -12,35 +14,44 @@ export default function Register() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e) => {
-    setCvFile(e.target.files[0]);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let cvUrl = '';
+    setMessage('');
+
+    if (!fullBodyFile || !idFile) {
+      setMessage('Please upload both Full Body Picture and Copy of ID.');
+      return;
+    }
 
     try {
-      if (cvFile) {
-        const base64 = await toBase64(cvFile);
-        const uploadRes = await fetch('/api/upload-cv', {
+      const uploadToDrive = async (file, label) => {
+        const base64 = await toBase64(file);
+        const res = await fetch('/api/upload-cv', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             file: base64.split(',')[1],
-            fileName: cvFile.name,
-            contentType: cvFile.type,
+            fileName: `${label}_${file.name}`,
+            contentType: file.type,
           }),
         });
+        const data = await res.json();
+        return data.url || '';
+      };
 
-        const uploadData = await uploadRes.json();
-        cvUrl = uploadData.url || '';
-      }
+      const fullBodyUrl = await uploadToDrive(fullBodyFile, 'fullbody');
+      const idCopyUrl = await uploadToDrive(idFile, 'idcopy');
+      const cvUrl = cvFile ? await uploadToDrive(cvFile, 'cv') : '';
 
       const sheetRes = await fetch('/api/submit-to-sheet', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, cvUrl }),
+        body: JSON.stringify({
+          ...formData,
+          fullBodyUrl,
+          idCopyUrl,
+          cvUrl,
+        }),
       });
 
       if (sheetRes.ok) {
@@ -112,8 +123,33 @@ export default function Register() {
             </select>
           </div>
           <div>
+            <label className="block mb-1 font-medium">Upload Full Body Picture (required)</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setFullBodyFile(e.target.files[0])}
+              required
+              className="w-full border px-4 py-2 rounded"
+            />
+          </div>
+          <div>
+            <label className="block mb-1 font-medium">Upload ID Copy (required)</label>
+            <input
+              type="file"
+              accept="image/*,application/pdf"
+              onChange={(e) => setIdFile(e.target.files[0])}
+              required
+              className="w-full border px-4 py-2 rounded"
+            />
+          </div>
+          <div>
             <label className="block mb-1 font-medium">Upload CV (optional)</label>
-            <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} className="w-full border px-4 py-2 rounded" />
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={(e) => setCvFile(e.target.files[0])}
+              className="w-full border px-4 py-2 rounded"
+            />
           </div>
           <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded">
             Submit
@@ -124,7 +160,6 @@ export default function Register() {
   );
 }
 
-// ✅ Needed for next-i18next to work
 export async function getStaticProps({ locale }) {
   return {
     props: {
