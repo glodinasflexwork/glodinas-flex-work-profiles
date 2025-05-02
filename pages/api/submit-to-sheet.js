@@ -7,16 +7,16 @@ export default async function handler(req, res) {
 
   const { fullName, email, phone, nationality, location, languages, sector, additional, cvUrl } = req.body;
 
-  const auth = new google.auth.GoogleAuth({
-    credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS),
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-  });
-
-  const sheets = google.sheets({ version: 'v4', auth });
-  const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-
   try {
-    await sheets.spreadsheets.values.append({
+    const auth = new google.auth.GoogleAuth({
+      credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS),
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+
+    const sheets = google.sheets({ version: 'v4', auth });
+    const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+
+    const response = await sheets.spreadsheets.values.append({
       spreadsheetId,
       range: 'Sheet1!A1',
       valueInputOption: 'USER_ENTERED',
@@ -35,9 +35,12 @@ export default async function handler(req, res) {
       },
     });
 
+    console.log('✅ Google Sheets append response:', response.data);
     res.status(200).json({ message: 'Success' });
+
   } catch (error) {
-    console.error('Google Sheets Error:', error);
-    res.status(500).json({ error: 'Failed to append to sheet' });
+    console.error('❌ Google Sheets API Error:', error.message);
+    console.error(error); // full stack
+    res.status(500).json({ error: 'Failed to append to sheet', details: error.message });
   }
 }
