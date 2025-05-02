@@ -22,26 +22,27 @@ export default function Register() {
     try {
       if (cvFile) {
         const base64 = await toBase64(cvFile);
-        const res = await fetch('https://script.google.com/macros/s/AKfycbwUi7ysbqdmO0Ib3T77991UoZVrX160VaDCA2vx0xjkIMKRI9AgJnqx3gwGzhDIj5gf/exec', {
+        const uploadRes = await fetch('/api/upload-cv', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             file: base64.split(',')[1],
             fileName: cvFile.name,
             contentType: cvFile.type
           })
         });
-        const result = await res.json();
-        cvUrl = result.url || '';
+
+        const uploadData = await uploadRes.json();
+        cvUrl = uploadData.url || '';
       }
 
-      const sheetResponse = await fetch('/api/submit-to-sheet', {
+      const sheetRes = await fetch('/api/submit-to-sheet', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, cvUrl })
       });
 
-      if (sheetResponse.ok) {
+      if (sheetRes.ok) {
         setMessage('Registration successful!');
       } else {
         throw new Error('Sheet update failed');
@@ -84,7 +85,9 @@ export default function Register() {
         <form className="space-y-6" onSubmit={handleSubmit}>
           {['fullName', 'email', 'phone', 'nationality', 'location', 'languages', 'additional'].map((field) => (
             <div key={field}>
-              <label className="block mb-1 font-medium">{field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</label>
+              <label className="block mb-1 font-medium">
+                {field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+              </label>
               <input
                 type="text"
                 name={field}
