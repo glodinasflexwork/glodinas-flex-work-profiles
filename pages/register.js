@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useState } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function Register() {
   const [formData, setFormData] = useState({});
@@ -28,8 +29,8 @@ export default function Register() {
           body: JSON.stringify({
             file: base64.split(',')[1],
             fileName: cvFile.name,
-            contentType: cvFile.type
-          })
+            contentType: cvFile.type,
+          }),
         });
 
         const uploadData = await uploadRes.json();
@@ -39,7 +40,7 @@ export default function Register() {
       const sheetRes = await fetch('/api/submit-to-sheet', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, cvUrl })
+        body: JSON.stringify({ ...formData, cvUrl }),
       });
 
       if (sheetRes.ok) {
@@ -69,6 +70,7 @@ export default function Register() {
         <meta name="description" content="Register to find flexible job opportunities with Glodinas Flex Work B.V." />
       </Head>
 
+      {/* Hero */}
       <section className="relative h-[400px] flex items-center justify-center text-white text-center px-4" style={{ backgroundImage: "url('/images/register-hero.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="bg-black/40 absolute inset-0 z-0" />
         <div className="relative z-10 max-w-2xl">
@@ -77,6 +79,7 @@ export default function Register() {
         </div>
       </section>
 
+      {/* Form */}
       <section className="py-20 px-4 max-w-3xl mx-auto text-gray-800">
         <h2 className="text-2xl font-bold mb-4 text-center">Start Your Application</h2>
         <p className="mb-8 text-center">Complete the form below and our team will get in touch with you.</p>
@@ -119,4 +122,13 @@ export default function Register() {
       </section>
     </>
   );
+}
+
+// ✅ Needed for next-i18next to work
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 }
