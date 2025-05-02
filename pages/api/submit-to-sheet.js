@@ -1,26 +1,36 @@
+import { google } from 'googleapis';
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  try {
-    const gsScriptUrl = 'https://script.google.com/macros/s/AKfycbwUi7ysbqdmO0Ib3T77991UoZVrX160VaDCA2vx0xjkIMKRI9AgJnqx3gwGzhDIj5gf/exec';
+  const { fullName, email, phone, nationality, location, languages, sector, additional, cvUrl } = req.body;
 
-    const response = await fetch(gsScriptUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+  const auth = new google.auth.GoogleAuth({
+    credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS),
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  });
+
+  const sheets = google.sheets({ version: 'v4', auth });
+  const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+
+  try {
+    await sheets.spreadsheets.values.append({
+      spreadsheetId,
+      range: 'Sheet1!A1',
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [[
+          fullName, email, phone, nationality, location,
+          languages, sector, additional, cvUrl || ''
+        ]],
       },
-      body: JSON.stringify(req.body),
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to submit to Google Sheets');
-    }
-
-    res.status(200).json({ success: true });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message });
+    res.status(200).json({ message: 'Success' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to append to sheet' });
   }
 }
