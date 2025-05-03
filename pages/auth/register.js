@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { signIn } from "next-auth/react"; // ✅ import signIn for auto-login
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -28,8 +29,14 @@ export default function RegisterPage() {
     if (!res.ok) {
       setError(data.error || "Something went wrong.");
     } else {
-      setSuccess("Registration successful! Redirecting to login...");
-      setTimeout(() => router.push(`/${router.locale}/auth/login`), 2000);
+      setSuccess("Registration successful! Logging you in...");
+
+      // ✅ Auto-login after successful registration
+      await signIn("credentials", {
+        email: form.email,
+        password: form.password,
+        callbackUrl: `/${router.locale}/dashboard`,
+      });
     }
   };
 
