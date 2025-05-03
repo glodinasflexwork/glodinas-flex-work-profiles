@@ -29,7 +29,7 @@ export default function RegisterPage() {
       setError(data.error || "Something went wrong.");
     } else {
       setSuccess("Registration successful! Redirecting to login...");
-      setTimeout(() => router.push("/auth/login"), 2000);
+      setTimeout(() => router.push(`/${router.locale}/auth/login`), 2000);
     }
   };
 
