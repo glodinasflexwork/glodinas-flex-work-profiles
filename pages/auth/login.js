@@ -23,7 +23,7 @@ export default function LoginPage() {
     });
 
     if (res.ok) {
-      router.push("/"); // or your protected dashboard
+      router.push(`/${router.locale}/dashboard`); // ✅ Correct localized redirect
     } else {
       setError("Invalid email or password");
     }
