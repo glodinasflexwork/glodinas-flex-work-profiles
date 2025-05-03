@@ -72,13 +72,12 @@ export default function LoginPage() {
 
       <div className="mt-6 text-center">
         <p className="mb-2">or</p>
-        <button
-          type="button"
-          onClick={handleGoogleLogin}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded font-semibold"
+        <a
+          href="/api/auth/signin/google?callbackUrl=/nl/dashboard"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded font-semibold block text-center"
         >
           Sign in with Google
-        </button>
+        </a>
       </div>
     </div>
   );
