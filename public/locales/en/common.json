@@ -56,5 +56,31 @@
     "Job Seekers": "Job Seekers",
     "Employers": "Employers",
     "Contact": "Contact"
-  }
+  },
+
+  "about_meta_description": "Learn more about Glodinas Flex Work B.V. and our mission to connect job seekers with employers across multiple industries in the Netherlands.",
+  "about_meta_keywords": "About Glodinas, Employment Agency Netherlands, Dutch Staffing Agency, multilingual job support",
+
+  "about_hero_subheading": "Discover who we are and what drives Glodinas Flex Work B.V.",
+
+  "about_intro": "Glodinas Flex Work B.V. is a dedicated Dutch employment agency that builds bridges between job seekers and employers in various industries such as logistics, agriculture, food production, cleaning, and hospitality.",
+
+  "about_our_mission_title": "Our Mission",
+  "about_our_mission_text": "To provide fast, reliable, and multilingual staffing services that support both individuals and businesses. We aim to simplify the hiring process and ensure long-term partnerships through transparency and professionalism.",
+  "about_our_vision_title": "Our Vision",
+  "about_our_vision_text": "We envision a future where everyone, regardless of their background or language, can find meaningful work and feel respected and supported in their journey.",
+
+  "about_what_sets_us_apart_title": "What Makes Us Different?",
+  "about_differentiators": [
+    "Multilingual support in Dutch, English, Polish, Romanian, and Bulgarian",
+    "Dedicated housing and payroll assistance for international workers",
+    "Fast response time and clear communication",
+    "Extensive network of employers in multiple sectors",
+    "Commitment to fairness, compliance, and worker wellbeing"
+  ],
+
+  "about_cta_heading": "Want to Work With Us?",
+  "about_cta_subheading": "Whether you're a company in need of flexible staffing or a motivated individual ready to work — we're here to help."
 }
+
+
