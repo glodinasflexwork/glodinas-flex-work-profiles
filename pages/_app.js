@@ -1,5 +1,4 @@
 import '../styles/globals.css';
-import '../i18n'; // 👈 Add this line
 import { appWithTranslation } from 'next-i18next';
 import Layout from '../components/Layout';
 
