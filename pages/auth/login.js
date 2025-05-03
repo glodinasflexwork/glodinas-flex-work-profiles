@@ -23,16 +23,21 @@ export default function LoginPage() {
     });
 
     if (res.ok) {
-      router.push(`/${router.locale}/dashboard`); // ✅ Correct localized redirect
+      router.push(`/${router.locale}/dashboard`);
     } else {
       setError("Invalid email or password");
     }
+  };
+
+  const handleGoogleLogin = () => {
+    signIn("google", { callbackUrl: `/${router.locale}/dashboard` });
   };
 
   return (
     <div className="max-w-md mx-auto mt-20 p-6 border rounded shadow-sm">
       <h1 className="text-2xl font-bold mb-4 text-center">Login</h1>
       {error && <p className="text-red-600 mb-2">{error}</p>}
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block font-medium mb-1">Email</label>
@@ -63,6 +68,15 @@ export default function LoginPage() {
           Login
         </button>
       </form>
+
+      <hr className="my-6" />
+
+      <button
+        onClick={handleGoogleLogin}
+        className="w-full border border-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-100"
+      >
+        Sign in with Google
+      </button>
     </div>
   );
 }
