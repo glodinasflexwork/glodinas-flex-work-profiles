@@ -1,15 +1,16 @@
-# Glodinas Flex Work Website Makeover Project
+# Glodinas Flex Work Website - i18n Fix
 
 ## Tasks
-- [x] Clarify site improvement and feature requirements with user
-- [x] Analyze current repository structure and design
-- [x] Design integrated features and updates for the employment agency website
-- [x] Implement mobile-first responsive design
-- [x] Create improved notification system for job alerts
-- [x] Modernize UI/UX with enhanced visual appeal
-- [x] Streamline navigation and user flows
-- [x] Optimize performance for faster loading
-- [ ] Update and commit changes to repository
-- [ ] Validate full site integration and functionality
-- [ ] Deploy updated site
+
+- [x] Analyze current i18n setup in the project
+- [x] Research best practices for Next.js i18n on Vercel
+- [x] Refactor i18n configuration for serverless compatibility
+  - [x] Update _app.js to use custom i18n solution
+  - [x] Update index.js to use custom i18n solution
+  - [x] Update job-seekers.js to use custom i18n solution
+  - [x] Update employers.js to use custom i18n solution
+  - [x] Check for any other pages using next-i18next
+- [x] Test local build to verify changes
+- [ ] Push changes to GitHub for Vercel deployment
+- [ ] Validate successful Vercel deployment
 - [ ] Report completion to user

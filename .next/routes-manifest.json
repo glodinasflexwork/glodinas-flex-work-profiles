@@ -149,23 +149,31 @@
   "dataRoutes": [
     {
       "page": "/",
-      "dataRouteRegex": "^/_next/data/Fi7sYG9HyxxWzX8hR8Wuz/index\\.json$"
+      "dataRouteRegex": "^/_next/data/tNzzKK26Vf1aWdGyzAa2z/index\\.json$"
     },
     {
       "page": "/about",
-      "dataRouteRegex": "^/_next/data/Fi7sYG9HyxxWzX8hR8Wuz/about\\.json$"
+      "dataRouteRegex": "^/_next/data/tNzzKK26Vf1aWdGyzAa2z/about\\.json$"
     },
     {
       "page": "/contact",
-      "dataRouteRegex": "^/_next/data/Fi7sYG9HyxxWzX8hR8Wuz/contact\\.json$"
+      "dataRouteRegex": "^/_next/data/tNzzKK26Vf1aWdGyzAa2z/contact\\.json$"
     },
     {
       "page": "/dashboard",
-      "dataRouteRegex": "^/_next/data/Fi7sYG9HyxxWzX8hR8Wuz/dashboard\\.json$"
+      "dataRouteRegex": "^/_next/data/tNzzKK26Vf1aWdGyzAa2z/dashboard\\.json$"
+    },
+    {
+      "page": "/employers",
+      "dataRouteRegex": "^/_next/data/tNzzKK26Vf1aWdGyzAa2z/employers\\.json$"
+    },
+    {
+      "page": "/job-seekers",
+      "dataRouteRegex": "^/_next/data/tNzzKK26Vf1aWdGyzAa2z/job-seekers\\.json$"
     },
     {
       "page": "/register",
-      "dataRouteRegex": "^/_next/data/Fi7sYG9HyxxWzX8hR8Wuz/register\\.json$"
+      "dataRouteRegex": "^/_next/data/tNzzKK26Vf1aWdGyzAa2z/register\\.json$"
     }
   ],
   "i18n": {

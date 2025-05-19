@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/Fi7sYG9HyxxWzX8hR8Wuz/_buildManifest.js",
-    "static/Fi7sYG9HyxxWzX8hR8Wuz/_ssgManifest.js"
+    "static/tNzzKK26Vf1aWdGyzAa2z/_buildManifest.js",
+    "static/tNzzKK26Vf1aWdGyzAa2z/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "rootMainFilesTree": {},
@@ -15,14 +15,14 @@
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/index-552085b34f9c932a.js"
+      "static/chunks/pages/index-53777d5647a9f9fa.js"
     ],
     "/_app": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/css/347f8ae250a0f8dd.css",
-      "static/chunks/pages/_app-a0df635e1bb189f6.js"
+      "static/css/0690bf21ae9c0ca4.css",
+      "static/chunks/pages/_app-19bf3e9a9321d189.js"
     ],
     "/_error": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
@@ -34,7 +34,7 @@
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/about-30470b4f5a9dc72e.js"
+      "static/chunks/pages/about-770d3923719a27bd.js"
     ],
     "/auth/login": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
@@ -54,7 +54,7 @@
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/contact-fc9d9f3718b7e8e8.js"
+      "static/chunks/pages/contact-3c7f644468802f7b.js"
     ],
     "/dashboard": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
@@ -67,7 +67,7 @@
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/employers-9e617daf42307084.js"
+      "static/chunks/pages/employers-18d56b963bee75a7.js"
     ],
     "/faq": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
@@ -79,49 +79,49 @@
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/industries-3427da5927399bea.js"
+      "static/chunks/pages/industries-1f473e5a157021e1.js"
     ],
     "/industries/agriculture": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/industries/agriculture-25e6601a671be038.js"
+      "static/chunks/pages/industries/agriculture-1f5387c022faf6ae.js"
     ],
     "/industries/cleaning": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/industries/cleaning-c6c6881b748fe85d.js"
+      "static/chunks/pages/industries/cleaning-41301e301e21ace0.js"
     ],
     "/industries/food-production": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/industries/food-production-6d5f94dd7a23ea89.js"
+      "static/chunks/pages/industries/food-production-f6424bfdf4275a84.js"
     ],
     "/industries/hospitality": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/industries/hospitality-a7464b25bd6f39ba.js"
+      "static/chunks/pages/industries/hospitality-c5eaf6ba3ee0ff37.js"
     ],
     "/industries/logistics": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/industries/logistics-ab6d084336e8fcce.js"
+      "static/chunks/pages/industries/logistics-484af6868b32baeb.js"
     ],
     "/industries/technical": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/industries/technical-423fee3e19cd7de3.js"
+      "static/chunks/pages/industries/technical-50c77b6b5b0ae133.js"
     ],
     "/job-seekers": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/job-seekers-506631d7562f5f7e.js"
+      "static/chunks/pages/job-seekers-2e481cf34a0b9412.js"
     ],
     "/privacy-policy": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
@@ -139,7 +139,7 @@
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-f75312fc4004b783.js",
       "static/chunks/main-4af0f3dbaac3690a.js",
-      "static/chunks/pages/services-794702d016ea5e4a.js"
+      "static/chunks/pages/services-f23b22b88e91d60e.js"
     ],
     "/terms": [
       "static/chunks/webpack-8cac0b4b405cede1.js",

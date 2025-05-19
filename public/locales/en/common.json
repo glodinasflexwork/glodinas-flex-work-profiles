@@ -1,86 +1,27 @@
 {
-  "title_home": "Your Trusted Employment Partner",
-  "hero_subheading": "Connecting skilled workers with top employers in logistics, food production, hospitality, and more.",
-  "cta_work": "I'm Looking for Work",
-  "cta_workers": "I Need Workers",
-
-  "certified_title": "We Are Certified & Compliant",
-  "trusted_by_title": "Trusted by Companies Across the Netherlands",
-
-  "testimonial": "Glodinas helped us find the perfect team during peak season. Reliable, fast, and professional!",
-
-  "industries_we_serve": "Industries We Serve",
-  "industries_intro": "From logistics and hospitality to agriculture and technical services, Glodinas Flex Work B.V. connects skilled professionals with employers across diverse sectors in the Netherlands.",
-
-  "industry": {
-    "logistics": {
-      "title": "Logistics 🚚",
-      "description": "Efficient staffing solutions for warehouses, transport, and distribution centers.",
-      "link": "Learn More"
-    },
-    "hospitality": {
-      "title": "Hospitality 🍽️",
-      "description": "Professional staff for hotels, restaurants, and event venues to deliver excellent service.",
-      "link": "Learn More"
-    },
-    "cleaning": {
-      "title": "Cleaning 🧹",
-      "description": "Reliable cleaning teams for offices, hotels, healthcare, and educational facilities.",
-      "link": "Learn More"
-    },
-    "food_production": {
-      "title": "Food Production 🥦",
-      "description": "Workers specialized in food processing, packaging, and quality control environments.",
-      "link": "Learn More"
-    },
-    "technical": {
-      "title": "Technical ⚙️",
-      "description": "Experienced technicians and engineers supporting manufacturing and construction industries.",
-      "link": "Learn More"
-    },
-    "agriculture": {
-      "title": "Agriculture 🌱",
-      "description": "Seasonal and year-round agricultural labor for farms, greenhouses, and horticulture.",
-      "link": "Learn More"
-    }
-  },
-
-  "start_working_with_us": "Start Working With Us Today",
-  "cta_subheading": "Looking for a job or staff? Contact our team and let's get started.",
-  "contact_us": "Contact Us",
-
-  "nav": {
-    "Home": "Home",
-    "About Us": "About Us",
-    "Industries": "Industries",
-    "Job Seekers": "Job Seekers",
-    "Employers": "Employers",
-    "Contact": "Contact"
-  },
-
-  "about_meta_description": "Learn more about Glodinas Flex Work B.V. and our mission to connect job seekers with employers across multiple industries in the Netherlands.",
-  "about_meta_keywords": "About Glodinas, Employment Agency Netherlands, Dutch Staffing Agency, multilingual job support",
-
-  "about_hero_subheading": "Discover who we are and what drives Glodinas Flex Work B.V.",
-
-  "about_intro": "Glodinas Flex Work B.V. is a dedicated Dutch employment agency that builds bridges between job seekers and employers in various industries such as logistics, agriculture, food production, cleaning, and hospitality.",
-
-  "about_our_mission_title": "Our Mission",
-  "about_our_mission_text": "To provide fast, reliable, and multilingual staffing services that support both individuals and businesses. We aim to simplify the hiring process and ensure long-term partnerships through transparency and professionalism.",
-  "about_our_vision_title": "Our Vision",
-  "about_our_vision_text": "We envision a future where everyone, regardless of their background or language, can find meaningful work and feel respected and supported in their journey.",
-
-  "about_what_sets_us_apart_title": "What Makes Us Different?",
-  "about_differentiators": [
-    "Multilingual support in Dutch, English, Polish, Romanian, and Bulgarian",
-    "Dedicated housing and payroll assistance for international workers",
-    "Fast response time and clear communication",
-    "Extensive network of employers in multiple sectors",
-    "Commitment to fairness, compliance, and worker wellbeing"
-  ],
-
-  "about_cta_heading": "Want to Work With Us?",
-  "about_cta_subheading": "Whether you're a company in need of flexible staffing or a motivated individual ready to work — we're here to help."
+  "site_title": "Glodinas Flex Work",
+  "site_description": "Connecting businesses with flexible workforce solutions",
+  "hero_title": "Empowering Businesses & Talent Through Flexible Work Solutions",
+  "hero_subtitle": "We bridge the gap between businesses seeking flexible staffing solutions and professionals looking for opportunities that match their skills and lifestyle.",
+  "find_job": "Find a Job",
+  "hire_talent": "Hire Talent",
+  "active_jobs": "{{count}} Active Jobs",
+  "our_services": "What We Offer",
+  "services_subtitle": "Comprehensive solutions for businesses and professionals",
+  "service_temp_title": "Temporary Staffing",
+  "service_temp_desc": "Flexible workforce solutions to meet your temporary staffing needs across various industries.",
+  "service_perm_title": "Permanent Recruitment",
+  "service_perm_desc": "Find the perfect candidates for your permanent positions with our expert recruitment services.",
+  "service_payroll_title": "Payroll Services",
+  "service_payroll_desc": "Streamline your HR operations with our comprehensive payroll and administrative services.",
+  "learn_more": "Learn More",
+  "how_it_works": "How It Works",
+  "how_it_works_subtitle": "A simple process to connect businesses with the right talent",
+  "step_1_title": "Tell Us Your Needs",
+  "step_1_desc": "Share your staffing requirements or career goals with our team.",
+  "step_2_title": "We Find the Perfect Match",
+  "step_2_desc": "Our experts identify the best candidates or opportunities based on your criteria.",
+  "step_3_title": "Start Working Together",
+  "step_3_desc": "Begin a successful partnership with ongoing support from our team.",
+  "get_started": "Get Started"
 }
-
-
