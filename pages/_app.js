@@ -3,7 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import '../styles/globals.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Notification from '../components/Notification';
+import { NotificationProvider } from '../components/Notification';
 import { useRouter } from 'next/router';
 import { i18n } from '../lib/i18n';
 
@@ -22,10 +22,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
   return (
     <SessionProvider session={session}>
-      {!isAdminPage && <Navbar />}
-      <Notification />
-      <Component {...pageProps} />
-      {!isAdminPage && <Footer />}
+      <NotificationProvider>
+        {!isAdminPage && <Navbar />}
+        <Component {...pageProps} />
+        {!isAdminPage && <Footer />}
+      </NotificationProvider>
     </SessionProvider>
   );
 }
