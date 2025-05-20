@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { NotificationProvider } from '../components/Notification';
 import { useRouter } from 'next/router';
-import { i18n } from '../lib/i18n';
+import i18n from '../lib/i18n';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
