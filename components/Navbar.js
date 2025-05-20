@@ -138,7 +138,7 @@ const Navbar = () => {
             
             {/* Login/Register Buttons */}
             <div className="flex items-center ml-4 space-x-2">
-              <Link href="/auth/login">
+              <Link href="/admin/login">
                 <a className="btn btn-secondary btn-sm">
                   {t('login')}
                 </a>
@@ -289,7 +289,7 @@ const Navbar = () => {
             
             <div className="mt-6 pt-6 border-t border-gray-200">
               <div className="flex flex-col space-y-3">
-                <Link href="/auth/login">
+                <Link href="/admin/login">
                   <a 
                     className="btn btn-secondary w-full justify-center"
                     onClick={() => setIsOpen(false)}
