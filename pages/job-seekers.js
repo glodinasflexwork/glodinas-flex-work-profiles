@@ -165,31 +165,28 @@ export default function JobSeekers() {
       setIsSubmitting(true);
       
       try {
-        // Create FormData object for multipart/form-data submission (required for file uploads)
-        const formDataToSubmit = new FormData();
+        // Create JSON data object instead of FormData
+        const jsonData = {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          experience: formData.experience,
+          skills: formData.skills,
+          availability: formData.availability,
+          preferredLocation: formData.location
+        };
         
-        // Add all form fields to FormData
-        formDataToSubmit.append('firstName', formData.firstName);
-        formDataToSubmit.append('lastName', formData.lastName);
-        formDataToSubmit.append('email', formData.email);
-        formDataToSubmit.append('phone', formData.phone);
-        formDataToSubmit.append('experience', formData.experience);
-        formDataToSubmit.append('skills', formData.skills);
-        formDataToSubmit.append('availability', formData.availability);
-        formDataToSubmit.append('preferredLocation', formData.location);
+        // Note: File uploads are temporarily disabled
+        console.log('Submitting job seeker form to API as JSON...');
         
-        // Add CV file if selected
-        if (cvInputRef.current && cvInputRef.current.files[0]) {
-          formDataToSubmit.append('cv', cvInputRef.current.files[0]);
-        }
-        
-        console.log('Submitting job seeker form to API...');
-        
-        // Send POST request to the API endpoint
+        // Send POST request to the API endpoint with JSON data
         const response = await fetch('/api/job-seekers/submit', {
           method: 'POST',
-          body: formDataToSubmit,
-          // No Content-Type header needed as it's automatically set with the correct boundary for FormData
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(jsonData),
         });
         
         const result = await response.json();
