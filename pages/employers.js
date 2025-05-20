@@ -321,22 +321,66 @@ export default function Employers() {
     window.scrollTo(0, 0);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateStep(activeStep)) {
       setIsSubmitting(true);
       
-      // Simulate API call
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setFormSubmitted(true);
+      try {
+        // Create JSON data object
+        const jsonData = {
+          companyName: formData.companyName,
+          contactPerson: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          phone: formData.phone,
+          industry: formData.industry,
+          jobRequirements: formData.requiredSkills || 'Not specified',
+          workersNeeded: formData.workersNeeded || '1',
+          location: formData.workLocation || formData.city
+        };
+        
+        console.log('Submitting employer form to API as JSON...');
+        
+        // Send POST request to the API endpoint with JSON data
+        const response = await fetch('/api/employers/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(jsonData),
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          console.log('Employer submission successful:', result);
+          setFormSubmitted(true);
+          addNotification(
+            'Your company profile has been submitted successfully! We will review it within 24 hours.',
+            'success',
+            true,
+            10000
+          );
+        } else {
+          console.error('Employer submission failed:', result);
+          addNotification(
+            `Error: ${result.message || 'Failed to submit your application. Please try again.'}`,
+            'error',
+            true,
+            10000
+          );
+        }
+      } catch (error) {
+        console.error('Error submitting employer form:', error);
         addNotification(
-          'Your company profile has been submitted successfully! We will review it within 24 hours.',
-          'success',
+          'An error occurred while submitting your application. Please try again.',
+          'error',
           true,
           10000
         );
-      }, 2000);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
