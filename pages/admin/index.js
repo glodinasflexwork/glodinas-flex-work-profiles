@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { getSession } from '@auth/stack';
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function AdminDashboard() {
-  const [session, setSession] = useState(null);
+  const { data: session, status } = useSession();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     totalEmployers: 0,
@@ -17,19 +17,15 @@ export default function AdminDashboard() {
   const router = useRouter();
   
   useEffect(() => {
-    async function checkSession() {
-      const userSession = await getSession();
-      if (!userSession) {
-        router.push('/admin/login');
-        return;
-      }
-      
-      setSession(userSession);
-      fetchDashboardStats();
+    if (status === "unauthenticated") {
+      router.push('/admin/login');
+      return;
     }
     
-    checkSession();
-  }, [router]);
+    if (status === "authenticated") {
+      fetchDashboardStats();
+    }
+  }, [status, router]);
   
   async function fetchDashboardStats() {
     try {
@@ -64,7 +60,7 @@ export default function AdminDashboard() {
     }
   }
   
-  if (loading) {
+  if (status === "loading" || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -90,10 +86,7 @@ export default function AdminDashboard() {
             <div className="flex items-center space-x-4">
               <span className="text-gray-600">Welcome, {session?.user?.name || 'Admin'}</span>
               <button 
-                onClick={() => {
-                  // Sign out logic
-                  router.push('/admin/login');
-                }}
+                onClick={() => signOut()}
                 className="text-sm text-orange-600 hover:text-orange-800"
               >
                 Sign Out

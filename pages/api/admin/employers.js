@@ -1,5 +1,5 @@
+import { getSession } from "next-auth/react";
 import prisma from '../../../lib/prisma';
-import { getSession } from '@auth/stack';
 
 export default async function handler(req, res) {
   // Check authentication
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
   // Verify admin role
   const admin = await prisma.admin.findUnique({
-    where: { stackAuthId: session.user.id }
+    where: { email: session.user.email }
   });
 
   if (!admin) {
