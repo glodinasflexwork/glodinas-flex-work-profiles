@@ -52,6 +52,9 @@ async function getJobSeekers(req, res) {
       ];
     }
     
+    // Log the query parameters for debugging
+    console.log('Job seekers query:', { where, skip, take: parseInt(limit) });
+    
     // Get job seekers with pagination
     const jobSeekers = await prisma.jobSeeker.findMany({
       where,
@@ -62,6 +65,8 @@ async function getJobSeekers(req, res) {
     
     // Get total count for pagination
     const total = await prisma.jobSeeker.count({ where });
+    
+    console.log(`Found ${total} job seekers matching criteria`);
     
     return res.status(200).json({
       data: jobSeekers,
@@ -74,7 +79,7 @@ async function getJobSeekers(req, res) {
     });
   } catch (error) {
     console.error('Error fetching job seekers:', error);
-    return res.status(500).json({ message: 'Error fetching job seekers' });
+    return res.status(500).json({ message: 'Error fetching job seekers', error: error.message });
   }
 }
 
@@ -104,7 +109,7 @@ async function updateJobSeeker(req, res) {
     });
   } catch (error) {
     console.error('Error updating job seeker:', error);
-    return res.status(500).json({ message: 'Error updating job seeker' });
+    return res.status(500).json({ message: 'Error updating job seeker', error: error.message });
   }
 }
 
@@ -127,6 +132,6 @@ async function deleteJobSeeker(req, res) {
     });
   } catch (error) {
     console.error('Error deleting job seeker:', error);
-    return res.status(500).json({ message: 'Error deleting job seeker' });
+    return res.status(500).json({ message: 'Error deleting job seeker', error: error.message });
   }
 }

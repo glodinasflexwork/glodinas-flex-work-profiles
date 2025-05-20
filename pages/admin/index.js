@@ -27,6 +27,13 @@ export default function AdminDashboard() {
     
     if (status === "authenticated") {
       fetchDashboardStats();
+      
+      // Set up auto-refresh interval for dashboard stats
+      const refreshInterval = setInterval(() => {
+        fetchDashboardStats();
+      }, 30000); // Refresh every 30 seconds
+      
+      return () => clearInterval(refreshInterval);
     }
   }, [status, router]);
   
@@ -34,21 +41,31 @@ export default function AdminDashboard() {
     try {
       setLoading(true);
       
+      // Add cache-busting parameter to prevent caching
+      const timestamp = new Date().getTime();
+      
       // Fetch employer stats
-      const employersRes = await fetch('/api/admin/employers?limit=1');
+      const employersRes = await fetch(`/api/admin/employers?limit=1&t=${timestamp}`);
       const employersData = await employersRes.json();
       
       // Fetch pending employer stats
-      const pendingEmployersRes = await fetch('/api/admin/employers?status=pending&limit=1');
+      const pendingEmployersRes = await fetch(`/api/admin/employers?status=pending&limit=1&t=${timestamp}`);
       const pendingEmployersData = await pendingEmployersRes.json();
       
       // Fetch job seeker stats
-      const jobSeekersRes = await fetch('/api/admin/job-seekers?limit=1');
+      const jobSeekersRes = await fetch(`/api/admin/job-seekers?limit=1&t=${timestamp}`);
       const jobSeekersData = await jobSeekersRes.json();
       
       // Fetch pending job seeker stats
-      const pendingJobSeekersRes = await fetch('/api/admin/job-seekers?status=pending&limit=1');
+      const pendingJobSeekersRes = await fetch(`/api/admin/job-seekers?status=pending&limit=1&t=${timestamp}`);
       const pendingJobSeekersData = await pendingJobSeekersRes.json();
+      
+      console.log('Dashboard stats fetched:', {
+        totalEmployers: employersData.pagination.total,
+        pendingEmployers: pendingEmployersData.pagination.total,
+        totalJobSeekers: jobSeekersData.pagination.total,
+        pendingJobSeekers: pendingJobSeekersData.pagination.total
+      });
       
       setStats({
         totalEmployers: employersData.pagination.total,
@@ -62,6 +79,11 @@ export default function AdminDashboard() {
       setLoading(false);
     }
   }
+  
+  // Function to manually refresh stats
+  const refreshStats = () => {
+    fetchDashboardStats();
+  };
   
   if (status === "loading" || loading) {
     return (
@@ -87,7 +109,13 @@ export default function AdminDashboard() {
           <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
             <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-600">Welcome, {session?.user?.name || 'Admin'}</span>
+              <button 
+                onClick={refreshStats}
+                className="text-sm bg-orange-100 text-orange-600 px-3 py-1 rounded hover:bg-orange-200"
+              >
+                Refresh Data
+              </button>
+              <span className="text-gray-600">Welcome, {session?.user?.name || 'Admin User'}</span>
               <button 
                 onClick={() => signOut()}
                 className="text-sm text-orange-600 hover:text-orange-800"
@@ -178,18 +206,16 @@ export default function AdminDashboard() {
                 <div className="ml-4">
                   <p className="text-base font-medium text-gray-900">Export Data</p>
                   <div className="mt-2 space-y-2">
-                    <a 
-                      href="/api/admin/export?type=employers" 
-                      className="block text-sm text-orange-600 hover:text-orange-500"
-                    >
-                      Export Employers CSV
-                    </a>
-                    <a 
-                      href="/api/admin/export?type=job-seekers" 
-                      className="block text-sm text-orange-600 hover:text-orange-500"
-                    >
-                      Export Job Seekers CSV
-                    </a>
+                    <Link href="/admin/export">
+                      <a className="block text-sm text-orange-600 hover:text-orange-500">
+                        Export Employers CSV
+                      </a>
+                    </Link>
+                    <Link href="/admin/export">
+                      <a className="block text-sm text-orange-600 hover:text-orange-500">
+                        Export Job Seekers CSV
+                      </a>
+                    </Link>
                   </div>
                 </div>
               </div>

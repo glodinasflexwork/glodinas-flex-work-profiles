@@ -74,33 +74,45 @@ export default async function handler(req, res) {
         cvUrl = `/uploads/${fileName}`;
       }
 
-      // Create job seeker record in database
-      const jobSeeker = await prisma.jobSeeker.create({
-        data: {
-          firstName: firstName.toString(),
-          lastName: lastName.toString(),
-          email: email.toString(),
-          phone: phone.toString(),
-          experience: experience.toString(),
-          skills: skills.toString(),
-          availability: availability.toString(),
-          preferredLocation: preferredLocation.toString(),
-          cvUrl,
-          status: 'pending'
-        }
-      });
+      try {
+        // Create job seeker record in database
+        const jobSeeker = await prisma.jobSeeker.create({
+          data: {
+            firstName: firstName.toString(),
+            lastName: lastName.toString(),
+            email: email.toString(),
+            phone: phone.toString(),
+            experience: experience.toString(),
+            skills: skills.toString(),
+            availability: availability.toString(),
+            preferredLocation: preferredLocation.toString(),
+            cvUrl,
+            status: 'pending'
+          }
+        });
 
-      return res.status(201).json({ 
-        success: true, 
-        message: 'Job seeker application received successfully',
-        data: jobSeeker 
-      });
+        console.log('Job seeker created successfully:', jobSeeker.id);
+
+        return res.status(201).json({ 
+          success: true, 
+          message: 'Job seeker application received successfully',
+          data: jobSeeker 
+        });
+      } catch (dbError) {
+        console.error('Database error creating job seeker:', dbError);
+        return res.status(500).json({ 
+          success: false,
+          message: 'Database error while processing your application',
+          error: dbError.message
+        });
+      }
     });
   } catch (error) {
     console.error('Error submitting job seeker form:', error);
     return res.status(500).json({ 
       success: false,
-      message: 'An error occurred while processing your application' 
+      message: 'An error occurred while processing your application',
+      error: error.message
     });
   }
 }
