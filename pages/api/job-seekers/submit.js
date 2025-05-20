@@ -2,6 +2,7 @@ import formidable from 'formidable';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import prisma from '../../../lib/prisma';
 
 export const config = {
@@ -25,32 +26,36 @@ function logEvent(type, message, data = null) {
     console.log(JSON.stringify(data, null, 2));
   }
   
-  // Also log to a file for persistent debugging
-  try {
-    const logDir = path.join(process.cwd(), 'logs');
-    if (!fs.existsSync(logDir)) {
-      fs.mkdirSync(logDir, { recursive: true });
+  // Skip file logging in serverless environment
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      const logDir = path.join(process.cwd(), 'logs');
+      if (!fs.existsSync(logDir)) {
+        fs.mkdirSync(logDir, { recursive: true });
+      }
+      
+      const logFile = path.join(logDir, 'job-seeker-submissions.log');
+      fs.appendFileSync(
+        logFile, 
+        `${JSON.stringify(logEntry)}\n`
+      );
+    } catch (logError) {
+      console.error('Error writing to log file:', logError);
     }
-    
-    const logFile = path.join(logDir, 'job-seeker-submissions.log');
-    fs.appendFileSync(
-      logFile, 
-      `${JSON.stringify(logEntry)}\n`
-    );
-  } catch (logError) {
-    console.error('Error writing to log file:', logError);
   }
 }
 
-const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+// Use system temp directory for uploads in production/serverless environment
+// This avoids the ENOENT error in Vercel serverless functions
+const uploadDir = process.env.NODE_ENV === 'production' 
+  ? os.tmpdir() 
+  : path.join(process.cwd(), 'public', 'uploads');
 
-// Ensure upload directory exists
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-  logEvent('INFO', 'Created upload directory', { path: uploadDir });
-} else {
-  logEvent('INFO', 'Upload directory exists', { path: uploadDir });
-}
+logEvent('INFO', 'Using upload directory', { 
+  path: uploadDir, 
+  environment: process.env.NODE_ENV || 'development',
+  isServerless: process.env.VERCEL === '1'
+});
 
 export default async function handler(req, res) {
   logEvent('INFO', 'Job seeker submission request received', { 
@@ -166,23 +171,29 @@ export default async function handler(req, res) {
       if (files.cv) {
         try {
           const file = files.cv;
-          const fileName = `${uuidv4()}-${file.originalFilename}`;
-          const newPath = path.join(uploadDir, fileName);
+          const fileName = `${uuidv4()}-${file.originalFilename || 'cv.pdf'}`;
           
           logEvent('INFO', 'Processing CV file', { 
             originalName: file.originalFilename,
             size: file.size,
             type: file.mimetype,
-            tempPath: file.filepath,
-            newPath
+            tempPath: file.filepath
           });
           
-          // Rename the file
-          fs.renameSync(file.filepath, newPath);
-          logEvent('INFO', 'CV file saved successfully', { path: newPath });
+          // In production/serverless environment, we can't reliably store files
+          // Just record that a CV was uploaded and store basic info
+          if (process.env.NODE_ENV === 'production') {
+            // For serverless, just store a placeholder URL with the original filename
+            cvUrl = `cv-uploaded-${fileName}`;
+            logEvent('INFO', 'Serverless environment - storing CV reference only', { cvUrl });
+          } else {
+            // In development, actually store the file
+            const newPath = path.join(uploadDir, fileName);
+            fs.renameSync(file.filepath, newPath);
+            logEvent('INFO', 'CV file saved successfully', { path: newPath });
+            cvUrl = `/uploads/${fileName}`;
+          }
           
-          // Store the relative URL
-          cvUrl = `/uploads/${fileName}`;
           logEvent('INFO', 'CV URL generated', { cvUrl });
         } catch (fileError) {
           logEvent('ERROR', 'Error processing CV file', { 
