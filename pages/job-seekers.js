@@ -1,548 +1,680 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useNotification } from '../components/NotificationContext';
 
 export default function JobSeekers() {
-  const router = useRouter();
   const { addNotification } = useNotification();
-  const [showJobAlert, setShowJobAlert] = useState(false);
-  const [activeStep, setActiveStep] = useState(1);
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
     location: '',
-    language: 'English',
+    preferredLanguage: 'English',
+    jobTitle: '',
     experience: '',
-    industry: '',
-    jobType: '',
-    availability: '',
-    relocate: '',
-    workPermit: '',
-    skills: '',
-    languages: '',
     education: '',
-    password: '',
-    confirmPassword: '',
-    termsAccepted: false,
-    privacyAccepted: false,
-    marketingOptIn: false
+    skills: [],
+    availability: '',
+    workPermit: false,
+    relocate: false,
+    salaryExpectation: '',
+    resumeUrl: '',
+    coverLetter: '',
+    referralSource: '',
+    termsAccepted: false
   });
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-
-  // Simulate job alert notification
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      addNotification('New job matches found in your area!', 'info');
-      setShowJobAlert(true);
-    }, 5000);
-    
-    return () => clearTimeout(timer);
-  }, [addNotification]);
-  
-  const nextStep = () => {
-    setActiveStep(prev => Math.min(prev + 1, 4));
-  };
-  
-  const prevStep = () => {
-    setActiveStep(prev => Math.max(prev - 1, 1));
-  };
   
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
+    setFormData({
+      ...formData,
       [name]: type === 'checkbox' ? checked : value
-    }));
-    
-    // Clear error when field is edited
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
+    });
   };
   
-  const validateStep = () => {
-    const newErrors = {};
+  const handleSkillChange = (skill) => {
+    const updatedSkills = formData.skills.includes(skill)
+      ? formData.skills.filter(s => s !== skill)
+      : [...formData.skills, skill];
     
-    switch (activeStep) {
-      case 1:
-        if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
-        if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
-        if (!formData.email.trim()) newErrors.email = 'Email is required';
-        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
-        if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
-        break;
-      case 2:
-        if (!formData.experience) newErrors.experience = 'Experience level is required';
-        if (!formData.industry) newErrors.industry = 'Industry preference is required';
-        if (!formData.jobType) newErrors.jobType = 'Job type is required';
-        break;
-      case 3:
-        if (!formData.skills.trim()) newErrors.skills = 'Skills are required';
-        break;
-      case 4:
-        if (!formData.password) newErrors.password = 'Password is required';
-        else if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters';
-        if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-        if (!formData.termsAccepted) newErrors.termsAccepted = 'You must accept the terms and conditions';
-        if (!formData.privacyAccepted) newErrors.privacyAccepted = 'You must accept the privacy policy';
-        break;
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setFormData({
+      ...formData,
+      skills: updatedSkills
+    });
   };
   
-  const handleStepChange = (direction) => {
-    if (direction === 'next') {
-      if (validateStep()) {
-        nextStep();
+  const handleNext = () => {
+    // Validate current step
+    if (step === 1) {
+      if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+        addNotification('Please fill in all required fields.', 'error');
+        return;
       }
-    } else {
-      prevStep();
+    } else if (step === 2) {
+      if (!formData.jobTitle || !formData.experience) {
+        addNotification('Please fill in all required fields.', 'error');
+        return;
+      }
+    } else if (step === 3) {
+      if (formData.skills.length === 0) {
+        addNotification('Please select at least one skill.', 'error');
+        return;
+      }
     }
+    
+    setStep(step + 1);
+    window.scrollTo(0, 0);
+  };
+  
+  const handleBack = () => {
+    setStep(step - 1);
+    window.scrollTo(0, 0);
   };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!validateStep()) return;
+    if (!formData.termsAccepted) {
+      addNotification('Please accept the terms and conditions.', 'error');
+      return;
+    }
     
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setFormSubmitted(true);
+    try {
+      // Demo submission - would be replaced with actual API call
       addNotification('Your application has been submitted successfully!', 'success');
-    }, 1500);
+      
+      // Reset form after successful submission
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        location: '',
+        preferredLanguage: 'English',
+        jobTitle: '',
+        experience: '',
+        education: '',
+        skills: [],
+        availability: '',
+        workPermit: false,
+        relocate: false,
+        salaryExpectation: '',
+        resumeUrl: '',
+        coverLetter: '',
+        referralSource: '',
+        termsAccepted: false
+      });
+      setStep(1);
+    } catch (error) {
+      addNotification('There was an error submitting your application. Please try again.', 'error');
+    }
   };
   
-  const renderForm = () => {
-    if (formSubmitted) {
-      return (
-        <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-          <div className="text-5xl text-green-500 mb-4">✓</div>
-          <h3 className="text-2xl font-bold mb-4">Application Submitted Successfully!</h3>
-          <p className="text-gray-600 mb-6">
-            Thank you for registering with Glodinas Flex Work. Our team will review your application within 24 hours.
-            You will receive an email confirmation once your profile is approved.
-          </p>
-          <p className="text-gray-600 mb-6">
-            Next steps:
-          </p>
-          <ol className="text-left max-w-md mx-auto mb-8 space-y-2">
-            <li className="flex items-start">
-              <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-orange-100 text-orange-500 mr-2">1</span>
-              <span>Our team reviews your application (within 24 hours)</span>
-            </li>
-            <li className="flex items-start">
-              <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-orange-100 text-orange-500 mr-2">2</span>
-              <span>Your profile is matched with suitable job opportunities</span>
-            </li>
-            <li className="flex items-start">
-              <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-orange-100 text-orange-500 mr-2">3</span>
-              <span>You receive job offers and notifications</span>
-            </li>
-            <li className="flex items-start">
-              <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-orange-100 text-orange-500 mr-2">4</span>
-              <span>Accept an offer and receive your "Ready to Work" confirmation</span>
-            </li>
-          </ol>
-          <Link href="/">
-            <a className="btn btn-primary">Return to Homepage</a>
-          </Link>
-        </div>
-      );
-    }
-    return (
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <div className="mb-8">
-          <div className="flex justify-between items-center mb-4">
-            {[1, 2, 3, 4].map((step) => (
-              <div 
-                key={step} 
-                className={`flex-1 relative ${step < 4 ? 'after:content-[""] after:h-1 after:w-full after:absolute after:top-1/2 after:-translate-y-1/2 after:left-1/2 after:bg-gray-200 after:z-0' : ''}`}
-              >
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center z-10 relative mx-auto ${activeStep >= step ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-500'}`}>
-                  {step}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-between text-sm text-center text-gray-600">
-            <div className="flex-1">Personal Info</div>
-            <div className="flex-1">Professional Details</div>
-            <div className="flex-1">Skills & Qualifications</div>
-            <div className="flex-1">Account Setup</div>
-          </div>
-        </div>
-        <form onSubmit={handleSubmit}>
-          {/* Step 1: Personal Information */}
-          {activeStep === 1 && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold mb-4">Personal Information</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    className={`form-input ${errors.firstName ? 'border-red-500' : ''}`}
-                  />
-                  {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    className={`form-input ${errors.lastName ? 'border-red-500' : ''}`}
-                  />
-                  {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className={`form-input ${errors.email ? 'border-red-500' : ''}`}
-                  />
-                  {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className={`form-input ${errors.phone ? 'border-red-500' : ''}`}
-                  />
-                  {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-                  <input
-                    type="text"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    className="form-input"
-                    placeholder="City, Country"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Language</label>
-                  <select
-                    name="language"
-                    value={formData.language}
-                    onChange={handleChange}
-                    className="form-select"
-                  >
-                    <option value="English">English</option>
-                    <option value="Dutch">Dutch</option>
-                    <option value="Polish">Polish</option>
-                    <option value="Romanian">Romanian</option>
-                    <option value="Bulgarian">Bulgarian</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          )}
-          {/* Step 2: Professional Details */}
-          {activeStep === 2 && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold mb-4">Professional Details</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Experience Level *</label>
-                  <select
-                    name="experience"
-                    value={formData.experience}
-                    onChange={handleChange}
-                    className={`form-select ${errors.experience ? 'border-red-500' : ''}`}
-                  >
-                    <option value="">Select Experience</option>
-                    <option value="entry">Entry Level (0-1 years)</option>
-                    <option value="junior">Junior (1-3 years)</option>
-                    <option value="mid">Mid-Level (3-5 years)</option>
-                    <option value="senior">Senior (5+ years)</option>
-                  </select>
-                  {errors.experience && <p className="text-red-500 text-xs mt-1">{errors.experience}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Industry *</label>
-                  <select
-                    name="industry"
-                    value={formData.industry}
-                    onChange={handleChange}
-                    className={`form-select ${errors.industry ? 'border-red-500' : ''}`}
-                  >
-                    <option value="">Select Industry</option>
-                    <option value="logistics">Logistics & Transportation</option>
-                    <option value="manufacturing">Manufacturing</option>
-                    <option value="healthcare">Healthcare</option>
-                    <option value="hospitality">Hospitality & Tourism</option>
-                    <option value="retail">Retail & Customer Service</option>
-                    <option value="construction">Construction & Skilled Trades</option>
-                    <option value="it">Information Technology</option>
-                    <option value="other">Other</option>
-                  </select>
-                  {errors.industry && <p className="text-red-500 text-xs mt-1">{errors.industry}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Job Type *</label>
-                  <select
-                    name="jobType"
-                    value={formData.jobType}
-                    onChange={handleChange}
-                    className={`form-select ${errors.jobType ? 'border-red-500' : ''}`}
-                  >
-                    <option value="">Select Job Type</option>
-                    <option value="fulltime">Full-time</option>
-                    <option value="parttime">Part-time</option>
-                    <option value="temporary">Temporary</option>
-                    <option value="contract">Contract</option>
-                    <option value="seasonal">Seasonal</option>
-                  </select>
-                  {errors.jobType && <p className="text-red-500 text-xs mt-1">{errors.jobType}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Availability</label>
-                  <select
-                    name="availability"
-                    value={formData.availability}
-                    onChange={handleChange}
-                    className="form-select"
-                  >
-                    <option value="">Select Availability</option>
-                    <option value="immediate">Immediate</option>
-                    <option value="1week">Within 1 week</option>
-                    <option value="2weeks">Within 2 weeks</option>
-                    <option value="1month">Within 1 month</option>
-                    <option value="3months">Within 3 months</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Willing to Relocate?</label>
-                  <select
-                    name="relocate"
-                    value={formData.relocate}
-                    onChange={handleChange}
-                    className="form-select"
-                  >
-                    <option value="">Select Option</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                    <option value="maybe">Maybe, depending on location</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">EU Work Permit</label>
-                  <select
-                    name="workPermit"
-                    value={formData.workPermit}
-                    onChange={handleChange}
-                    className="form-select"
-                  >
-                    <option value="">Select Option</option>
-                    <option value="eu">EU Citizen</option>
-                    <option value="permit">Have Work Permit</option>
-                    <option value="none">Need Sponsorship</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          )}
-          {/* Step 3: Skills & Qualifications */}
-          {activeStep === 3 && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold mb-4">Skills & Qualifications</h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Skills *</label>
-                  <textarea
-                    name="skills"
-                    value={formData.skills}
-                    onChange={handleChange}
-                    className={`form-textarea h-24 ${errors.skills ? 'border-red-500' : ''}`}
-                    placeholder="List your key skills, separated by commas"
-                  ></textarea>
-                  {errors.skills && <p className="text-red-500 text-xs mt-1">{errors.skills}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Languages</label>
-                  <textarea
-                    name="languages"
-                    value={formData.languages}
-                    onChange={handleChange}
-                    className="form-textarea"
-                    placeholder="Languages you speak and proficiency level (e.g., English - Fluent, Dutch - Basic)"
-                  ></textarea>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Education</label>
-                  <textarea
-                    name="education"
-                    value={formData.education}
-                    onChange={handleChange}
-                    className="form-textarea"
-                    placeholder="Your educational background"
-                  ></textarea>
-                </div>
-              </div>
-            </div>
-          )}
-          {/* Step 4: Account Setup */}
-          {activeStep === 4 && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold mb-4">Account Setup</h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Password *</label>
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className={`form-input ${errors.password ? 'border-red-500' : ''}`}
-                  />
-                  {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password *</label>
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    className={`form-input ${errors.confirmPassword ? 'border-red-500' : ''}`}
-                  />
-                  {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-start">
-                    <input
-                      type="checkbox"
-                      id="termsAccepted"
-                      name="termsAccepted"
-                      checked={formData.termsAccepted}
-                      onChange={handleChange}
-                      className={`form-checkbox mt-1 ${errors.termsAccepted ? 'border-red-500' : ''}`}
-                    />
-                    <label htmlFor="termsAccepted" className="ml-2 block text-sm text-gray-700">
-                      I accept the <Link href="/terms"><a className="text-blue-600 hover:underline">Terms and Conditions</a></Link> *
-                    </label>
-                  </div>
-                  {errors.termsAccepted && <p className="text-red-500 text-xs">{errors.termsAccepted}</p>}
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-start">
-                    <input
-                      type="checkbox"
-                      id="privacyAccepted"
-                      name="privacyAccepted"
-                      checked={formData.privacyAccepted}
-                      onChange={handleChange}
-                      className={`form-checkbox mt-1 ${errors.privacyAccepted ? 'border-red-500' : ''}`}
-                    />
-                    <label htmlFor="privacyAccepted" className="ml-2 block text-sm text-gray-700">
-                      I accept the <Link href="/privacy-policy"><a className="text-blue-600 hover:underline">Privacy Policy</a></Link> *
-                    </label>
-                  </div>
-                  {errors.privacyAccepted && <p className="text-red-500 text-xs">{errors.privacyAccepted}</p>}
-                </div>
-                <div className="flex items-start">
-                  <input
-                    type="checkbox"
-                    id="marketingOptIn"
-                    name="marketingOptIn"
-                    checked={formData.marketingOptIn}
-                    onChange={handleChange}
-                    className="form-checkbox mt-1"
-                  />
-                  <label htmlFor="marketingOptIn" className="ml-2 block text-sm text-gray-700">
-                    I would like to receive job alerts and other marketing communications
-                  </label>
-                </div>
-              </div>
-            </div>
-          )}
-          {/* Navigation buttons */}
-          <div className="flex justify-between mt-8">
-            {activeStep > 1 && (
-              <button
-                type="button"
-                onClick={() => handleStepChange('prev')}
-                className="btn btn-secondary"
-              >
-                Previous
-              </button>
-            )}
-            
-            {activeStep < 4 ? (
-              <button
-                type="button"
-                onClick={() => handleStepChange('next')}
-                className="btn btn-primary ml-auto"
-              >
-                Next
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="btn btn-primary ml-auto"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit Application'}
-              </button>
-            )}
-          </div>
-        </form>
-      </div>
-    );
-  };
+  const skills = [
+    'Customer Service',
+    'Warehouse Operations',
+    'Forklift Operation',
+    'Inventory Management',
+    'Quality Control',
+    'Assembly Line',
+    'CNC Operation',
+    'Healthcare Support',
+    'Food Preparation',
+    'Cleaning Services',
+    'Retail Sales',
+    'Administrative Support',
+    'Driving/Delivery',
+    'Construction',
+    'Multilingual'
+  ];
   
   return (
-    <>
+    <div>
       <Head>
         <title>Job Seekers | Glodinas Flex Work</title>
         <meta name="description" content="Find your next career opportunity with Glodinas Flex Work. Register as a job seeker to access hundreds of job openings across Europe." />
       </Head>
-      <div className="bg-gray-50 py-12">
+      
+      {/* Hero Section */}
+      <section className="bg-orange-600 text-white py-12">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold mb-4">Find Your Next Career Opportunity</h1>
-              <p className="text-lg text-gray-600">
-                Register as a job seeker to access hundreds of job openings across Europe
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Find Your Next Career Opportunity</h1>
+            <p className="text-xl mb-8">Register as a job seeker to access hundreds of job openings across Europe</p>
+            
+            <div className="bg-white rounded-lg p-6 shadow-lg">
+              <div className="flex justify-between items-center mb-8">
+                <div className="flex items-center">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step === 1 ? 'bg-orange-500' : 'bg-gray-300'} text-white font-bold`}>1</div>
+                  <div className="ml-2">Personal Info</div>
+                </div>
+                <div className="flex-grow mx-4 h-1 bg-gray-200">
+                  <div className={`h-full ${step >= 2 ? 'bg-orange-500' : 'bg-gray-200'}`} style={{ width: '100%' }}></div>
+                </div>
+                <div className="flex items-center">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step === 2 ? 'bg-orange-500' : 'bg-gray-300'} text-white font-bold`}>2</div>
+                  <div className="ml-2">Professional Details</div>
+                </div>
+                <div className="flex-grow mx-4 h-1 bg-gray-200">
+                  <div className={`h-full ${step >= 3 ? 'bg-orange-500' : 'bg-gray-200'}`} style={{ width: '100%' }}></div>
+                </div>
+                <div className="flex items-center">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step === 3 ? 'bg-orange-500' : 'bg-gray-300'} text-white font-bold`}>3</div>
+                  <div className="ml-2">Skills & Qualifications</div>
+                </div>
+                <div className="flex-grow mx-4 h-1 bg-gray-200">
+                  <div className={`h-full ${step >= 4 ? 'bg-orange-500' : 'bg-gray-200'}`} style={{ width: '100%' }}></div>
+                </div>
+                <div className="flex items-center">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step === 4 ? 'bg-orange-500' : 'bg-gray-300'} text-white font-bold`}>4</div>
+                  <div className="ml-2">Account Setup</div>
+                </div>
+              </div>
+              
+              {step === 1 && (
+                <div>
+                  <h2 className="text-2xl font-bold mb-6 text-gray-800">Personal Information</h2>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-gray-700 mb-2">First Name *</label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 mb-2">Last Name *</label>
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 mb-2">Email *</label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 mb-2">Phone Number *</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 mb-2">Location</label>
+                      <input
+                        type="text"
+                        name="location"
+                        placeholder="City, Country"
+                        value={formData.location}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 mb-2">Preferred Language</label>
+                      <select
+                        name="preferredLanguage"
+                        value={formData.preferredLanguage}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      >
+                        <option>English</option>
+                        <option>Dutch</option>
+                        <option>Polish</option>
+                        <option>Romanian</option>
+                        <option>Bulgarian</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="mt-8 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={handleNext}
+                      className="bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition duration-300"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              )}
+              
+              {step === 2 && (
+                <div>
+                  <h2 className="text-2xl font-bold mb-6 text-gray-800">Professional Details</h2>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-gray-700 mb-2">Desired Job Title *</label>
+                      <input
+                        type="text"
+                        name="jobTitle"
+                        value={formData.jobTitle}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 mb-2">Years of Experience *</label>
+                      <select
+                        name="experience"
+                        value={formData.experience}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        required
+                      >
+                        <option value="">Select Experience</option>
+                        <option value="0-1">0-1 years</option>
+                        <option value="1-3">1-3 years</option>
+                        <option value="3-5">3-5 years</option>
+                        <option value="5-10">5-10 years</option>
+                        <option value="10+">10+ years</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 mb-2">Highest Education Level</label>
+                      <select
+                        name="education"
+                        value={formData.education}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      >
+                        <option value="">Select Education</option>
+                        <option value="High School">High School</option>
+                        <option value="Vocational Training">Vocational Training</option>
+                        <option value="Bachelor's Degree">Bachelor's Degree</option>
+                        <option value="Master's Degree">Master's Degree</option>
+                        <option value="PhD">PhD</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 mb-2">Availability</label>
+                      <select
+                        name="availability"
+                        value={formData.availability}
+                        onChange={handleChange}
+                        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      >
+                        <option value="">Select Availability</option>
+                        <option value="Immediate">Immediate</option>
+                        <option value="2 weeks">2 weeks</option>
+                        <option value="1 month">1 month</option>
+                        <option value="2+ months">2+ months</option>
+                      </select>
+                    </div>
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        name="workPermit"
+                        checked={formData.workPermit}
+                        onChange={handleChange}
+                        className="mr-2 h-5 w-5 text-orange-500"
+                      />
+                      <label className="text-gray-700">I have the legal right to work in the EU</label>
+                    </div>
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        name="relocate"
+                        checked={formData.relocate}
+                        onChange={handleChange}
+                        className="mr-2 h-5 w-5 text-orange-500"
+                      />
+                      <label className="text-gray-700">I am willing to relocate</label>
+                    </div>
+                  </div>
+                  <div className="mt-8 flex justify-between">
+                    <button
+                      type="button"
+                      onClick={handleBack}
+                      className="bg-gray-300 text-gray-700 px-6 py-3 rounded-md hover:bg-gray-400 transition duration-300"
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleNext}
+                      className="bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition duration-300"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              )}
+              
+              {step === 3 && (
+                <div>
+                  <h2 className="text-2xl font-bold mb-6 text-gray-800">Skills & Qualifications</h2>
+                  <div>
+                    <label className="block text-gray-700 mb-4">Select your skills (select all that apply) *</label>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                      {skills.map((skill) => (
+                        <div key={skill} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={skill}
+                            checked={formData.skills.includes(skill)}
+                            onChange={() => handleSkillChange(skill)}
+                            className="mr-2 h-5 w-5 text-orange-500"
+                          />
+                          <label htmlFor={skill} className="text-gray-700">{skill}</label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mt-6">
+                    <label className="block text-gray-700 mb-2">Salary Expectation (€ per year)</label>
+                    <input
+                      type="text"
+                      name="salaryExpectation"
+                      value={formData.salaryExpectation}
+                      onChange={handleChange}
+                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      placeholder="e.g. 30,000 - 40,000"
+                    />
+                  </div>
+                  <div className="mt-6">
+                    <label className="block text-gray-700 mb-2">Resume/CV Link (Google Drive, Dropbox, etc.)</label>
+                    <input
+                      type="url"
+                      name="resumeUrl"
+                      value={formData.resumeUrl}
+                      onChange={handleChange}
+                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      placeholder="https://"
+                    />
+                  </div>
+                  <div className="mt-6">
+                    <label className="block text-gray-700 mb-2">Cover Letter / Additional Information</label>
+                    <textarea
+                      name="coverLetter"
+                      value={formData.coverLetter}
+                      onChange={handleChange}
+                      rows="4"
+                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    ></textarea>
+                  </div>
+                  <div className="mt-8 flex justify-between">
+                    <button
+                      type="button"
+                      onClick={handleBack}
+                      className="bg-gray-300 text-gray-700 px-6 py-3 rounded-md hover:bg-gray-400 transition duration-300"
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleNext}
+                      className="bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition duration-300"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              )}
+              
+              {step === 4 && (
+                <div>
+                  <h2 className="text-2xl font-bold mb-6 text-gray-800">Account Setup</h2>
+                  <div className="mb-6">
+                    <label className="block text-gray-700 mb-2">How did you hear about us?</label>
+                    <select
+                      name="referralSource"
+                      value={formData.referralSource}
+                      onChange={handleChange}
+                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    >
+                      <option value="">Select an option</option>
+                      <option value="Search Engine">Search Engine</option>
+                      <option value="Social Media">Social Media</option>
+                      <option value="Friend/Colleague">Friend/Colleague</option>
+                      <option value="Job Board">Job Board</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div className="mb-6">
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        name="termsAccepted"
+                        checked={formData.termsAccepted}
+                        onChange={handleChange}
+                        className="mr-2 h-5 w-5 text-orange-500"
+                        required
+                      />
+                      <label className="text-gray-700">
+                        I agree to the{' '}
+                        <Link href="/terms">
+                          <a className="text-orange-500 hover:underline">Terms of Service</a>
+                        </Link>
+                        {' '}and{' '}
+                        <Link href="/privacy-policy">
+                          <a className="text-orange-500 hover:underline">Privacy Policy</a>
+                        </Link>
+                      </label>
+                    </div>
+                  </div>
+                  <div className="mt-8 flex justify-between">
+                    <button
+                      type="button"
+                      onClick={handleBack}
+                      className="bg-gray-300 text-gray-700 px-6 py-3 rounded-md hover:bg-gray-400 transition duration-300"
+                    >
+                      Back
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleSubmit}
+                      className="bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition duration-300"
+                    >
+                      Submit Application
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Benefits Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Glodinas Flex Work?</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">We're committed to helping you find the perfect job match</p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-gray-50 rounded-lg p-6 text-center">
+              <div className="text-4xl mb-4">🔍</div>
+              <h3 className="text-xl font-bold mb-3">Access to Exclusive Opportunities</h3>
+              <p className="text-gray-600">
+                Many of our job openings are not advertised elsewhere. Register with us to access our exclusive network of top employers across Europe.
               </p>
             </div>
             
-            {renderForm()}
+            <div className="bg-gray-50 rounded-lg p-6 text-center">
+              <div className="text-4xl mb-4">🌍</div>
+              <h3 className="text-xl font-bold mb-3">Multilingual Support</h3>
+              <p className="text-gray-600">
+                Our team provides support in Dutch, English, Polish, Romanian, and Bulgarian, making your job search experience smooth regardless of your native language.
+              </p>
+            </div>
+            
+            <div className="bg-gray-50 rounded-lg p-6 text-center">
+              <div className="text-4xl mb-4">🚀</div>
+              <h3 className="text-xl font-bold mb-3">Career Growth</h3>
+              <p className="text-gray-600">
+                We don't just find you a job; we help build your career. Our consultants provide guidance on skill development and career progression.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </>
+      </section>
+      
+      {/* FAQ Section */}
+      <section className="py-16 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Find answers to common questions about our job seeker services</p>
+          </div>
+          
+          <div className="max-w-3xl mx-auto">
+            <div className="mb-6">
+              <h3 className="text-xl font-bold mb-2">Is registration free?</h3>
+              <p className="text-gray-600">
+                Yes, registration is completely free for all job seekers. We never charge candidates for our placement services.
+              </p>
+            </div>
+            
+            <div className="mb-6">
+              <h3 className="text-xl font-bold mb-2">How quickly can I expect to find a job?</h3>
+              <p className="text-gray-600">
+                Placement times vary depending on your skills, experience, and the current job market. However, for in-demand positions, we often place candidates within 48 hours to 2 weeks.
+              </p>
+            </div>
+            
+            <div className="mb-6">
+              <h3 className="text-xl font-bold mb-2">What types of jobs do you offer?</h3>
+              <p className="text-gray-600">
+                We specialize in a wide range of sectors including logistics, manufacturing, healthcare, hospitality, retail, and construction. We offer both temporary and permanent positions.
+              </p>
+            </div>
+            
+            <div className="mb-6">
+              <h3 className="text-xl font-bold mb-2">Do I need to speak Dutch to find work?</h3>
+              <p className="text-gray-600">
+                Not necessarily. While Dutch is helpful for some positions, we have many opportunities that require English or other European languages. We'll match you with positions suitable for your language skills.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="text-xl font-bold mb-2">What happens after I submit my application?</h3>
+              <p className="text-gray-600">
+                Our recruitment team will review your application and contact you within 1-2 business days to discuss potential opportunities and next steps in the process.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Testimonials Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Hear from job seekers who found their perfect match with us</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-gray-50 rounded-lg p-6">
+              <div className="text-orange-500 text-2xl mb-4">"</div>
+              <p className="text-gray-600 mb-6">
+                I moved to the Netherlands without speaking Dutch and was worried about finding work. Glodinas found me a position in logistics within a week, with a company that valued my other skills.
+              </p>
+              <div className="flex items-center">
+                <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
+                  <Image
+                    src="/images/testimonials/testimonial-1.jpg"
+                    alt="Testimonial"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <div className="font-bold">Piotr K.</div>
+                  <div className="text-sm text-gray-500">Warehouse Specialist</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-gray-50 rounded-lg p-6">
+              <div className="text-orange-500 text-2xl mb-4">"</div>
+              <p className="text-gray-600 mb-6">
+                The personal approach made all the difference. My recruiter took the time to understand my career goals and found me a position that offered growth opportunities, not just a paycheck.
+              </p>
+              <div className="flex items-center">
+                <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
+                  <Image
+                    src="/images/testimonials/testimonial-2.jpg"
+                    alt="Testimonial"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <div className="font-bold">Elena M.</div>
+                  <div className="text-sm text-gray-500">Healthcare Assistant</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-gray-50 rounded-lg p-6">
+              <div className="text-orange-500 text-2xl mb-4">"</div>
+              <p className="text-gray-600 mb-6">
+                I started with a temporary contract through Glodinas, and six months later, the company hired me permanently with a significant salary increase. The ongoing support was fantastic.
+              </p>
+              <div className="flex items-center">
+                <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
+                  <Image
+                    src="/images/testimonials/testimonial-3.jpg"
+                    alt="Testimonial"
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <div className="font-bold">Thomas V.</div>
+                  <div className="text-sm text-gray-500">Production Supervisor</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="py-16 bg-orange-600 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your New Career?</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Complete your registration today and our team will contact you within 24 hours to discuss available opportunities.
+          </p>
+          <Link href="#top">
+            <a className="bg-white text-orange-600 hover:bg-gray-100 px-8 py-3 rounded-md font-medium text-lg inline-block">
+              Register Now
+            </a>
+          </Link>
+        </div>
+      </section>
+    </div>
   );
 }

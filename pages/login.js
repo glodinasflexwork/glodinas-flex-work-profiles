@@ -1,39 +1,31 @@
-import { useState, useEffect } from 'react';
-import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
+import Head from 'next/head';
 import Link from 'next/link';
-import Layout from '../components/Layout';
+import { signIn } from 'next-auth/react';
 import { useNotification } from '../components/NotificationContext';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-  const { data: session } = useSession();
   const { addNotification } = useNotification();
-
-  // Handle redirect if already logged in
-  useEffect(() => {
-    if (session) {
-      // Redirect based on role
-      if (session.user.role === 'ADMIN') {
-        router.push('/admin');
-      } else if (session.user.role === 'EMPLOYER') {
-        router.push('/employer/dashboard');
-      } else if (session.user.role === 'WORKER') {
-        router.push('/worker/dashboard');
-      } else {
-        router.push('/');
-      }
-    }
-  }, [session, router]);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false
+  });
+  
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value
+    });
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!email || !password) {
-      addNotification('Please enter both email and password', 'error');
+    if (!formData.email || !formData.password) {
+      addNotification('Please fill in all required fields.', 'error');
       return;
     }
     
@@ -42,198 +34,182 @@ export default function Login() {
     try {
       const result = await signIn('credentials', {
         redirect: false,
-        email,
-        password,
+        email: formData.email,
+        password: formData.password
       });
       
       if (result.error) {
-        addNotification('Invalid email or password', 'error');
+        addNotification('Invalid email or password. Please try again.', 'error');
         setIsLoading(false);
+      } else {
+        addNotification('Login successful! Redirecting...', 'success');
+        // Redirect will be handled by next-auth
       }
-      // Successful login will trigger the useEffect above
     } catch (error) {
-      addNotification('An error occurred during login', 'error');
+      addNotification('An error occurred during login. Please try again.', 'error');
       setIsLoading(false);
     }
   };
-
-  // Only render the login form if not already logged in
-  if (!session) {
-    return (
-      <Layout pageTitle="Login">
-        <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-          <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Sign in to your account
-            </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Access your dashboard and manage your account
-            </p>
-          </div>
-          
-          <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-              <form className="space-y-6" onSubmit={handleSubmit}>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                    Email address
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    />
-                  </div>
+  
+  const handleDemoLogin = async (role) => {
+    setIsLoading(true);
+    
+    try {
+      let email, password;
+      
+      switch (role) {
+        case 'employer':
+          email = 'employer@example.com';
+          password = 'password123';
+          break;
+        case 'worker':
+          email = 'worker@example.com';
+          password = 'password123';
+          break;
+        case 'admin':
+          email = 'admin@example.com';
+          password = 'password123';
+          break;
+        default:
+          email = 'employer@example.com';
+          password = 'password123';
+      }
+      
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password
+      });
+      
+      if (result.error) {
+        addNotification('Demo login failed. Please try again.', 'error');
+        setIsLoading(false);
+      } else {
+        addNotification(`Logged in as demo ${role}! Redirecting...`, 'success');
+        // Redirect will be handled by next-auth
+      }
+    } catch (error) {
+      addNotification('An error occurred during login. Please try again.', 'error');
+      setIsLoading(false);
+    }
+  };
+  
+  return (
+    <div>
+      <Head>
+        <title>Login | Glodinas Flex Work</title>
+        <meta name="description" content="Login to your Glodinas Flex Work account to access job opportunities or manage your recruitment needs." />
+      </Head>
+      
+      <section className="py-12 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-orange-600 text-white py-4 px-6">
+              <h1 className="text-2xl font-bold">Login to Your Account</h1>
+            </div>
+            
+            <div className="p-6">
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <label className="block text-gray-700 mb-2">Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    required
+                  />
                 </div>
                 
-                <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                    Password
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    />
-                  </div>
+                <div className="mb-6">
+                  <label className="block text-gray-700 mb-2">Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    required
+                  />
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center">
                     <input
-                      id="remember-me"
-                      name="remember-me"
                       type="checkbox"
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      name="rememberMe"
+                      checked={formData.rememberMe}
+                      onChange={handleChange}
+                      className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
                     />
-                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                      Remember me
-                    </label>
+                    <label className="ml-2 block text-sm text-gray-700">Remember me</label>
                   </div>
                   
                   <div className="text-sm">
-                    <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
-                      Forgot your password?
-                    </a>
+                    <Link href="/forgot-password">
+                      <a className="text-orange-600 hover:text-orange-800">Forgot your password?</a>
+                    </Link>
                   </div>
                 </div>
                 
-                <div>
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
-                      isLoading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'
-                    } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
-                  >
-                    {isLoading ? (
-                      <>
-                        <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                        </span>
-                        Signing in...
-                      </>
-                    ) : (
-                      <>
-                        <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                          <svg className="h-5 w-5 text-blue-500 group-hover:text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                          </svg>
-                        </span>
-                        Sign in
-                      </>
-                    )}
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  className={`w-full bg-orange-600 text-white py-3 px-4 rounded-md hover:bg-orange-700 transition duration-300 ${
+                    isLoading ? 'opacity-70 cursor-not-allowed' : ''
+                  }`}
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Logging in...' : 'Login'}
+                </button>
               </form>
               
-              <div className="mt-6">
+              <div className="mt-6 text-center">
+                <p className="text-gray-600">Don't have an account?{' '}
+                  <Link href="/register">
+                    <a className="text-orange-600 hover:text-orange-800">Register here</a>
+                  </Link>
+                </p>
+              </div>
+              
+              <div className="mt-8">
                 <div className="relative">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-gray-300"></div>
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-white text-gray-500">
-                      Demo Accounts
-                    </span>
+                    <span className="px-2 bg-white text-gray-500">Demo Logins</span>
                   </div>
                 </div>
                 
-                <div className="mt-6 grid grid-cols-1 gap-3">
-                  <div>
-                    <button
-                      onClick={() => {
-                        setEmail('employer@glodinasflexwork.nl');
-                        setPassword('employer123');
-                      }}
-                      className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
-                    >
-                      <span>Employer Demo Account</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      onClick={() => {
-                        setEmail('admin@glodinasflexwork.nl');
-                        setPassword('admin123');
-                      }}
-                      className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
-                    >
-                      <span>Admin Demo Account</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      onClick={() => {
-                        setEmail('worker@glodinasflexwork.nl');
-                        setPassword('worker123');
-                      }}
-                      className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
-                    >
-                      <span>Worker Demo Account</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="mt-6 text-center">
-                <div className="text-sm">
-                  <span className="text-gray-600">Don't have an account? </span>
-                  <Link href="/employers">
-                    <span className="font-medium text-blue-600 hover:text-blue-500 cursor-pointer">
-                      Register as Employer
-                    </span>
-                  </Link>
-                  <span className="text-gray-600"> or </span>
-                  <Link href="/job-seekers">
-                    <span className="font-medium text-blue-600 hover:text-blue-500 cursor-pointer">
-                      Register as Job Seeker
-                    </span>
-                  </Link>
+                <div className="mt-6 grid grid-cols-3 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => handleDemoLogin('employer')}
+                    className="py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                  >
+                    Employer
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDemoLogin('worker')}
+                    className="py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                  >
+                    Job Seeker
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDemoLogin('admin')}
+                    className="py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                  >
+                    Admin
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </Layout>
-    );
-  }
-  
-  // This should not be visible due to the redirect in useEffect
-  return null;
+      </section>
+    </div>
+  );
 }
