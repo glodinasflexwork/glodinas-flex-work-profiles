@@ -2,11 +2,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { useNotification } from './Notification';
+import { useNotification } from './NotificationContext';
 
 const Navbar = () => {
-  const { t } = useTranslation('common');
   const router = useRouter();
   const { addNotification } = useNotification();
   const [isOpen, setIsOpen] = useState(false);
@@ -82,7 +80,7 @@ const Navbar = () => {
                   ? 'text-orange-600' 
                   : 'text-gray-700 hover:text-orange-500'
               }`}>
-                {t('job_seekers')}
+                Job Seekers
               </a>
             </Link>
             <Link href="/employers">
@@ -91,7 +89,7 @@ const Navbar = () => {
                   ? 'text-orange-600' 
                   : 'text-gray-700 hover:text-orange-500'
               }`}>
-                {t('employers')}
+                Employers
               </a>
             </Link>
             <Link href="/services">
@@ -100,7 +98,7 @@ const Navbar = () => {
                   ? 'text-orange-600' 
                   : 'text-gray-700 hover:text-orange-500'
               }`}>
-                {t('services')}
+                Services
               </a>
             </Link>
             <Link href="/about">
@@ -109,7 +107,7 @@ const Navbar = () => {
                   ? 'text-orange-600' 
                   : 'text-gray-700 hover:text-orange-500'
               }`}>
-                {t('about')}
+                About
               </a>
             </Link>
             <Link href="/contact">
@@ -118,7 +116,7 @@ const Navbar = () => {
                   ? 'text-orange-600' 
                   : 'text-gray-700 hover:text-orange-500'
               }`}>
-                {t('contact')}
+                Contact
               </a>
             </Link>
             
@@ -138,14 +136,14 @@ const Navbar = () => {
             
             {/* Login/Register Buttons */}
             <div className="flex items-center ml-4 space-x-2">
-              <Link href="/admin/login">
+              <Link href="/login">
                 <a className="btn btn-secondary btn-sm">
-                  {t('login')}
+                  Login
                 </a>
               </Link>
               <Link href="/register">
                 <a className="btn btn-primary btn-sm">
-                  {t('register')}
+                  Register
                 </a>
               </Link>
             </div>
@@ -234,7 +232,7 @@ const Navbar = () => {
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
-                  {t('job_seekers')}
+                  Job Seekers
                 </a>
               </Link>
               <Link href="/employers">
@@ -246,7 +244,7 @@ const Navbar = () => {
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
-                  {t('employers')}
+                  Employers
                 </a>
               </Link>
               <Link href="/services">
@@ -258,7 +256,7 @@ const Navbar = () => {
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
-                  {t('services')}
+                  Services
                 </a>
               </Link>
               <Link href="/about">
@@ -270,7 +268,7 @@ const Navbar = () => {
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
-                  {t('about')}
+                  About
                 </a>
               </Link>
               <Link href="/contact">
@@ -282,19 +280,19 @@ const Navbar = () => {
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
-                  {t('contact')}
+                  Contact
                 </a>
               </Link>
             </div>
             
             <div className="mt-6 pt-6 border-t border-gray-200">
               <div className="flex flex-col space-y-3">
-                <Link href="/admin/login">
+                <Link href="/login">
                   <a 
                     className="btn btn-secondary w-full justify-center"
                     onClick={() => setIsOpen(false)}
                   >
-                    {t('login')}
+                    Login
                   </a>
                 </Link>
                 <Link href="/register">
@@ -302,7 +300,7 @@ const Navbar = () => {
                     className="btn btn-primary w-full justify-center"
                     onClick={() => setIsOpen(false)}
                   >
-                    {t('register')}
+                    Register
                   </a>
                 </Link>
               </div>
