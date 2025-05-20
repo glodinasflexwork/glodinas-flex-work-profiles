@@ -1,48 +1,45 @@
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
-  const { t } = useTranslation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(t('thank_you'));
+    alert('Thank you for your message. We will get back to you soon.');
     setSubmitted(true);
   };
 
   return (
     <>
       <Head>
-        <title>{t('contact')} | {t('title')}</title>
+        <title>Contact | Glodinas Flex Work</title>
       </Head>
       <main className="min-h-screen bg-white p-8 text-gray-800">
-        <h1 className="text-4xl font-bold text-center mb-8">{t('contact')}</h1>
+        <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
 
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-10">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block font-medium">{t('name')}</label>
+              <label className="block font-medium">Name</label>
               <input type="text" required className="w-full border border-gray-300 p-2 rounded" />
             </div>
             <div>
-              <label className="block font-medium">{t('email')}</label>
+              <label className="block font-medium">Email</label>
               <input type="email" required className="w-full border border-gray-300 p-2 rounded" />
             </div>
             <div>
-              <label className="block font-medium">{t('message')}</label>
+              <label className="block font-medium">Message</label>
               <textarea required className="w-full border border-gray-300 p-2 rounded" rows="5" />
             </div>
             <button type="submit" className="bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600">
-              {t('send')}
+              Send Message
             </button>
-            {submitted && <p className="text-green-600 pt-2">{t('confirmation')}</p>}
+            {submitted && <p className="text-green-600 pt-2">Your message has been sent. We'll get back to you soon!</p>}
           </form>
 
           <div>
-            <h2 className="text-xl font-semibold mb-4">{t('our_office')}</h2>
+            <h2 className="text-xl font-semibold mb-4">Our Office</h2>
             <p>Fruitweg 25, Unit 3.07e<br />2525 KG Den Haag<br />Netherlands</p>
             <p className="mt-2">Email: <a href="mailto:cihatkaya@glodinas.nl" className="text-orange-600">cihatkaya@glodinas.nl</a></p>
             <p>Phone: <a href="tel:+31645833789" className="text-orange-600">06 45 83 37 89</a></p>
@@ -59,12 +56,4 @@ export default function Contact() {
       </main>
     </>
   );
-}
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
 }

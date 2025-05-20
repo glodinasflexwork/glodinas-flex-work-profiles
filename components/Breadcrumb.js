@@ -1,10 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 
-export default function Breadcrumb() {
+export default function Breadcrumb({ currentPage }) {
   const router = useRouter();
-  const { t } = useTranslation();
 
   // Get the current path parts and remove empty entries
   const pathParts = router.asPath.split('/').filter(Boolean);
@@ -14,7 +12,7 @@ export default function Breadcrumb() {
       <ol className="flex space-x-2">
         <li>
           <Link href="/">
-            <a className="hover:underline text-orange-600">{t('home') || 'Home'}</a>
+            <a className="hover:underline text-orange-600">Home</a>
           </Link>
         </li>
         {pathParts.map((part, index) => {
