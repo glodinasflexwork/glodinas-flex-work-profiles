@@ -1,0 +1,210 @@
+// Updated Prisma schema with unified user model and role-based authentication
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Unified User model with role-based authentication
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  name          String?
+  role          UserRole  @default(WORKER)
+  stackAuthId   String?   @unique
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations based on role
+  employerProfile EmployerProfile? @relation("UserToEmployerProfile")
+  workerProfile   WorkerProfile?   @relation("UserToWorkerProfile")
+  adminProfile    AdminProfile?    @relation("UserToAdminProfile")
+}
+
+enum UserRole {
+  ADMIN
+  EMPLOYER
+  WORKER
+}
+
+// Employer profile information
+model EmployerProfile {
+  id              String   @id @default(uuid())
+  companyName     String
+  contactPerson   String
+  phone           String
+  industry        String
+  vatNumber       String?
+  kvkNumber       String?
+  location        String
+  logo            String?
+  status          String   @default("pending")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relation to User
+  userId          String   @unique
+  user            User     @relation("UserToEmployerProfile", fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Relation to JobPostings
+  jobPostings     JobPosting[]
+  
+  // Subscription information
+  subscription    Subscription?
+}
+
+// Worker (Job Seeker) profile information
+model WorkerProfile {
+  id                String   @id @default(uuid())
+  firstName         String
+  lastName          String
+  phone             String
+  experience        String
+  skills            String   @db.Text
+  availability      String
+  preferredLocation String
+  cvUrl             String?
+  status            String   @default("pending")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relation to User
+  userId            String   @unique
+  user              User     @relation("UserToWorkerProfile", fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Relation to CandidateMatches
+  candidateMatches  CandidateMatch[]
+}
+
+// Admin profile information
+model AdminProfile {
+  id        String   @id @default(uuid())
+  position  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relation to User
+  userId    String   @unique
+  user      User     @relation("UserToAdminProfile", fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Job Posting model
+model JobPosting {
+  id              String   @id @default(uuid())
+  title           String
+  description     String   @db.Text
+  requirements    String   @db.Text
+  location        String
+  salary          String?
+  status          JobStatus @default(DRAFT)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relation to EmployerProfile
+  employerProfileId String
+  employerProfile   EmployerProfile @relation(fields: [employerProfileId], references: [id])
+  
+  // Relation to CandidateMatches
+  candidateMatches  CandidateMatch[]
+}
+
+enum JobStatus {
+  ACTIVE
+  CLOSED
+  DRAFT
+}
+
+// Subscription model for employer posting limits
+model Subscription {
+  id              String   @id @default(uuid())
+  tier            SubscriptionTier @default(BASIC)
+  jobPostingLimit Int
+  activeJobsCount Int      @default(0)
+  startDate       DateTime @default(now())
+  endDate         DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relation to EmployerProfile
+  employerProfileId String  @unique
+  employerProfile   EmployerProfile @relation(fields: [employerProfileId], references: [id], onDelete: Cascade)
+}
+
+enum SubscriptionTier {
+  BASIC
+  PREMIUM
+  ENTERPRISE
+}
+
+// Candidate Match model for job-worker matching
+model CandidateMatch {
+  id            String   @id @default(uuid())
+  matchScore    Float
+  matchCriteria Json?
+  status        MatchStatus @default(NEW)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  jobPostingId  String
+  jobPosting    JobPosting @relation(fields: [jobPostingId], references: [id], onDelete: Cascade)
+  
+  workerProfileId String
+  workerProfile   WorkerProfile @relation(fields: [workerProfileId], references: [id], onDelete: Cascade)
+}
+
+enum MatchStatus {
+  NEW
+  VIEWED
+  CONTACTED
+  REJECTED
+  HIRED
+}
+
+// Legacy models for backward compatibility during migration
+model Employer {
+  id              String   @id @default(uuid())
+  companyName     String
+  contactPerson   String
+  email           String
+  phone           String
+  industry        String
+  jobRequirements String   @db.Text
+  workersNeeded   Int
+  location        String
+  createdAt       DateTime @default(now())
+  status          String   @default("pending")
+  // Flag to indicate if migrated to new schema
+  migrated        Boolean  @default(false)
+}
+
+model JobSeeker {
+  id               String   @id @default(uuid())
+  firstName        String
+  lastName         String
+  email            String
+  phone            String
+  experience       String
+  skills           String   @db.Text
+  availability     String
+  preferredLocation String
+  cvUrl            String?
+  createdAt        DateTime @default(now())
+  status           String   @default("pending")
+  // Flag to indicate if migrated to new schema
+  migrated         Boolean  @default(false)
+}
+
+model Admin {
+  id          String @id @default(uuid())
+  email       String @unique
+  name        String
+  role        String
+  stackAuthId String @unique
+  // Flag to indicate if migrated to new schema
+  migrated    Boolean @default(false)
+}
