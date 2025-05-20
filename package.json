@@ -14,12 +14,15 @@
     "@prisma/client": "^5.10.0",
     "axios": "^1.6.5",
     "cloudinary": "^2.6.1",
+    "cloudinary-react": "^1.8.1",
     "csv-stringify": "^6.5.2",
     "formidable": "^3.5.4",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
+    "next-cloudinary": "^6.16.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-dropzone": "^14.3.8",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

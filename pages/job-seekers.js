@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useNotification } from '../components/NotificationContext';
+import FileUpload from '../components/FileUpload';
 
 export default function JobSeekers() {
   const { addNotification } = useNotification();
@@ -23,7 +24,7 @@ export default function JobSeekers() {
     relocate: false,
     salaryExpectation: '',
     resumeUrl: '',
-    coverLetter: '',
+    coverLetterUrl: '',
     referralSource: '',
     termsAccepted: false
   });
@@ -46,6 +47,13 @@ export default function JobSeekers() {
       skills: updatedSkills
     });
   };
+
+  const handleFileUpload = (fieldName, url) => {
+    setFormData({
+      ...formData,
+      [fieldName]: url
+    });
+  };
   
   const handleNext = () => {
     // Validate current step
@@ -62,6 +70,11 @@ export default function JobSeekers() {
     } else if (step === 3) {
       if (formData.skills.length === 0) {
         addNotification('Please select at least one skill.', 'error');
+        return;
+      }
+      
+      if (!formData.resumeUrl) {
+        addNotification('Please upload your resume/CV.', 'error');
         return;
       }
     }
@@ -104,7 +117,7 @@ export default function JobSeekers() {
         relocate: false,
         salaryExpectation: '',
         resumeUrl: '',
-        coverLetter: '',
+        coverLetterUrl: '',
         referralSource: '',
         termsAccepted: false
       });
@@ -397,25 +410,18 @@ export default function JobSeekers() {
                     />
                   </div>
                   <div className="mt-6">
-                    <label className="block text-gray-700 mb-2">Resume/CV Link (Google Drive, Dropbox, etc.)</label>
-                    <input
-                      type="url"
-                      name="resumeUrl"
-                      value={formData.resumeUrl}
-                      onChange={handleChange}
-                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                      placeholder="https://"
+                    <FileUpload 
+                      label="Resume/CV Upload (PDF, DOCX, JPG) *" 
+                      onUploadComplete={(url) => handleFileUpload('resumeUrl', url)}
+                      acceptedFileTypes=".pdf,.docx,.jpg,.jpeg"
                     />
                   </div>
                   <div className="mt-6">
-                    <label className="block text-gray-700 mb-2">Cover Letter / Additional Information</label>
-                    <textarea
-                      name="coverLetter"
-                      value={formData.coverLetter}
-                      onChange={handleChange}
-                      rows="4"
-                      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                    ></textarea>
+                    <FileUpload 
+                      label="Cover Letter Upload (Optional)" 
+                      onUploadComplete={(url) => handleFileUpload('coverLetterUrl', url)}
+                      acceptedFileTypes=".pdf,.docx,.jpg,.jpeg"
+                    />
                   </div>
                   <div className="mt-8 flex justify-between">
                     <button
@@ -599,17 +605,11 @@ export default function JobSeekers() {
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                  <Image
-                    src="/images/testimonials/testimonial-1.jpg"
-                    alt="Testimonial"
-                    width={48}
-                    height={48}
-                    className="object-cover"
-                  />
+                  <Image src="/images/testimonials/testimonial-1.jpg" alt="Testimonial" width={48} height={48} className="object-cover" />
                 </div>
                 <div>
-                  <div className="font-bold">Piotr K.</div>
-                  <div className="text-sm text-gray-500">Warehouse Specialist</div>
+                  <h4 className="font-bold">Piotr K.</h4>
+                  <p className="text-sm text-gray-500">Warehouse Supervisor</p>
                 </div>
               </div>
             </div>
@@ -617,21 +617,15 @@ export default function JobSeekers() {
             <div className="bg-gray-50 rounded-lg p-6">
               <div className="text-orange-500 text-2xl mb-4">"</div>
               <p className="text-gray-600 mb-6">
-                The personal approach made all the difference. My recruiter took the time to understand my career goals and found me a position that offered growth opportunities, not just a paycheck.
+                The team at Glodinas was incredibly supportive throughout my job search. They helped me prepare for interviews and negotiate a better salary than I expected.
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                  <Image
-                    src="/images/testimonials/testimonial-2.jpg"
-                    alt="Testimonial"
-                    width={48}
-                    height={48}
-                    className="object-cover"
-                  />
+                  <Image src="/images/testimonials/testimonial-2.jpg" alt="Testimonial" width={48} height={48} className="object-cover" />
                 </div>
                 <div>
-                  <div className="font-bold">Elena M.</div>
-                  <div className="text-sm text-gray-500">Healthcare Assistant</div>
+                  <h4 className="font-bold">Elena M.</h4>
+                  <p className="text-sm text-gray-500">Healthcare Assistant</p>
                 </div>
               </div>
             </div>
@@ -639,21 +633,15 @@ export default function JobSeekers() {
             <div className="bg-gray-50 rounded-lg p-6">
               <div className="text-orange-500 text-2xl mb-4">"</div>
               <p className="text-gray-600 mb-6">
-                I started with a temporary contract through Glodinas, and six months later, the company hired me permanently with a significant salary increase. The ongoing support was fantastic.
+                I've worked with several recruitment agencies, but Glodinas stands out for their personal approach. They found me a position that perfectly matches my skills and career goals.
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                  <Image
-                    src="/images/testimonials/testimonial-3.jpg"
-                    alt="Testimonial"
-                    width={48}
-                    height={48}
-                    className="object-cover"
-                  />
+                  <Image src="/images/testimonials/testimonial-3.jpg" alt="Testimonial" width={48} height={48} className="object-cover" />
                 </div>
                 <div>
-                  <div className="font-bold">Thomas V.</div>
-                  <div className="text-sm text-gray-500">Production Supervisor</div>
+                  <h4 className="font-bold">Thomas B.</h4>
+                  <p className="text-sm text-gray-500">Technical Specialist</p>
                 </div>
               </div>
             </div>
@@ -665,14 +653,16 @@ export default function JobSeekers() {
       <section className="py-16 bg-orange-600 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your New Career?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Complete your registration today and our team will contact you within 24 hours to discuss available opportunities.
-          </p>
-          <Link href="#top">
-            <a className="bg-white text-orange-600 hover:bg-gray-100 px-8 py-3 rounded-md font-medium text-lg inline-block">
-              Register Now
-            </a>
-          </Link>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">Complete your registration today and our team will contact you within 24 hours to discuss available opportunities.</p>
+          <button
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setStep(1);
+            }}
+            className="bg-white text-orange-600 hover:bg-gray-100 py-3 px-8 rounded-md font-medium text-lg"
+          >
+            Register Now
+          </button>
         </div>
       </section>
     </div>

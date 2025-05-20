@@ -13,38 +13,38 @@ export const authOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        // This is where you would verify credentials against Stack Auth
-        // For now, we'll use a simple check for demo purposes
-        
-        // In production, you would integrate with Stack Auth API using:
-        // NEXT_PUBLIC_STACK_PROJECT_ID='68f8f8cf-6561-4595-b30b-9da9df1ee374'
-        // NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY='pck_1xwpez162s56rzexr8qzc8nrqkrs0f4m2fs44yz7rxxvr'
-        // STACK_SECRET_SERVER_KEY='ssk_k460e0dgd0h8jpjtr6sagkkp97kvnnm50hzw43bk6h0d0'
-        
         try {
           console.log('Auth attempt:', credentials.email);
           
-          // For demo purposes, always allow the demo admin login
+          // Check for demo admin login
           if (credentials.email === 'admin@glodinasflexwork.nl' && credentials.password === 'admin123') {
             console.log('Demo admin login detected');
             
-            // Check if admin exists in database
-            let admin = await prisma.admin.findUnique({
-              where: { email: credentials.email }
+            // Check if admin exists in unified User model
+            let adminUser = await prisma.user.findUnique({
+              where: { email: credentials.email },
+              include: { adminProfile: true }
             });
             
-            if (!admin) {
+            if (!adminUser) {
               console.log('Creating new admin user');
               try {
-                admin = await prisma.admin.create({
+                // Create user with admin role
+                adminUser = await prisma.user.create({
                   data: {
                     email: 'admin@glodinasflexwork.nl',
                     name: 'Admin User',
-                    role: 'admin',
-                    stackAuthId: 'demo-admin-id'
-                  }
+                    role: 'ADMIN',
+                    stackAuthId: 'demo-admin-id',
+                    adminProfile: {
+                      create: {
+                        position: 'System Administrator'
+                      }
+                    }
+                  },
+                  include: { adminProfile: true }
                 });
-                console.log('Admin created successfully:', admin.id);
+                console.log('Admin created successfully:', adminUser.id);
               } catch (createError) {
                 console.error('Error creating admin:', createError);
                 // Fallback for demo purposes
@@ -52,40 +52,159 @@ export const authOptions = {
                   id: 'demo-id',
                   email: 'admin@glodinasflexwork.nl',
                   name: 'Admin User',
-                  role: 'admin'
+                  role: 'ADMIN'
                 };
               }
             } else {
-              console.log('Admin user found:', admin.id);
+              console.log('Admin user found:', adminUser.id);
             }
             
             return {
-              id: admin?.id || 'demo-id',
-              email: admin?.email || 'admin@glodinasflexwork.nl',
-              name: admin?.name || 'Admin User',
-              role: admin?.role || 'admin'
+              id: adminUser?.id || 'demo-id',
+              email: adminUser?.email || 'admin@glodinasflexwork.nl',
+              name: adminUser?.name || 'Admin User',
+              role: adminUser?.role || 'ADMIN'
             };
           }
           
-          // Regular admin check
-          const admin = await prisma.admin.findUnique({
+          // Demo employer login for testing
+          if (credentials.email === 'employer@glodinasflexwork.nl' && credentials.password === 'employer123') {
+            console.log('Demo employer login detected');
+            
+            // Check if employer exists in unified User model
+            let employerUser = await prisma.user.findUnique({
+              where: { email: credentials.email },
+              include: { employerProfile: true }
+            });
+            
+            if (!employerUser) {
+              console.log('Creating new employer user');
+              try {
+                // Create user with employer role
+                employerUser = await prisma.user.create({
+                  data: {
+                    email: 'employer@glodinasflexwork.nl',
+                    name: 'Demo Employer',
+                    role: 'EMPLOYER',
+                    employerProfile: {
+                      create: {
+                        companyName: 'Demo Company',
+                        contactPerson: 'John Doe',
+                        phone: '+31612345678',
+                        industry: 'Technology',
+                        location: 'Amsterdam',
+                        status: 'approved',
+                        subscription: {
+                          create: {
+                            tier: 'PREMIUM',
+                            jobPostingLimit: 10,
+                            activeJobsCount: 0
+                          }
+                        }
+                      }
+                    }
+                  },
+                  include: { employerProfile: true }
+                });
+                console.log('Employer created successfully:', employerUser.id);
+              } catch (createError) {
+                console.error('Error creating employer:', createError);
+                // Fallback for demo purposes
+                return {
+                  id: 'demo-employer-id',
+                  email: 'employer@glodinasflexwork.nl',
+                  name: 'Demo Employer',
+                  role: 'EMPLOYER'
+                };
+              }
+            } else {
+              console.log('Employer user found:', employerUser.id);
+            }
+            
+            return {
+              id: employerUser?.id || 'demo-employer-id',
+              email: employerUser?.email || 'employer@glodinasflexwork.nl',
+              name: employerUser?.name || 'Demo Employer',
+              role: employerUser?.role || 'EMPLOYER'
+            };
+          }
+          
+          // Demo worker login for testing
+          if (credentials.email === 'worker@glodinasflexwork.nl' && credentials.password === 'worker123') {
+            console.log('Demo worker login detected');
+            
+            // Check if worker exists in unified User model
+            let workerUser = await prisma.user.findUnique({
+              where: { email: credentials.email },
+              include: { workerProfile: true }
+            });
+            
+            if (!workerUser) {
+              console.log('Creating new worker user');
+              try {
+                // Create user with worker role
+                workerUser = await prisma.user.create({
+                  data: {
+                    email: 'worker@glodinasflexwork.nl',
+                    name: 'Demo Worker',
+                    role: 'WORKER',
+                    workerProfile: {
+                      create: {
+                        firstName: 'Demo',
+                        lastName: 'Worker',
+                        phone: '+31687654321',
+                        experience: '3-5 years',
+                        skills: 'JavaScript, React, Node.js',
+                        availability: 'Full-time',
+                        preferredLocation: 'Amsterdam',
+                        status: 'approved'
+                      }
+                    }
+                  },
+                  include: { workerProfile: true }
+                });
+                console.log('Worker created successfully:', workerUser.id);
+              } catch (createError) {
+                console.error('Error creating worker:', createError);
+                // Fallback for demo purposes
+                return {
+                  id: 'demo-worker-id',
+                  email: 'worker@glodinasflexwork.nl',
+                  name: 'Demo Worker',
+                  role: 'WORKER'
+                };
+              }
+            } else {
+              console.log('Worker user found:', workerUser.id);
+            }
+            
+            return {
+              id: workerUser?.id || 'demo-worker-id',
+              email: workerUser?.email || 'worker@glodinasflexwork.nl',
+              name: workerUser?.name || 'Demo Worker',
+              role: workerUser?.role || 'WORKER'
+            };
+          }
+          
+          // Regular user lookup in unified User model
+          const user = await prisma.user.findUnique({
             where: { email: credentials.email }
           });
           
-          if (!admin) {
-            console.log('Admin not found');
+          if (!user) {
+            console.log('User not found');
             return null;
           }
           
           // In production, verify password with Stack Auth
           // For demo, use a simple check
-          if (credentials.password === 'admin123') {
-            console.log('Password verified for:', admin.email);
+          if (credentials.password === 'password123') {
+            console.log('Password verified for:', user.email);
             return {
-              id: admin.id,
-              email: admin.email,
-              name: admin.name,
-              role: admin.role
+              id: user.id,
+              email: user.email,
+              name: user.name,
+              role: user.role
             };
           }
           
@@ -119,8 +238,8 @@ export const authOptions = {
     }
   },
   pages: {
-    signIn: '/admin/login',
-    error: '/admin/error',
+    signIn: '/login',
+    error: '/auth/error',
   },
   debug: process.env.NODE_ENV === 'development',
   secret: process.env.NEXTAUTH_SECRET || 'your-secret-key-for-development',

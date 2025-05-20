@@ -59,19 +59,19 @@ export default function Login() {
       
       switch (role) {
         case 'employer':
-          email = 'employer@example.com';
+          email = 'employer@glodinasflexwork.nl';
           password = 'password123';
           break;
         case 'worker':
-          email = 'worker@example.com';
-          password = 'password123';
+          email = 'worker@glodinasflexwork.nl';
+          password = 'worker123';
           break;
         case 'admin':
-          email = 'admin@example.com';
+          email = 'admin@glodinasflexwork.nl';
           password = 'password123';
           break;
         default:
-          email = 'employer@example.com';
+          email = 'employer@glodinasflexwork.nl';
           password = 'password123';
       }
       

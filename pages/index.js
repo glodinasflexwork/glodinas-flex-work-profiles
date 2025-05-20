@@ -4,289 +4,88 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useNotification } from '../components/NotificationContext';
 
-const industries = [
-  'logistics',
-  'manufacturing',
-  'healthcare',
-  'hospitality',
-  'retail',
-  'construction'
-];
-
 export default function Home() {
   const { addNotification } = useNotification();
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [jobAlertShown, setJobAlertShown] = useState(false);
   
-  // Show job alert notification after 5 seconds
-  useEffect(() => {
-    if (!jobAlertShown) {
-      const timer = setTimeout(() => {
-        addNotification('New jobs available in your area! Check them out now.', 'info');
-        setJobAlertShown(true);
-      }, 5000);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [addNotification, jobAlertShown]);
+  const industries = [
+    'logistics',
+    'manufacturing',
+    'healthcare',
+    'hospitality',
+    'retail',
+    'construction'
+  ];
   
   const testimonials = [
     {
-      name: "Jan de Vries",
-      position: "HR Director, LogiTech Solutions",
-      quote: "Glodinas Flex Work has transformed our hiring process. Their team understood our specific needs and consistently delivered high-quality candidates who fit our company culture.",
-      image: "/images/testimonial-1.jpg"
+      id: 1,
+      name: 'Jan de Vries',
+      position: 'HR Director, LogiTech Solutions',
+      image: '/images/testimonials/testimonial-1.jpg',
+      quote: 'Glodinas Flex Work has transformed our hiring process. Their team understood our specific needs and consistently delivered high-quality candidates who fit our company culture.'
     },
     {
-      name: "Maria Kowalski",
-      position: "Operations Manager, MediCare Plus",
-      quote: "The multilingual support from Glodinas has been invaluable for our diverse workforce. They've helped us find specialized healthcare staff when other agencies couldn't deliver.",
-      image: "/images/testimonial-2.jpg"
+      id: 2,
+      name: 'Maria Kovacs',
+      position: 'Operations Manager, EuroHealth',
+      image: '/images/testimonials/testimonial-2.jpg',
+      quote: 'Finding qualified healthcare staff was a constant challenge until we partnered with Glodinas. Their specialized recruitment approach and multilingual support have been invaluable.'
     },
     {
-      name: "Andrei Popescu",
-      position: "Warehouse Supervisor, EuroFreight",
-      quote: "I was impressed by how quickly Glodinas responded to our urgent staffing needs. Within 48 hours, we had qualified temporary workers who were ready to hit the ground running.",
-      image: "/images/testimonial-3.jpg"
+      id: 3,
+      name: 'Thomas Bergmann',
+      position: 'CEO, Alpine Hospitality Group',
+      image: '/images/testimonials/testimonial-3.jpg',
+      quote: 'The quality of candidates and the speed of placement have exceeded our expectations. Glodinas Flex Work understands the unique demands of the hospitality industry.'
     }
   ];
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
+  
+  const handleShowNotification = () => {
+    addNotification('Welcome to Glodinas Flex Work! Explore our services to find your perfect match.', 'info');
+  };
   
   return (
     <div>
       <Head>
-        <title>Glodinas Flex Work | Professional Staffing Solutions</title>
-        <meta name="description" content="Specialized recruitment solutions across Europe with multilingual support in Dutch, English, Polish, Romanian, and Bulgarian." />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Glodinas Flex Work | Connecting Top Talent with Leading Employers</title>
+        <meta name="description" content="Specialized recruitment solutions tailored to your industry needs with multilingual support in Dutch, English, Polish, Romanian, and Bulgarian" />
       </Head>
       
       {/* Hero Section */}
-      <section className="bg-orange-600 text-white">
-        <div className="container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 mb-10 md:mb-0">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Connecting Top Talent with Leading Employers Across Europe
-            </h1>
-            <p className="text-xl mb-8">
-              Specialized recruitment solutions tailored to your industry needs with multilingual support in Dutch, English, Polish, Romanian, and Bulgarian
-            </p>
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+      <section className="bg-orange-600 text-white py-16">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
+          <div className="md:w-1/2 mb-8 md:mb-0">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Connecting Top Talent with Leading Employers Across Europe</h1>
+            <p className="text-xl mb-8">Specialized recruitment solutions tailored to your industry needs with multilingual support in Dutch, English, Polish, Romanian, and Bulgarian</p>
+            <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/job-seekers">
-                <a className="bg-pink-100 text-pink-800 hover:bg-pink-200 px-6 py-3 rounded-md font-medium text-center transition duration-300">
-                  Find Your Next Career
-                </a>
+                <a className="bg-white text-orange-600 hover:bg-gray-100 py-3 px-6 rounded-md font-medium text-center">Find Your Next Career</a>
               </Link>
               <Link href="/employers">
-                <a className="bg-green-100 text-green-800 hover:bg-green-200 px-6 py-3 rounded-md font-medium text-center transition duration-300">
-                  Hire Qualified Talent
-                </a>
+                <a className="bg-transparent hover:bg-orange-700 border border-white py-3 px-6 rounded-md font-medium text-center">Hire Qualified Talent</a>
               </Link>
             </div>
           </div>
           <div className="md:w-1/2">
             <div className="relative">
               <Image
-                src="/images/hero-image.jpg"
+                src="/images/hero.jpg"
                 alt="Glodinas Flex Work"
                 width={600}
                 height={400}
                 className="rounded-lg shadow-xl"
               />
-              <div className="absolute -bottom-4 -right-4 bg-white text-green-600 py-2 px-4 rounded-full font-bold shadow-lg">
+              <div className="absolute -bottom-4 -right-4 bg-white text-orange-600 py-2 px-4 rounded-lg shadow-lg font-bold">
                 250+ Active Jobs
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Stats Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold text-orange-500 mb-2">250+</div>
-              <div className="text-gray-600">Active Jobs</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-orange-500 mb-2">95%</div>
-              <div className="text-gray-600">Client Satisfaction</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-orange-500 mb-2">48h</div>
-              <div className="text-gray-600">Urgent Placement</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-orange-500 mb-2">5</div>
-              <div className="text-gray-600">Languages Supported</div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Services Section */}
-      <section className="py-16 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Comprehensive Staffing Solutions</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">Tailored recruitment services to meet your specific needs</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Service 1 */}
-            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition duration-300">
-              <div className="text-4xl mb-4">⏱️</div>
-              <h3 className="text-xl font-bold mb-3">Flexible Workforce Solutions</h3>
-              <p className="text-gray-600 mb-4">
-                Scale your team up or down with qualified temporary staff across logistics, manufacturing, healthcare, and more. Our rapid deployment ensures you have the right people when you need them most.
-              </p>
-              <Link href="/services#temporary">
-                <a className="text-orange-600 hover:text-orange-800 font-medium">
-                  Explore Temporary Staffing
-                </a>
-              </Link>
-            </div>
-            
-            {/* Service 2 */}
-            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition duration-300">
-              <div className="text-4xl mb-4">🤝</div>
-              <h3 className="text-xl font-bold mb-3">Strategic Talent Acquisition</h3>
-              <p className="text-gray-600 mb-4">
-                Find the perfect long-term additions to your team with our thorough recruitment process. We identify candidates who match both your skill requirements and company culture.
-              </p>
-              <Link href="/services#permanent">
-                <a className="text-orange-600 hover:text-orange-800 font-medium">
-                  Discover Permanent Recruitment
-                </a>
-              </Link>
-            </div>
-            
-            {/* Service 3 */}
-            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition duration-300">
-              <div className="text-4xl mb-4">🏭</div>
-              <h3 className="text-xl font-bold mb-3">Industry-Specific Recruitment</h3>
-              <p className="text-gray-600 mb-4">
-                Benefit from our deep understanding of key European industries including logistics, manufacturing, healthcare, hospitality, retail, and construction.
-              </p>
-              <Link href="/industries">
-                <a className="text-orange-600 hover:text-orange-800 font-medium">
-                  View Industry Solutions
-                </a>
-              </Link>
-            </div>
-            
-            {/* Service 4 */}
-            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition duration-300">
-              <div className="text-4xl mb-4">🌍</div>
-              <h3 className="text-xl font-bold mb-3">Cross-Border Recruitment</h3>
-              <p className="text-gray-600 mb-4">
-                Break language barriers with our multilingual team providing support in Dutch, English, Polish, Romanian, and Bulgarian, facilitating international placements.
-              </p>
-              <Link href="/services#international">
-                <a className="text-orange-600 hover:text-orange-800 font-medium">
-                  Learn About Our Approach
-                </a>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">A Streamlined Process for Success</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">We've simplified recruitment to deliver exceptional results</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-bold mb-6 text-center md:text-left">For Employers</h3>
-              <div className="space-y-8">
-                <div className="flex">
-                  <div className="flex-shrink-0 mr-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-orange-500 text-white font-bold">1</div>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-semibold mb-2">Consultation</h4>
-                    <p className="text-gray-600">We learn about your business, culture, and specific staffing requirements</p>
-                  </div>
-                </div>
-                
-                <div className="flex">
-                  <div className="flex-shrink-0 mr-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-orange-500 text-white font-bold">2</div>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-semibold mb-2">Candidate Sourcing</h4>
-                    <p className="text-gray-600">Our specialized recruiters tap into our extensive talent pool and network</p>
-                  </div>
-                </div>
-                
-                <div className="flex">
-                  <div className="flex-shrink-0 mr-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-orange-500 text-white font-bold">3</div>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-semibold mb-2">Rigorous Screening</h4>
-                    <p className="text-gray-600">We thoroughly vet candidates through interviews, skills assessments, and reference checks</p>
-                  </div>
-                </div>
-                
-                <div className="flex">
-                  <div className="flex-shrink-0 mr-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-orange-500 text-white font-bold">4</div>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-semibold mb-2">Perfect Match</h4>
-                    <p className="text-gray-600">We present only the most qualified candidates who align with your needs</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="text-2xl font-bold mb-6 text-center md:text-left">For Job Seekers</h3>
-              <div className="space-y-8">
-                <div className="flex">
-                  <div className="flex-shrink-0 mr-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-bold">1</div>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-semibold mb-2">Profile Creation</h4>
-                    <p className="text-gray-600">Register and create your professional profile highlighting your skills and experience</p>
-                  </div>
-                </div>
-                
-                <div className="flex">
-                  <div className="flex-shrink-0 mr-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-bold">2</div>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-semibold mb-2">Career Consultation</h4>
-                    <p className="text-gray-600">Our recruiters learn about your career goals and preferences</p>
-                  </div>
-                </div>
-                
-                <div className="flex">
-                  <div className="flex-shrink-0 mr-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-bold">3</div>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-semibold mb-2">Job Matching</h4>
-                    <p className="text-gray-600">We connect you with opportunities that align with your skills and career aspirations</p>
-                  </div>
-                </div>
-                
-                <div className="flex">
-                  <div className="flex-shrink-0 mr-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white font-bold">4</div>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-semibold mb-2">Ongoing Support</h4>
-                    <p className="text-gray-600">We provide interview preparation, feedback, and continued career guidance</p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -307,16 +106,122 @@ export default function Home() {
                 <a className="bg-gray-100 hover:bg-gray-200 rounded-lg p-6 text-center transition duration-300">
                   <div className="mb-3">
                     <Image
-                      src={`/images/industries/${industry}.svg`}
+                      src={`/images/industries/${industry}.jpg`}
                       alt={industry}
-                      width={48}
-                      height={48}
+                      width={80}
+                      height={80}
+                      className="mx-auto"
                     />
                   </div>
-                  <div className="font-medium capitalize">{industry}</div>
+                  <h3 className="font-medium capitalize">{industry}</h3>
                 </a>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* How It Works Section */}
+      <section className="py-16 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Simple, transparent process for both employers and job seekers</p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">1</div>
+              <h3 className="text-xl font-bold mb-3">Register</h3>
+              <p className="text-gray-600">Create your profile as an employer or job seeker with your specific requirements and qualifications.</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">2</div>
+              <h3 className="text-xl font-bold mb-3">Match</h3>
+              <p className="text-gray-600">Our specialized team matches employers with qualified candidates based on skills, experience, and cultural fit.</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">3</div>
+              <h3 className="text-xl font-bold mb-3">Connect</h3>
+              <p className="text-gray-600">Interview selected candidates, make hiring decisions, and receive ongoing support throughout the process.</p>
+            </div>
+          </div>
+          
+          <div className="text-center mt-10">
+            <button 
+              onClick={handleShowNotification}
+              className="bg-orange-600 hover:bg-orange-700 text-white py-3 px-6 rounded-md font-medium"
+            >
+              Learn More
+            </button>
+          </div>
+        </div>
+      </section>
+      
+      {/* Services Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Comprehensive recruitment solutions tailored to your needs</p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="border border-gray-200 rounded-lg overflow-hidden">
+              <div className="h-48 relative">
+                <Image
+                  src="/images/temp-staffing.jpg"
+                  alt="Temporary Staffing"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3">Temporary Staffing</h3>
+                <p className="text-gray-600 mb-4">Flexible workforce solutions for seasonal peaks, special projects, or temporary replacements.</p>
+                <Link href="/services#temporary-staffing">
+                  <a className="text-orange-600 hover:text-orange-800 font-medium">Learn more →</a>
+                </Link>
+              </div>
+            </div>
+            
+            <div className="border border-gray-200 rounded-lg overflow-hidden">
+              <div className="h-48 relative">
+                <Image
+                  src="/images/recruitment.jpg"
+                  alt="Permanent Recruitment"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3">Permanent Recruitment</h3>
+                <p className="text-gray-600 mb-4">End-to-end recruitment services to find the perfect long-term additions to your team.</p>
+                <Link href="/services#permanent-recruitment">
+                  <a className="text-orange-600 hover:text-orange-800 font-medium">Learn more →</a>
+                </Link>
+              </div>
+            </div>
+            
+            <div className="border border-gray-200 rounded-lg overflow-hidden">
+              <div className="h-48 relative">
+                <Image
+                  src="/images/housing.jpg"
+                  alt="Housing Solutions"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3">Housing Solutions</h3>
+                <p className="text-gray-600 mb-4">Quality accommodation options for international workers relocating to the Netherlands.</p>
+                <Link href="/services#housing-solutions">
+                  <a className="text-orange-600 hover:text-orange-800 font-medium">Learn more →</a>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -330,9 +235,9 @@ export default function Home() {
           </div>
           
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl shadow-lg p-8">
+            <div className="bg-white rounded-lg shadow-lg p-8">
               <div className="flex flex-col md:flex-row items-center">
-                <div className="md:w-1/3 mb-6 md:mb-0">
+                <div className="md:w-1/4 mb-6 md:mb-0">
                   <div className="w-24 h-24 rounded-full overflow-hidden mx-auto">
                     <Image
                       src={testimonials[activeTestimonial].image}
@@ -343,24 +248,24 @@ export default function Home() {
                     />
                   </div>
                   <div className="text-center mt-4">
-                    <div className="font-bold">{testimonials[activeTestimonial].name}</div>
-                    <div className="text-sm text-gray-600">{testimonials[activeTestimonial].position}</div>
+                    <h4 className="font-bold">{testimonials[activeTestimonial].name}</h4>
+                    <p className="text-sm text-gray-600">{testimonials[activeTestimonial].position}</p>
                   </div>
                 </div>
-                <div className="md:w-2/3 md:pl-8">
-                  <div className="text-gray-600 italic text-lg">"{testimonials[activeTestimonial].quote}"</div>
+                <div className="md:w-3/4 md:pl-8">
+                  <p className="text-gray-700 italic text-lg">"{testimonials[activeTestimonial].quote}"</p>
                 </div>
               </div>
               
-              <div className="flex justify-center mt-8 space-x-2">
+              <div className="flex justify-center mt-6">
                 {testimonials.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setActiveTestimonial(index)}
-                    className={`w-3 h-3 rounded-full ${
-                      activeTestimonial === index ? 'bg-orange-500' : 'bg-gray-300'
+                    className={`w-3 h-3 rounded-full mx-1 ${
+                      index === activeTestimonial ? 'bg-orange-600' : 'bg-gray-300'
                     }`}
-                    aria-label={`Testimonial ${index + 1}`}
+                    aria-label={`View testimonial ${index + 1}`}
                   />
                 ))}
               </div>
@@ -372,20 +277,14 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-16 bg-orange-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Workforce?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Whether you're looking to hire top talent or find your next career opportunity, we're here to help you succeed.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <Link href="/contact">
-              <a className="bg-white text-orange-600 hover:bg-gray-100 px-8 py-3 rounded-md font-medium text-lg">
-                Contact Us Today
-              </a>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Find Your Perfect Match?</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">Whether you're looking for your next career opportunity or seeking qualified talent, we're here to help.</p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link href="/job-seekers">
+              <a className="bg-white text-orange-600 hover:bg-gray-100 py-3 px-6 rounded-md font-medium">For Job Seekers</a>
             </Link>
-            <Link href="/register">
-              <a className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-orange-600 px-8 py-3 rounded-md font-medium text-lg transition duration-300">
-                Create an Account
-              </a>
+            <Link href="/employers">
+              <a className="bg-transparent hover:bg-orange-700 border border-white py-3 px-6 rounded-md font-medium">For Employers</a>
             </Link>
           </div>
         </div>
