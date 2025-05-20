@@ -1,22 +1,19 @@
-# Glodinas Flex Work - Todo List
+# Glodinas Flex Work Build Fix Todo
 
-## Form Submission Issues
-- [x] Analyze job seeker submission issue
-- [x] Verify database for job seeker entries
-- [x] Test admin dashboard data refresh
-- [x] Implement additional logging in submission API
-- [x] Test submission process end-to-end
-- [x] Analyze job seeker form submission implementation
-- [x] Install and configure Cloudinary
-- [x] Remove formidable and use Next.js API for uploads
-- [x] Implement submission API without formidable
-- [x] Fix job seeker form to send JSON data
-- [x] Test end-to-end with Next.js body parser (no file uploads)
-- [x] Apply same fix to employers form
-- [x] Report findings and next steps to user
+## Notification System and i18n Removal
 
-## Future Enhancements
-- [ ] Implement direct client-to-Cloudinary uploads
-- [ ] Add file preview capabilities in admin dashboard
-- [ ] Enhance form validation (client and server side)
-- [ ] Implement automatic dashboard refresh for new submissions
+- [x] Review latest build error logs
+- [x] Audit codebase for notification context issues
+- [x] Audit codebase for i18n references
+- [x] Remove i18n dependencies from package.json
+- [x] Clean up node_modules to remove i18n packages
+- [x] Verify NotificationContext is correctly imported everywhere
+- [x] Test build locally to validate fixes
+- [ ] Push fixes to GitHub
+- [ ] Confirm successful Vercel deployment
+
+## Issues Identified
+
+1. ~~i18n packages still present in package.json (i18next, next-i18next, react-i18next)~~ - FIXED
+2. ~~Build errors related to react-i18next during static page generation~~ - FIXED
+3. ~~Notification system needs to be fully SSR-compatible~~ - FIXED

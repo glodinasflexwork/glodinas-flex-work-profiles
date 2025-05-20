@@ -16,13 +16,10 @@
     "cloudinary": "^2.6.1",
     "csv-stringify": "^6.5.2",
     "formidable": "^3.5.4",
-    "i18next": "^23.7.11",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
-    "next-i18next": "^15.1.1",
     "react": "^18",
     "react-dom": "^18",
-    "react-i18next": "^14.0.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
