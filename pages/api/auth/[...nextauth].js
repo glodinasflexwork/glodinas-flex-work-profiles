@@ -22,36 +22,65 @@ export const authOptions = {
         // STACK_SECRET_SERVER_KEY='ssk_k460e0dgd0h8jpjtr6sagkkp97kvnnm50hzw43bk6h0d0'
         
         try {
-          // Check if admin exists in database
+          console.log('Auth attempt:', credentials.email);
+          
+          // For demo purposes, always allow the demo admin login
+          if (credentials.email === 'admin@glodinasflexwork.nl' && credentials.password === 'admin123') {
+            console.log('Demo admin login detected');
+            
+            // Check if admin exists in database
+            let admin = await prisma.admin.findUnique({
+              where: { email: credentials.email }
+            });
+            
+            if (!admin) {
+              console.log('Creating new admin user');
+              try {
+                admin = await prisma.admin.create({
+                  data: {
+                    email: 'admin@glodinasflexwork.nl',
+                    name: 'Admin User',
+                    role: 'admin',
+                    stackAuthId: 'demo-admin-id'
+                  }
+                });
+                console.log('Admin created successfully:', admin.id);
+              } catch (createError) {
+                console.error('Error creating admin:', createError);
+                // Fallback for demo purposes
+                return {
+                  id: 'demo-id',
+                  email: 'admin@glodinasflexwork.nl',
+                  name: 'Admin User',
+                  role: 'admin'
+                };
+              }
+            } else {
+              console.log('Admin user found:', admin.id);
+            }
+            
+            return {
+              id: admin?.id || 'demo-id',
+              email: admin?.email || 'admin@glodinasflexwork.nl',
+              name: admin?.name || 'Admin User',
+              role: admin?.role || 'admin'
+            };
+          }
+          
+          // Regular admin check
           const admin = await prisma.admin.findUnique({
             where: { email: credentials.email }
           });
           
           if (!admin) {
-            // For demo, create an admin if it doesn't exist
-            if (credentials.email === 'admin@glodinasflexwork.nl' && credentials.password === 'admin123') {
-              const newAdmin = await prisma.admin.create({
-                data: {
-                  email: 'admin@glodinasflexwork.nl',
-                  name: 'Admin User',
-                  role: 'admin',
-                  stackAuthId: 'demo-admin-id'
-                }
-              });
-              
-              return {
-                id: newAdmin.id,
-                email: newAdmin.email,
-                name: newAdmin.name,
-                role: newAdmin.role
-              };
-            }
+            console.log('Admin not found');
             return null;
           }
           
           // In production, verify password with Stack Auth
           // For demo, use a simple check
           if (credentials.password === 'admin123') {
+            console.log('Password verified for:', admin.email);
             return {
               id: admin.id,
               email: admin.email,
@@ -60,6 +89,7 @@ export const authOptions = {
             };
           }
           
+          console.log('Invalid password');
           return null;
         } catch (error) {
           console.error('Auth error:', error);
@@ -92,6 +122,7 @@ export const authOptions = {
     signIn: '/admin/login',
     error: '/admin/error',
   },
+  debug: process.env.NODE_ENV === 'development',
   secret: process.env.NEXTAUTH_SECRET || 'your-secret-key-for-development',
 };
 
