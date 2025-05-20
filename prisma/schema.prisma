@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,40 +10,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id            String   @id @default(cuid())
-  name          String?
-  email         String   @unique
-  emailVerified DateTime?
-  password      String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+model Employer {
+  id              String   @id @default(uuid())
+  companyName     String
+  contactPerson   String
+  email           String
+  phone           String
+  industry        String
+  jobRequirements String   @db.Text
+  workersNeeded   Int
+  location        String
+  createdAt       DateTime @default(now())
+  status          String   @default("pending")
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  user         User     @relation(fields: [userId], references: [id])
-  expires      DateTime
+model JobSeeker {
+  id               String   @id @default(uuid())
+  firstName        String
+  lastName         String
+  email            String
+  phone            String
+  experience       String
+  skills           String   @db.Text
+  availability     String
+  preferredLocation String
+  cvUrl            String?
+  createdAt        DateTime @default(now())
+  status           String   @default("pending")
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  user              User    @relation(fields: [userId], references: [id])
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? 
-  access_token      String? 
-  expires_at        Int?    
-  token_type        String? 
-  scope             String? 
-  id_token          String? 
-  session_state     String? 
-
-  @@unique([provider, providerAccountId])
+model Admin {
+  id          String @id @default(uuid())
+  email       String @unique
+  name        String
+  role        String
+  stackAuthId String @unique
 }
