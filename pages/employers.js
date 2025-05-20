@@ -121,9 +121,6 @@ export default function Employers() {
       </div>
     );
   };
-
-  // Define custom getLayout to prevent double-wrapping with Layout
-  Employers.getLayout = (page) => page;
   
   return (
     <>

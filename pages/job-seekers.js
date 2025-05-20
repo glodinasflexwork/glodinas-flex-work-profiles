@@ -161,9 +161,6 @@ export default function JobSeekers() {
       </div>
     );
   };
-
-  // Define custom getLayout to prevent double-wrapping with Layout
-  JobSeekers.getLayout = (page) => page;
   
   return (
     <>

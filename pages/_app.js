@@ -8,13 +8,37 @@ import Layout from '../components/Layout';
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
   
-  // Use getLayout if it's defined on the page, otherwise use default Layout
-  const getLayout = Component.getLayout || ((page) => <Layout pageTitle={Component.pageTitle}>{page}</Layout>);
+  // Special pages that need custom layouts or no layout
+  const specialPages = [
+    '/employer/dashboard',
+    '/employer/job-postings',
+    '/employer/profile',
+    '/admin',
+    '/admin/login',
+    '/admin/employers',
+    '/admin/job-seekers',
+    '/admin/export',
+    '/admin/employers/pending',
+    '/admin/job-seekers/pending'
+  ];
+  
+  // Check if current page needs special layout handling
+  const needsSpecialLayout = specialPages.some(path => 
+    router.pathname === path || router.pathname.startsWith(`${path}/`)
+  );
   
   return (
     <SessionProvider session={session}>
       <NotificationProvider>
-        {getLayout(<Component {...pageProps} />)}
+        {needsSpecialLayout ? (
+          // For pages with their own layout or no layout
+          <Component {...pageProps} />
+        ) : (
+          // Default layout for most pages
+          <Layout pageTitle={Component.pageTitle}>
+            <Component {...pageProps} />
+          </Layout>
+        )}
       </NotificationProvider>
     </SessionProvider>
   );
