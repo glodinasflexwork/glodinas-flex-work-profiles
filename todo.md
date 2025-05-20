@@ -1,16 +1,14 @@
-# Glodinas Flex Work Website - i18n Fix
+# Glodinas Flex Work - Todo List
 
-## Tasks
-
-- [x] Analyze current i18n setup in the project
-- [x] Research best practices for Next.js i18n on Vercel
-- [x] Refactor i18n configuration for serverless compatibility
-  - [x] Update _app.js to use custom i18n solution
-  - [x] Update index.js to use custom i18n solution
-  - [x] Update job-seekers.js to use custom i18n solution
-  - [x] Update employers.js to use custom i18n solution
-  - [x] Check for any other pages using next-i18next
-- [x] Test local build to verify changes
-- [x] Push changes to GitHub for Vercel deployment
-- [x] Validate successful Vercel deployment
-- [x] Report completion to user
+## Job Seeker Submission Issue
+- [x] Analyze job seeker submission issue
+- [x] Verify database schema for job seeker model
+- [x] Check environment variables for database connection
+- [x] Review job seeker submission API code
+- [x] Review admin dashboard API for job seekers
+- [x] Directly query database for job seeker entries
+- [x] Implement enhanced logging for form submission
+- [ ] Test submission process end-to-end
+- [ ] Check Vercel logs after submission attempt
+- [ ] Fix job seeker form submission process
+- [ ] Verify submissions appear in admin dashboard

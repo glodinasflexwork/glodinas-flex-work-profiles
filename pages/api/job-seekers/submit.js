@@ -10,32 +10,105 @@ export const config = {
   },
 };
 
+// Enhanced logging function
+function logEvent(type, message, data = null) {
+  const timestamp = new Date().toISOString();
+  const logEntry = {
+    timestamp,
+    type,
+    message,
+    data
+  };
+  
+  console.log(`[JOB-SEEKER-SUBMIT][${timestamp}][${type}] ${message}`);
+  if (data) {
+    console.log(JSON.stringify(data, null, 2));
+  }
+  
+  // Also log to a file for persistent debugging
+  try {
+    const logDir = path.join(process.cwd(), 'logs');
+    if (!fs.existsSync(logDir)) {
+      fs.mkdirSync(logDir, { recursive: true });
+    }
+    
+    const logFile = path.join(logDir, 'job-seeker-submissions.log');
+    fs.appendFileSync(
+      logFile, 
+      `${JSON.stringify(logEntry)}\n`
+    );
+  } catch (logError) {
+    console.error('Error writing to log file:', logError);
+  }
+}
+
 const uploadDir = path.join(process.cwd(), 'public', 'uploads');
 
 // Ensure upload directory exists
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
+  logEvent('INFO', 'Created upload directory', { path: uploadDir });
+} else {
+  logEvent('INFO', 'Upload directory exists', { path: uploadDir });
 }
 
 export default async function handler(req, res) {
+  logEvent('INFO', 'Job seeker submission request received', { 
+    method: req.method,
+    url: req.url,
+    headers: req.headers
+  });
+
   // Only allow POST method
   if (req.method !== 'POST') {
+    logEvent('ERROR', 'Method not allowed', { method: req.method });
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
   try {
+    logEvent('INFO', 'Initializing form parser');
     const form = new formidable.IncomingForm();
     form.uploadDir = uploadDir;
     form.keepExtensions = true;
+    
+    // Log formidable configuration
+    logEvent('DEBUG', 'Formidable configuration', { 
+      uploadDir: form.uploadDir,
+      keepExtensions: form.keepExtensions,
+      maxFileSize: form.maxFileSize
+    });
 
     form.parse(req, async (err, fields, files) => {
       if (err) {
-        console.error('Error parsing form:', err);
+        logEvent('ERROR', 'Error parsing form', { error: err.toString(), stack: err.stack });
         return res.status(500).json({ 
           success: false,
           message: 'Error processing form data' 
         });
       }
+
+      logEvent('INFO', 'Form parsed successfully', { 
+        fieldCount: Object.keys(fields).length,
+        fileCount: Object.keys(files).length
+      });
+      
+      // Log received fields (excluding sensitive data)
+      const safeFields = { ...fields };
+      if (safeFields.email) safeFields.email = '***@***';
+      if (safeFields.phone) safeFields.phone = '***';
+      logEvent('DEBUG', 'Received form fields', safeFields);
+      
+      // Log received files
+      const fileInfo = {};
+      Object.keys(files).forEach(key => {
+        const file = files[key];
+        fileInfo[key] = {
+          size: file.size,
+          type: file.mimetype,
+          name: file.originalFilename
+        };
+      });
+      logEvent('DEBUG', 'Received files', fileInfo);
 
       // Extract fields
       const {
@@ -50,56 +123,140 @@ export default async function handler(req, res) {
       } = fields;
 
       // Validate required fields
-      if (!firstName || !lastName || !email || !phone || !experience || !skills || !availability || !preferredLocation) {
-        return res.status(400).json({ message: 'Missing required fields' });
+      const requiredFields = {
+        firstName: !!firstName,
+        lastName: !!lastName,
+        email: !!email,
+        phone: !!phone,
+        experience: !!experience,
+        skills: !!skills,
+        availability: !!availability,
+        preferredLocation: !!preferredLocation
+      };
+      
+      const missingFields = Object.entries(requiredFields)
+        .filter(([_, value]) => !value)
+        .map(([key]) => key);
+        
+      if (missingFields.length > 0) {
+        logEvent('ERROR', 'Missing required fields', { missingFields });
+        return res.status(400).json({ 
+          success: false,
+          message: 'Missing required fields',
+          fields: missingFields
+        });
       }
+      
+      logEvent('INFO', 'All required fields present');
 
       // Validate email format
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        return res.status(400).json({ message: 'Invalid email format' });
+        logEvent('ERROR', 'Invalid email format', { email: '***@***' });
+        return res.status(400).json({ 
+          success: false,
+          message: 'Invalid email format'
+        });
       }
+      
+      logEvent('INFO', 'Email format validated');
 
       // Handle CV file upload
       let cvUrl = null;
       if (files.cv) {
-        const file = files.cv;
-        const fileName = `${uuidv4()}-${file.originalFilename}`;
-        const newPath = path.join(uploadDir, fileName);
-        
-        // Rename the file
-        fs.renameSync(file.filepath, newPath);
-        
-        // Store the relative URL
-        cvUrl = `/uploads/${fileName}`;
+        try {
+          const file = files.cv;
+          const fileName = `${uuidv4()}-${file.originalFilename}`;
+          const newPath = path.join(uploadDir, fileName);
+          
+          logEvent('INFO', 'Processing CV file', { 
+            originalName: file.originalFilename,
+            size: file.size,
+            type: file.mimetype,
+            tempPath: file.filepath,
+            newPath
+          });
+          
+          // Rename the file
+          fs.renameSync(file.filepath, newPath);
+          logEvent('INFO', 'CV file saved successfully', { path: newPath });
+          
+          // Store the relative URL
+          cvUrl = `/uploads/${fileName}`;
+          logEvent('INFO', 'CV URL generated', { cvUrl });
+        } catch (fileError) {
+          logEvent('ERROR', 'Error processing CV file', { 
+            error: fileError.toString(),
+            stack: fileError.stack
+          });
+          // Continue without CV if there's an error
+          cvUrl = null;
+        }
+      } else {
+        logEvent('INFO', 'No CV file uploaded');
       }
 
       try {
+        logEvent('INFO', 'Attempting to create job seeker record in database');
+        
+        // Log database connection status
+        try {
+          await prisma.$queryRaw`SELECT 1`;
+          logEvent('INFO', 'Database connection successful');
+        } catch (connError) {
+          logEvent('ERROR', 'Database connection failed', { 
+            error: connError.toString(),
+            stack: connError.stack
+          });
+        }
+        
+        // Prepare data for database
+        const jobSeekerData = {
+          firstName: firstName.toString(),
+          lastName: lastName.toString(),
+          email: email.toString(),
+          phone: phone.toString(),
+          experience: experience.toString(),
+          skills: skills.toString(),
+          availability: availability.toString(),
+          preferredLocation: preferredLocation.toString(),
+          cvUrl,
+          status: 'pending'
+        };
+        
+        logEvent('DEBUG', 'Job seeker data prepared', {
+          ...jobSeekerData,
+          email: '***@***',
+          phone: '***'
+        });
+        
         // Create job seeker record in database
         const jobSeeker = await prisma.jobSeeker.create({
-          data: {
-            firstName: firstName.toString(),
-            lastName: lastName.toString(),
-            email: email.toString(),
-            phone: phone.toString(),
-            experience: experience.toString(),
-            skills: skills.toString(),
-            availability: availability.toString(),
-            preferredLocation: preferredLocation.toString(),
-            cvUrl,
-            status: 'pending'
-          }
+          data: jobSeekerData
         });
 
-        console.log('Job seeker created successfully:', jobSeeker.id);
+        logEvent('SUCCESS', 'Job seeker created successfully', { 
+          id: jobSeeker.id,
+          status: jobSeeker.status,
+          createdAt: jobSeeker.createdAt
+        });
 
         return res.status(201).json({ 
           success: true, 
           message: 'Job seeker application received successfully',
-          data: jobSeeker 
+          data: {
+            id: jobSeeker.id,
+            status: jobSeeker.status
+          }
         });
       } catch (dbError) {
-        console.error('Database error creating job seeker:', dbError);
+        logEvent('ERROR', 'Database error creating job seeker', { 
+          error: dbError.toString(),
+          code: dbError.code,
+          meta: dbError.meta,
+          stack: dbError.stack
+        });
+        
         return res.status(500).json({ 
           success: false,
           message: 'Database error while processing your application',
@@ -108,7 +265,11 @@ export default async function handler(req, res) {
       }
     });
   } catch (error) {
-    console.error('Error submitting job seeker form:', error);
+    logEvent('ERROR', 'Error submitting job seeker form', { 
+      error: error.toString(),
+      stack: error.stack
+    });
+    
     return res.status(500).json({ 
       success: false,
       message: 'An error occurred while processing your application',
