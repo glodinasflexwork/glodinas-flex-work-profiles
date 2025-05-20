@@ -1,15 +1,22 @@
 # Glodinas Flex Work - Todo List
 
-## Job Seeker Submission Issue
+## Form Submission Issues
 - [x] Analyze job seeker submission issue
-- [x] Verify database schema for job seeker model
-- [x] Check environment variables for database connection
-- [x] Review job seeker submission API code
-- [x] Review admin dashboard API for job seekers
-- [x] Directly query database for job seeker entries
-- [x] Implement enhanced logging for form submission
+- [x] Verify database for job seeker entries
+- [x] Test admin dashboard data refresh
+- [x] Implement additional logging in submission API
+- [x] Test submission process end-to-end
 - [x] Analyze job seeker form submission implementation
-- [x] Fix job seeker form submission process
-- [ ] Test submission process end-to-end
-- [ ] Check Vercel logs after submission attempt
-- [ ] Verify submissions appear in admin dashboard
+- [x] Install and configure Cloudinary
+- [x] Remove formidable and use Next.js API for uploads
+- [x] Implement submission API without formidable
+- [x] Fix job seeker form to send JSON data
+- [x] Test end-to-end with Next.js body parser (no file uploads)
+- [x] Apply same fix to employers form
+- [x] Report findings and next steps to user
+
+## Future Enhancements
+- [ ] Implement direct client-to-Cloudinary uploads
+- [ ] Add file preview capabilities in admin dashboard
+- [ ] Enhance form validation (client and server side)
+- [ ] Implement automatic dashboard refresh for new submissions
