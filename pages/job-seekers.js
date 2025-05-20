@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -155,22 +155,74 @@ export default function JobSeekers() {
     window.scrollTo(0, 0);
   };
 
-  const handleSubmit = (e) => {
+  // File input references
+  const cvInputRef = useRef(null);
+  const photoInputRef = useRef(null);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateStep(activeStep)) {
       setIsSubmitting(true);
       
-      // Simulate API call
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setFormSubmitted(true);
+      try {
+        // Create FormData object for multipart/form-data submission (required for file uploads)
+        const formDataToSubmit = new FormData();
+        
+        // Add all form fields to FormData
+        formDataToSubmit.append('firstName', formData.firstName);
+        formDataToSubmit.append('lastName', formData.lastName);
+        formDataToSubmit.append('email', formData.email);
+        formDataToSubmit.append('phone', formData.phone);
+        formDataToSubmit.append('experience', formData.experience);
+        formDataToSubmit.append('skills', formData.skills);
+        formDataToSubmit.append('availability', formData.availability);
+        formDataToSubmit.append('preferredLocation', formData.location);
+        
+        // Add CV file if selected
+        if (cvInputRef.current && cvInputRef.current.files[0]) {
+          formDataToSubmit.append('cv', cvInputRef.current.files[0]);
+        }
+        
+        console.log('Submitting job seeker form to API...');
+        
+        // Send POST request to the API endpoint
+        const response = await fetch('/api/job-seekers/submit', {
+          method: 'POST',
+          body: formDataToSubmit,
+          // No Content-Type header needed as it's automatically set with the correct boundary for FormData
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          console.log('Job seeker submission successful:', result);
+          setFormSubmitted(true);
+          addNotification(
+            'Your profile has been submitted successfully! We will review it within 24 hours.',
+            'success',
+            true,
+            10000
+          );
+        } else {
+          console.error('Job seeker submission failed:', result);
+          addNotification(
+            `Error: ${result.message || 'Failed to submit your application. Please try again.'}`,
+            'error',
+            true,
+            10000
+          );
+        }
+      } catch (error) {
+        console.error('Error submitting job seeker form:', error);
         addNotification(
-          'Your profile has been submitted successfully! We will review it within 24 hours.',
-          'success',
+          'An error occurred while submitting your application. Please try again.',
+          'error',
           true,
           10000
         );
-      }, 2000);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -370,6 +422,7 @@ export default function JobSeekers() {
                 <label className="block text-gray-700 mb-1">Upload CV/Resume (PDF, DOC, DOCX - max 5MB)</label>
                 <input
                   type="file"
+                  ref={cvInputRef}
                   className="w-full p-2 border border-gray-300 rounded"
                   accept=".pdf,.doc,.docx"
                 />
@@ -379,6 +432,7 @@ export default function JobSeekers() {
                 <label className="block text-gray-700 mb-1">Upload Photo (Optional - JPG, PNG - max 2MB)</label>
                 <input
                   type="file"
+                  ref={photoInputRef}
                   className="w-full p-2 border border-gray-300 rounded"
                   accept=".jpg,.jpeg,.png"
                 />
