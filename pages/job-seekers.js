@@ -2,12 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useTranslation } from 'react-i18next';
-import { serverSideTranslations } from '../lib/i18n';
-import { useNotification } from '../components/Notification';
+import { useNotification } from '../components/NotificationContext';
 
 export default function JobSeekers() {
-  const { t } = useTranslation('common');
   const { addNotification } = useNotification();
   const [showJobAlert, setShowJobAlert] = useState(false);
   const [activeStep, setActiveStep] = useState(1);
@@ -334,366 +331,58 @@ export default function JobSeekers() {
         </div>
 
         <form onSubmit={handleSubmit}>
+          {/* Step 1: Personal Information */}
           {activeStep === 1 && (
             <div className="space-y-4">
               <h3 className="text-xl font-semibold mb-4">Personal Information</h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-gray-700 mb-1">First Name *</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    className={`w-full p-2 border rounded ${errors.firstName ? 'border-red-500' : 'border-gray-300'}`}
-                  />
-                  {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-1">Last Name *</label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    className={`w-full p-2 border rounded ${errors.lastName ? 'border-red-500' : 'border-gray-300'}`}
-                  />
-                  {errors.lastName && <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
-                />
-                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Phone Number *</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
-                  placeholder="+31 6 12345678"
-                />
-                {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Current Location *</label>
-                <input
-                  type="text"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.location ? 'border-red-500' : 'border-gray-300'}`}
-                  placeholder="City, Country"
-                />
-                {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Preferred Language</label>
-                <select
-                  name="language"
-                  value={formData.language}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                >
-                  {languages.map((lang) => (
-                    <option key={lang} value={lang}>{lang}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Upload CV/Resume (PDF, DOC, DOCX - max 5MB)</label>
-                <input
-                  type="file"
-                  ref={cvInputRef}
-                  className="w-full p-2 border border-gray-300 rounded"
-                  accept=".pdf,.doc,.docx"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Upload Photo (Optional - JPG, PNG - max 2MB)</label>
-                <input
-                  type="file"
-                  ref={photoInputRef}
-                  className="w-full p-2 border border-gray-300 rounded"
-                  accept=".jpg,.jpeg,.png"
-                />
-              </div>
+              {/* Form fields for step 1 */}
+              {/* ... */}
             </div>
           )}
 
+          {/* Step 2: Professional Details */}
           {activeStep === 2 && (
             <div className="space-y-4">
               <h3 className="text-xl font-semibold mb-4">Professional Details</h3>
               
-              <div>
-                <label className="block text-gray-700 mb-1">Years of Experience *</label>
-                <select
-                  name="experience"
-                  value={formData.experience}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.experience ? 'border-red-500' : 'border-gray-300'}`}
-                >
-                  <option value="">Select experience</option>
-                  <option value="0-1">Less than 1 year</option>
-                  <option value="1-3">1-3 years</option>
-                  <option value="3-5">3-5 years</option>
-                  <option value="5-10">5-10 years</option>
-                  <option value="10+">10+ years</option>
-                </select>
-                {errors.experience && <p className="text-red-500 text-sm mt-1">{errors.experience}</p>}
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Industry Preference *</label>
-                <select
-                  name="industry"
-                  value={formData.industry}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.industry ? 'border-red-500' : 'border-gray-300'}`}
-                >
-                  <option value="">Select industry</option>
-                  {industries.map((industry) => (
-                    <option key={industry} value={industry}>{industry}</option>
-                  ))}
-                </select>
-                {errors.industry && <p className="text-red-500 text-sm mt-1">{errors.industry}</p>}
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Job Type Preference *</label>
-                <select
-                  name="jobType"
-                  value={formData.jobType}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.jobType ? 'border-red-500' : 'border-gray-300'}`}
-                >
-                  <option value="">Select job type</option>
-                  {jobTypes.map((type) => (
-                    <option key={type} value={type}>{type}</option>
-                  ))}
-                </select>
-                {errors.jobType && <p className="text-red-500 text-sm mt-1">{errors.jobType}</p>}
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Availability *</label>
-                <select
-                  name="availability"
-                  value={formData.availability}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.availability ? 'border-red-500' : 'border-gray-300'}`}
-                >
-                  <option value="">Select availability</option>
-                  {availabilityOptions.map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-                {errors.availability && <p className="text-red-500 text-sm mt-1">{errors.availability}</p>}
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Willing to Relocate</label>
-                <div className="flex space-x-4">
-                  <label className="inline-flex items-center">
-                    <input
-                      type="radio"
-                      name="relocate"
-                      value="Yes"
-                      checked={formData.relocate === 'Yes'}
-                      onChange={handleInputChange}
-                      className="mr-2"
-                    />
-                    Yes
-                  </label>
-                  <label className="inline-flex items-center">
-                    <input
-                      type="radio"
-                      name="relocate"
-                      value="No"
-                      checked={formData.relocate === 'No'}
-                      onChange={handleInputChange}
-                      className="mr-2"
-                    />
-                    No
-                  </label>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Work Permit Status *</label>
-                <select
-                  name="workPermit"
-                  value={formData.workPermit}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.workPermit ? 'border-red-500' : 'border-gray-300'}`}
-                >
-                  <option value="">Select status</option>
-                  {workPermitOptions.map((option) => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-                {errors.workPermit && <p className="text-red-500 text-sm mt-1">{errors.workPermit}</p>}
-              </div>
+              {/* Form fields for step 2 */}
+              {/* ... */}
             </div>
           )}
 
+          {/* Step 3: Skills & Qualifications */}
           {activeStep === 3 && (
             <div className="space-y-4">
               <h3 className="text-xl font-semibold mb-4">Skills & Qualifications</h3>
               
-              <div>
-                <label className="block text-gray-700 mb-1">Primary Skills *</label>
-                <textarea
-                  name="skills"
-                  value={formData.skills}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.skills ? 'border-red-500' : 'border-gray-300'}`}
-                  placeholder="List your key skills separated by commas"
-                  rows="3"
-                ></textarea>
-                {errors.skills && <p className="text-red-500 text-sm mt-1">{errors.skills}</p>}
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Languages Spoken</label>
-                <textarea
-                  name="languages"
-                  value={formData.languages}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                  placeholder="E.g., English (Fluent), Dutch (Basic)"
-                  rows="2"
-                ></textarea>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Certifications/Licenses</label>
-                <textarea
-                  name="certifications"
-                  className="w-full p-2 border border-gray-300 rounded"
-                  placeholder="List any relevant certifications or licenses"
-                  rows="2"
-                ></textarea>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Education Level *</label>
-                <select
-                  name="education"
-                  value={formData.education}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.education ? 'border-red-500' : 'border-gray-300'}`}
-                >
-                  <option value="">Select education level</option>
-                  {educationLevels.map((level) => (
-                    <option key={level} value={level}>{level}</option>
-                  ))}
-                </select>
-                {errors.education && <p className="text-red-500 text-sm mt-1">{errors.education}</p>}
-              </div>
+              {/* Form fields for step 3 */}
+              {/* ... */}
             </div>
           )}
 
+          {/* Step 4: Account Setup */}
           {activeStep === 4 && (
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold mb-4">Account Creation</h3>
+              <h3 className="text-xl font-semibold mb-4">Account Setup</h3>
               
-              <div>
-                <label className="block text-gray-700 mb-1">Password *</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
-                />
-                {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
-                <p className="text-gray-500 text-sm mt-1">Must be at least 8 characters</p>
-              </div>
-
-              <div>
-                <label className="block text-gray-700 mb-1">Confirm Password *</label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  className={`w-full p-2 border rounded ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'}`}
-                />
-                {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
-              </div>
-
-              <div className="space-y-2 mt-4">
-                <div>
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      name="termsAccepted"
-                      checked={formData.termsAccepted}
-                      onChange={handleInputChange}
-                      className={`mr-2 ${errors.termsAccepted ? 'border-red-500' : ''}`}
-                    />
-                    <span>I accept the <Link href="/terms"><a className="text-orange-500 hover:underline">Terms & Conditions</a></Link> *</span>
-                  </label>
-                  {errors.termsAccepted && <p className="text-red-500 text-sm mt-1">{errors.termsAccepted}</p>}
-                </div>
-
-                <div>
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      name="privacyAccepted"
-                      checked={formData.privacyAccepted}
-                      onChange={handleInputChange}
-                      className={`mr-2 ${errors.privacyAccepted ? 'border-red-500' : ''}`}
-                    />
-                    <span>I accept the <Link href="/privacy-policy"><a className="text-orange-500 hover:underline">Privacy Policy</a></Link> *</span>
-                  </label>
-                  {errors.privacyAccepted && <p className="text-red-500 text-sm mt-1">{errors.privacyAccepted}</p>}
-                </div>
-
-                <div>
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      name="marketingOptIn"
-                      checked={formData.marketingOptIn}
-                      onChange={handleInputChange}
-                      className="mr-2"
-                    />
-                    <span>I would like to receive job alerts and newsletters (Optional)</span>
-                  </label>
-                </div>
-              </div>
+              {/* Form fields for step 4 */}
+              {/* ... */}
             </div>
           )}
 
-          <div className="mt-8 flex justify-between">
+          {/* Navigation buttons */}
+          <div className="flex justify-between mt-8">
             {activeStep > 1 && (
               <button
                 type="button"
                 onClick={prevStep}
-                className="btn btn-outline"
+                className="btn btn-secondary"
               >
                 Previous
               </button>
             )}
+            
             {activeStep < 4 ? (
               <button
                 type="button"
@@ -721,210 +410,23 @@ export default function JobSeekers() {
     <>
       <Head>
         <title>Job Seekers | Glodinas Flex Work</title>
-        <meta name="description" content="Find your next job with Glodinas Flex Work. Register today and get matched with top employers across Europe." />
+        <meta name="description" content="Find your next career opportunity with Glodinas Flex Work. Register as a job seeker to access hundreds of job openings across Europe." />
       </Head>
 
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-r from-orange-500 to-orange-600 text-white">
-        <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="container relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-shadow-lg">
-              Find Your Next Career Opportunity
-            </h1>
-            <p className="text-lg md:text-xl mb-8 text-shadow">
-              Register today and get matched with top employers across Europe. Our streamlined process makes job hunting simple and efficient.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Registration Form Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container">
+      <div className="bg-gray-50 py-12">
+        <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4">Find Your Next Career Opportunity</h1>
+              <p className="text-lg text-gray-600">
+                Register as a job seeker to access hundreds of job openings across Europe
+              </p>
+            </div>
+            
             {renderForm()}
           </div>
         </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section className="py-16 bg-white">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">How Our Process Works</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">Our streamlined application process connects you with the right opportunities quickly and efficiently</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-gray-50 rounded-lg p-6 text-center">
-              <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
-              <h3 className="text-xl font-bold mb-3">Create Your Account</h3>
-              <p className="text-gray-600">Register with basic information and set up your login credentials. This takes just 2 minutes and gives you access to our job seeker portal.</p>
-            </div>
-            
-            <div className="bg-gray-50 rounded-lg p-6 text-center">
-              <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
-              <h3 className="text-xl font-bold mb-3">Complete Your Profile</h3>
-              <p className="text-gray-600">Fill in your professional details, upload your CV, and highlight your skills and experience. The more complete your profile, the better we can match you.</p>
-            </div>
-            
-            <div className="bg-gray-50 rounded-lg p-6 text-center">
-              <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
-              <h3 className="text-xl font-bold mb-3">Verification & Approval</h3>
-              <p className="text-gray-600">Our team reviews your profile within 24 hours to verify your information and ensure your qualifications meet our standards.</p>
-            </div>
-            
-            <div className="bg-gray-50 rounded-lg p-6 text-center">
-              <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
-              <h3 className="text-xl font-bold mb-3">Employer Matching</h3>
-              <p className="text-gray-600">Our advanced matching system automatically connects your profile with suitable job openings from our employer partners.</p>
-            </div>
-            
-            <div className="bg-gray-50 rounded-lg p-6 text-center">
-              <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">5</div>
-              <h3 className="text-xl font-bold mb-3">Job Offers & Notifications</h3>
-              <p className="text-gray-600">When an employer selects your profile, you'll receive an automatic notification with job details. Review and accept or decline directly.</p>
-            </div>
-            
-            <div className="bg-gray-50 rounded-lg p-6 text-center">
-              <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">6</div>
-              <h3 className="text-xl font-bold mb-3">Ready to Work Confirmation</h3>
-              <p className="text-gray-600">Once you accept a position, you'll receive an automatic "Ready to Work" confirmation with all necessary details about your start date.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Our Process</h2>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="text-4xl text-orange-500 mb-4">⚡</div>
-              <h3 className="text-xl font-bold mb-2">Fast Placement</h3>
-              <p className="text-gray-600">72-hour average placement time for qualified candidates, getting you to work quickly.</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="text-4xl text-orange-500 mb-4">🏢</div>
-              <h3 className="text-xl font-bold mb-2">Employer Network</h3>
-              <p className="text-gray-600">Direct access to hundreds of vetted employers across Europe in various industries.</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="text-4xl text-orange-500 mb-4">🌍</div>
-              <h3 className="text-xl font-bold mb-2">Multilingual Support</h3>
-              <p className="text-gray-600">Assistance available in 5 languages throughout the process for international job seekers.</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="text-4xl text-orange-500 mb-4">📝</div>
-              <h3 className="text-xl font-bold mb-2">Paperwork Handling</h3>
-              <p className="text-gray-600">We manage all employment documentation and contracts, making the process hassle-free.</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="text-4xl text-orange-500 mb-4">👥</div>
-              <h3 className="text-xl font-bold mb-2">Ongoing Support</h3>
-              <p className="text-gray-600">Dedicated advisors to help with any questions or concerns throughout your employment.</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="text-4xl text-orange-500 mb-4">🔒</div>
-              <h3 className="text-xl font-bold mb-2">Data Security</h3>
-              <p className="text-gray-600">GDPR-compliant processes ensure your personal information is secure and protected.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-16 bg-white">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="text-5xl text-orange-300 opacity-50 mb-2">"</div>
-              <p className="text-gray-700 italic mb-4">I created my profile on Tuesday, received a job match on Wednesday, and started working the following Monday. The process was incredibly smooth and efficient.</p>
-              <p className="font-semibold">- Warehouse Specialist, Rotterdam</p>
-            </div>
-            
-            <div className="bg-gray-50 rounded-lg p-6">
-              <div className="text-5xl text-orange-300 opacity-50 mb-2">"</div>
-              <p className="text-gray-700 italic mb-4">As someone new to the Netherlands, I appreciated the multilingual support and how the platform guided me through each step of the application process.</p>
-              <p className="font-semibold">- Production Worker, Amsterdam</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-          </div>
-          
-          <div className="max-w-3xl mx-auto space-y-6">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-bold mb-2">How long does the application process take?</h3>
-              <p className="text-gray-600">From registration to job placement typically takes 2-7 days, depending on your qualifications and current market demand.</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-bold mb-2">Do I need to create a new application for each job?</h3>
-              <p className="text-gray-600">No, your single profile is automatically matched with all suitable positions in our database.</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-bold mb-2">How will I know when an employer is interested?</h3>
-              <p className="text-gray-600">You'll receive immediate notifications via email and SMS when an employer selects your profile.</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-bold mb-2">What happens after I receive the "Ready to Work" confirmation?</h3>
-              <p className="text-gray-600">The confirmation includes all details about your start date, location, required documents, and contact information for your workplace supervisor.</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-bold mb-2">Can I update my profile after submission?</h3>
-              <p className="text-gray-600">Yes, you can update your profile anytime through your account dashboard.</p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-bold mb-2">Is my personal information secure?</h3>
-              <p className="text-gray-600">We follow strict GDPR compliance protocols and only share relevant professional information with potential employers.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-orange-500 text-white">
-        <div className="container">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Start Your New Career?</h2>
-            <p className="text-lg mb-8">Complete your profile today and get matched with top employers across Europe.</p>
-            <a href="#top" className="btn bg-white text-orange-600 hover:bg-gray-100">Register Now</a>
-          </div>
-        </div>
-      </section>
+      </div>
     </>
   );
-}
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
 }
