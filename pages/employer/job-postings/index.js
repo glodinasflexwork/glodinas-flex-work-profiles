@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import EmployerLayout from '../../components/layouts/EmployerLayout';
-import Notification from '../../components/Notification';
+import EmployerLayout from '../../../components/layouts/EmployerLayout';
+import Notification from '../../../components/Notification';
 
 export default function JobPostings() {
   const { data: session, status } = useSession();
