@@ -1,9 +1,21 @@
-import formidable from 'formidable';
-import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
+import { v4 as uuidv4 } from 'uuid';
 import prisma from '../../../lib/prisma';
+
+// Handle different versions of formidable
+let formidable;
+try {
+  // Try the newer ESM style import first
+  formidable = require('formidable');
+  // Check if it's the newer version with named exports
+  if (formidable.default) {
+    formidable = formidable.default;
+  }
+} catch (error) {
+  console.error('Error importing formidable:', error);
+}
 
 export const config = {
   api: {
@@ -72,7 +84,22 @@ export default async function handler(req, res) {
 
   try {
     logEvent('INFO', 'Initializing form parser');
-    const form = new formidable.IncomingForm();
+    
+    // Create form parser based on formidable version
+    let form;
+    if (typeof formidable === 'function') {
+      // Old style: formidable is the constructor
+      form = new formidable();
+    } else if (formidable && formidable.IncomingForm) {
+      // Middle versions: formidable.IncomingForm is the constructor
+      form = new formidable.IncomingForm();
+    } else if (formidable && typeof formidable.formidable === 'function') {
+      // Newer versions with named exports
+      form = formidable.formidable();
+    } else {
+      throw new Error('Could not initialize formidable form parser');
+    }
+    
     form.uploadDir = uploadDir;
     form.keepExtensions = true;
     
