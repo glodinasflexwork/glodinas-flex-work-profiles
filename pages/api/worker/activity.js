@@ -1,112 +1,95 @@
+import { PrismaClient } from '@prisma/client';
 import { getSession } from 'next-auth/react';
-import prisma from '../../../lib/prisma';
+
+// Initialize Prisma Client
+let prisma;
+
+if (process.env.NODE_ENV === 'production') {
+  prisma = new PrismaClient();
+} else {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient();
+  }
+  prisma = global.prisma;
+}
 
 export default async function handler(req, res) {
-  const session = await getSession({ req });
-  
-  // Check authentication
-  if (!session) {
-    return res.status(401).json({ error: 'Unauthorized' });
+  // Only allow GET requests
+  if (req.method !== 'GET') {
+    return res.status(405).json({ message: 'Method not allowed' });
   }
-  
-  // Check if user is a worker
-  if (session.user.role !== 'WORKER') {
-    return res.status(403).json({ error: 'Forbidden' });
-  }
-  
-  const userId = session.user.id;
-  
-  // Handle GET request - fetch activity
-  if (req.method === 'GET') {
-    try {
-      // Get recent activity (applications, interviews, saved jobs)
-      const recentApplications = await prisma.jobApplication.findMany({
-        where: { applicantId: userId },
-        orderBy: { createdAt: 'desc' },
-        take: 3,
-        include: {
-          job: {
-            select: {
-              title: true,
-              company: {
-                select: { name: true }
-              }
-            }
-          }
-        }
-      });
-      
-      const recentInterviews = await prisma.interview.findMany({
-        where: { applicantId: userId },
-        orderBy: { scheduledAt: 'desc' },
-        take: 3,
-        include: {
-          job: {
-            select: {
-              title: true,
-              company: {
-                select: { name: true }
-              }
-            }
-          }
-        }
-      });
-      
-      const recentSavedJobs = await prisma.savedJob.findMany({
-        where: { userId },
-        orderBy: { createdAt: 'desc' },
-        take: 3,
-        include: {
-          job: {
-            select: {
-              title: true,
-              company: {
-                select: { name: true }
-              }
-            }
-          }
-        }
-      });
-      
-      // Format activity for frontend
-      const activity = [
-        ...recentApplications.map(app => ({
-          id: `app-${app.id}`,
-          type: 'application_submitted',
-          message: `You applied for ${app.job.title} at ${app.job.company.name}`,
-          timestamp: app.createdAt,
-          relatedId: app.id
-        })),
-        ...recentInterviews.map(interview => ({
-          id: `int-${interview.id}`,
-          type: 'interview_scheduled',
-          message: `Interview scheduled for ${interview.job.title} at ${interview.job.company.name}`,
-          timestamp: interview.createdAt,
-          interviewDate: interview.scheduledAt,
-          relatedId: interview.id
-        })),
-        ...recentSavedJobs.map(saved => ({
-          id: `save-${saved.id}`,
-          type: 'job_saved',
-          message: `You saved ${saved.job.title} at ${saved.job.company.name}`,
-          timestamp: saved.createdAt,
-          relatedId: saved.jobId
-        }))
-      ];
-      
-      // Sort by timestamp (newest first)
-      activity.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-      
-      // Take only the 5 most recent activities
-      const recentActivity = activity.slice(0, 5);
-      
-      return res.status(200).json(recentActivity);
-    } catch (error) {
-      console.error('Error fetching worker activity:', error);
-      return res.status(500).json({ error: 'Failed to fetch activity' });
+
+  try {
+    // Get the user session
+    const session = await getSession({ req });
+    
+    // Check if user is authenticated and is a worker
+    if (!session || session.user.role !== 'WORKER') {
+      return res.status(401).json({ message: 'Unauthorized' });
     }
+
+    // Get user ID from session
+    const userId = session.user.id;
+
+    // Get worker profile ID
+    const workerProfile = await prisma.workerProfile.findUnique({
+      where: { userId: userId }
+    });
+
+    if (!workerProfile) {
+      return res.status(404).json({ message: 'Worker profile not found' });
+    }
+
+    // Fetch recent applications
+    const applications = await prisma.application.findMany({
+      where: { workerId: workerProfile.id },
+      orderBy: { createdAt: 'desc' },
+      take: 5,
+      include: {
+        jobPosting: true
+      }
+    });
+
+    // Transform applications into activity format
+    const activityItems = applications.map(app => {
+      let type, message;
+      
+      switch(app.status) {
+        case 'INTERVIEW':
+          type = 'interview_scheduled';
+          message = `Interview scheduled for ${app.jobPosting.title} at ${app.jobPosting.location}`;
+          break;
+        case 'ACCEPTED':
+          type = 'application_accepted';
+          message = `Your application for ${app.jobPosting.title} was accepted!`;
+          break;
+        case 'REJECTED':
+          type = 'application_rejected';
+          message = `Your application for ${app.jobPosting.title} was not selected`;
+          break;
+        case 'PENDING':
+        default:
+          type = 'application_submitted';
+          message = `You applied for ${app.jobPosting.title} at ${app.jobPosting.location}`;
+      }
+      
+      return {
+        id: app.id,
+        type: type,
+        message: message,
+        timestamp: app.createdAt,
+        status: app.status
+      };
+    });
+
+    // Return the activity data
+    return res.status(200).json(activityItems);
+  } catch (error) {
+    console.error('Error fetching worker activity:', error);
+    return res.status(500).json({ 
+      message: 'Error fetching worker activity', 
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
-  
-  // Handle unsupported methods
-  return res.status(405).json({ error: 'Method not allowed' });
 }
