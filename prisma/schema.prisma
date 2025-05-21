@@ -10,6 +10,136 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Unified User model for authentication
+model User {
+  id              String          @id @default(uuid())
+  email           String          @unique
+  name            String
+  role            String          // ADMIN, EMPLOYER, WORKER
+  stackAuthId     String?         @unique
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  
+  // Relations
+  adminProfile    AdminProfile?
+  employerProfile EmployerProfile?
+  workerProfile   WorkerProfile?
+}
+
+// Admin profile
+model AdminProfile {
+  id          String   @id @default(uuid())
+  position    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relation to User
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String   @unique
+}
+
+// Employer profile
+model EmployerProfile {
+  id              String   @id @default(uuid())
+  companyName     String
+  contactPerson   String
+  phone           String
+  industry        String?
+  location        String?
+  status          String   @default("pending")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relation to User
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String   @unique
+  
+  // Relation to Subscription
+  subscription    Subscription?
+  
+  // Relation to JobPostings
+  jobPostings     JobPosting[]
+}
+
+// Worker profile
+model WorkerProfile {
+  id                String   @id @default(uuid())
+  firstName         String
+  lastName          String
+  phone             String
+  experience        String?
+  skills            String?  @db.Text
+  availability      String?
+  preferredLocation String?
+  resumeUrl         String?
+  coverLetterUrl    String?
+  status            String   @default("pending")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relation to User
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String   @unique
+  
+  // Relation to Applications
+  applications      Application[]
+}
+
+// Subscription model for employers
+model Subscription {
+  id              String   @id @default(uuid())
+  tier            String   // FREE, BASIC, PREMIUM
+  jobPostingLimit Int      @default(3)
+  activeJobsCount Int      @default(0)
+  startDate       DateTime @default(now())
+  endDate         DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relation to EmployerProfile
+  employer        EmployerProfile @relation(fields: [employerId], references: [id], onDelete: Cascade)
+  employerId      String   @unique
+}
+
+// Job posting model
+model JobPosting {
+  id              String   @id @default(uuid())
+  title           String
+  description     String   @db.Text
+  requirements    String?  @db.Text
+  location        String
+  jobType         String   // FULL_TIME, PART_TIME, CONTRACT, TEMPORARY
+  salary          String?
+  status          String   @default("DRAFT") // DRAFT, ACTIVE, PAUSED, CLOSED
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relation to EmployerProfile
+  employer        EmployerProfile @relation(fields: [employerId], references: [id])
+  employerId      String
+  
+  // Relation to Applications
+  applications    Application[]
+}
+
+// Application model
+model Application {
+  id              String   @id @default(uuid())
+  status          String   @default("PENDING") // PENDING, INTERVIEW, ACCEPTED, REJECTED
+  coverLetter     String?  @db.Text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relation to JobPosting
+  jobPosting      JobPosting @relation(fields: [jobPostingId], references: [id])
+  jobPostingId    String
+  
+  // Relation to WorkerProfile
+  worker          WorkerProfile @relation(fields: [workerId], references: [id])
+  workerId        String
+}
+
+// Legacy models (keeping for backward compatibility)
 model Employer {
   id              String   @id @default(uuid())
   companyName     String
