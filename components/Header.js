@@ -74,10 +74,7 @@ export default function Header() {
             ) : (
               <div className="flex items-center space-x-4">
                 <Link href="/login">
-                  <a className="text-gray-600 hover:text-orange-500">Login</a>
-                </Link>
-                <Link href="/register">
-                  <a className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md">Register</a>
+                  <a className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md">Login</a>
                 </Link>
               </div>
             )}
