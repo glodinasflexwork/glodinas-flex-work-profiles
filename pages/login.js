@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { useNotification } from '../components/NotificationContext';
 import Layout from '../components/Layout';
 
 export default function Login() {
+  const router = useRouter();
+  const { data: session, status } = useSession();
   const { addNotification } = useNotification();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -14,6 +17,30 @@ export default function Login() {
     password: '',
     rememberMe: false
   });
+  
+  // Check if user is already logged in and redirect to appropriate dashboard
+  useEffect(() => {
+    if (status === 'authenticated') {
+      redirectToDashboard(session.user.role);
+    }
+  }, [status, session]);
+  
+  // Function to redirect based on user role
+  const redirectToDashboard = (role) => {
+    switch(role) {
+      case 'EMPLOYER':
+        router.push('/employer/dashboard');
+        break;
+      case 'WORKER':
+        router.push('/worker/dashboard');
+        break;
+      case 'ADMIN':
+        router.push('/admin/dashboard');
+        break;
+      default:
+        router.push('/dashboard');
+    }
+  };
   
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -45,7 +72,7 @@ export default function Login() {
         setIsLoading(false);
       } else {
         addNotification('Login successful! Redirecting...', 'success');
-        // Redirect will be handled by next-auth
+        // We'll let the useEffect handle the redirect after session is updated
       }
     } catch (error) {
       addNotification('An error occurred during login. Please try again.', 'error');
@@ -84,13 +111,22 @@ export default function Login() {
         setIsLoading(false);
       } else {
         addNotification(`Logged in as demo ${role}! Redirecting...`, 'success');
-        // Redirect will be handled by next-auth
+        // We'll let the useEffect handle the redirect after session is updated
       }
     } catch (error) {
       addNotification('An error occurred during login. Please try again.', 'error');
       setIsLoading(false);
     }
   };
+  
+  // If already authenticated, don't show login page
+  if (status === 'authenticated') {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+      </div>
+    );
+  }
   
   return (
     <Layout>
