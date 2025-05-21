@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useNotification } from '../components/NotificationContext';
-import Layout from '../components/Layout';
 
 export default function Login() {
   const router = useRouter();
@@ -129,7 +128,7 @@ export default function Login() {
   }
   
   return (
-    <Layout>
+    <div className="min-h-screen bg-white text-gray-800">
       <Head>
         <title>Login | Glodinas Flex Work</title>
         <meta name="description" content="Login to your Glodinas Flex Work account to access job opportunities or manage your recruitment needs." />
@@ -309,6 +308,6 @@ export default function Login() {
           </div>
         </div>
       </section>
-    </Layout>
+    </div>
   );
 }
