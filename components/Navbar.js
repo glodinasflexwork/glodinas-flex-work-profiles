@@ -134,11 +134,16 @@ const Navbar = () => {
               )}
             </button>
             
-            {/* Login Button */}
+            {/* Login and Register Buttons */}
             <div className="flex items-center ml-4 space-x-2">
               <Link href="/login">
-                <a className="btn btn-primary btn-sm">
+                <a className="btn btn-outline btn-sm">
                   Login
+                </a>
+              </Link>
+              <Link href="/register">
+                <a className="btn btn-primary btn-sm">
+                  Register
                 </a>
               </Link>
             </div>
@@ -284,10 +289,18 @@ const Navbar = () => {
               <div className="flex flex-col space-y-3">
                 <Link href="/login">
                   <a 
-                    className="btn btn-primary w-full justify-center"
+                    className="btn btn-outline w-full justify-center"
                     onClick={() => setIsOpen(false)}
                   >
                     Login
+                  </a>
+                </Link>
+                <Link href="/register">
+                  <a 
+                    className="btn btn-primary w-full justify-center"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Register
                   </a>
                 </Link>
               </div>
