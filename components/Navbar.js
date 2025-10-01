@@ -57,67 +57,62 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/">
-            <a className="flex items-center">
-              <Image 
-                src="/images/logo.png" 
-                alt="Glodinas Flex Work" 
-                width={40} 
-                height={40} 
-                className="mr-2"
-              />
-              <span className="font-bold text-xl text-gray-900 hidden sm:inline-block">
-                Glodinas Flex Work
-              </span>
-            </a>
+          <Link href="/" className="flex items-center">
+            <Image 
+              src="/images/logo.png" 
+              alt="Glodinas Flex Work" 
+              width={40} 
+              height={40} 
+              className="mr-2"
+            />
+            <span className="font-bold text-xl text-gray-900 hidden sm:inline-block">
+              Glodinas Flex Work
+            </span>
           </Link>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            <Link href="/job-seekers">
-              <a className={`px-3 py-2 rounded-md text-sm font-medium ${
-                router.pathname === '/job-seekers' 
-                  ? 'text-orange-600' 
-                  : 'text-gray-700 hover:text-orange-500'
-              }`}>
-                Job Seekers
-              </a>
+            <Link href="/job-seekers" className={`px-3 py-2 rounded-md text-sm font-medium ${
+              router.pathname === '/job-seekers' 
+                ? 'text-orange-600' 
+                : 'text-gray-700 hover:text-orange-500'
+            }`}>
+              Job Seekers
             </Link>
-            <Link href="/employers">
-              <a className={`px-3 py-2 rounded-md text-sm font-medium ${
-                router.pathname === '/employers' 
-                  ? 'text-orange-600' 
-                  : 'text-gray-700 hover:text-orange-500'
-              }`}>
-                Employers
-              </a>
+            <Link href="/employers" className={`px-3 py-2 rounded-md text-sm font-medium ${
+              router.pathname === '/employers' 
+                ? 'text-orange-600' 
+                : 'text-gray-700 hover:text-orange-500'
+            }`}>
+              Employers
             </Link>
-            <Link href="/services">
-              <a className={`px-3 py-2 rounded-md text-sm font-medium ${
-                router.pathname === '/services' 
-                  ? 'text-orange-600' 
-                  : 'text-gray-700 hover:text-orange-500'
-              }`}>
-                Services
-              </a>
+            <Link href="/services" className={`px-3 py-2 rounded-md text-sm font-medium ${
+              router.pathname === '/services' 
+                ? 'text-orange-600' 
+                : 'text-gray-700 hover:text-orange-500'
+            }`}>
+              Services
             </Link>
-            <Link href="/about">
-              <a className={`px-3 py-2 rounded-md text-sm font-medium ${
-                router.pathname === '/about' 
-                  ? 'text-orange-600' 
-                  : 'text-gray-700 hover:text-orange-500'
-              }`}>
-                About
-              </a>
+            <Link href="/employees" className={`px-3 py-2 rounded-md text-sm font-medium ${
+              router.pathname === '/employees' 
+                ? 'text-orange-600' 
+                : 'text-gray-700 hover:text-orange-500'
+            }`}>
+              Employees
             </Link>
-            <Link href="/contact">
-              <a className={`px-3 py-2 rounded-md text-sm font-medium ${
-                router.pathname === '/contact' 
-                  ? 'text-orange-600' 
-                  : 'text-gray-700 hover:text-orange-500'
-              }`}>
-                Contact
-              </a>
+            <Link href="/about" className={`px-3 py-2 rounded-md text-sm font-medium ${
+              router.pathname === '/about' 
+                ? 'text-orange-600' 
+                : 'text-gray-700 hover:text-orange-500'
+            }`}>
+              About
+            </Link>
+            <Link href="/contact" className={`px-3 py-2 rounded-md text-sm font-medium ${
+              router.pathname === '/contact' 
+                ? 'text-orange-600' 
+                : 'text-gray-700 hover:text-orange-500'
+            }`}>
+              Contact
             </Link>
             
             {/* Notification Bell */}
@@ -136,15 +131,11 @@ const Navbar = () => {
             
             {/* Login and Register Buttons */}
             <div className="flex items-center ml-4 space-x-2">
-              <Link href="/login">
-                <a className="btn btn-outline btn-sm">
-                  Login
-                </a>
+              <Link href="/login" className="btn btn-outline btn-sm">
+                Login
               </Link>
-              <Link href="/register">
-                <a className="btn btn-primary btn-sm">
-                  Register
-                </a>
+              <Link href="/register" className="btn btn-primary btn-sm">
+                Register
               </Link>
             </div>
           </div>
@@ -197,19 +188,17 @@ const Navbar = () => {
         <div className={`mobile-nav-content ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="p-4">
             <div className="flex items-center justify-between mb-6">
-              <Link href="/">
-                <a className="flex items-center" onClick={() => setIsOpen(false)}>
-                  <Image 
-                    src="/images/logo.png" 
-                    alt="Glodinas Flex Work" 
-                    width={32} 
-                    height={32} 
-                    className="mr-2"
-                  />
-                  <span className="font-bold text-lg text-gray-900">
-                    Glodinas Flex Work
-                  </span>
-                </a>
+              <Link href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
+                <Image 
+                  src="/images/logo.png" 
+                  alt="Glodinas Flex Work" 
+                  width={32} 
+                  height={32} 
+                  className="mr-2"
+                />
+                <span className="font-bold text-lg text-gray-900">
+                  Glodinas Flex Work
+                </span>
               </Link>
               <button
                 onClick={() => setIsOpen(false)}
@@ -223,85 +212,57 @@ const Navbar = () => {
             </div>
             
             <div className="space-y-1">
-              <Link href="/job-seekers">
-                <a 
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
-                    router.pathname === '/job-seekers' 
-                      ? 'text-orange-600 bg-orange-50' 
-                      : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  Job Seekers
-                </a>
+              <Link href="/job-seekers" className={`block px-3 py-2 rounded-md text-base font-medium ${
+                router.pathname === '/job-seekers' 
+                  ? 'text-orange-600 bg-orange-50' 
+                  : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
+              }`} onClick={() => setIsOpen(false)}>
+                Job Seekers
               </Link>
-              <Link href="/employers">
-                <a 
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
-                    router.pathname === '/employers' 
-                      ? 'text-orange-600 bg-orange-50' 
-                      : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  Employers
-                </a>
+              <Link href="/employers" className={`block px-3 py-2 rounded-md text-base font-medium ${
+                router.pathname === '/employers' 
+                  ? 'text-orange-600 bg-orange-50' 
+                  : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
+              }`} onClick={() => setIsOpen(false)}>
+                Employers
               </Link>
-              <Link href="/services">
-                <a 
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
-                    router.pathname === '/services' 
-                      ? 'text-orange-600 bg-orange-50' 
-                      : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  Services
-                </a>
+              <Link href="/services" className={`block px-3 py-2 rounded-md text-base font-medium ${
+                router.pathname === '/services' 
+                  ? 'text-orange-600 bg-orange-50' 
+                  : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
+              }`} onClick={() => setIsOpen(false)}>
+                Services
               </Link>
-              <Link href="/about">
-                <a 
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
-                    router.pathname === '/about' 
-                      ? 'text-orange-600 bg-orange-50' 
-                      : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  About
-                </a>
+              <Link href="/employees" className={`block px-3 py-2 rounded-md text-base font-medium ${
+                router.pathname === '/employees' 
+                  ? 'text-orange-600 bg-orange-50' 
+                  : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
+              }`} onClick={() => setIsOpen(false)}>
+                Employees
               </Link>
-              <Link href="/contact">
-                <a 
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
-                    router.pathname === '/contact' 
-                      ? 'text-orange-600 bg-orange-50' 
-                      : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  Contact
-                </a>
+              <Link href="/about" className={`block px-3 py-2 rounded-md text-base font-medium ${
+                router.pathname === '/about' 
+                  ? 'text-orange-600 bg-orange-50' 
+                  : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
+              }`} onClick={() => setIsOpen(false)}>
+                About
+              </Link>
+              <Link href="/contact" className={`block px-3 py-2 rounded-md text-base font-medium ${
+                router.pathname === '/contact' 
+                  ? 'text-orange-600 bg-orange-50' 
+                  : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
+              }`} onClick={() => setIsOpen(false)}>
+                Contact
               </Link>
             </div>
             
             <div className="mt-6 pt-6 border-t border-gray-200">
               <div className="flex flex-col space-y-3">
-                <Link href="/login">
-                  <a 
-                    className="btn btn-outline w-full justify-center"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Login
-                  </a>
+                <Link href="/login" className="btn btn-outline w-full justify-center" onClick={() => setIsOpen(false)}>
+                  Login
                 </Link>
-                <Link href="/register">
-                  <a 
-                    className="btn btn-primary w-full justify-center"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Register
-                  </a>
+                <Link href="/register" className="btn btn-primary w-full justify-center" onClick={() => setIsOpen(false)}>
+                  Register
                 </Link>
               </div>
             </div>
