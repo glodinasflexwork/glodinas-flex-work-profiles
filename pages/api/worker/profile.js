@@ -2,17 +2,6 @@ import prisma from '../../../lib/prisma';
 import { getSession } from 'next-auth/react';
 
 export const runtime = 'edge';
-// Initialize Prisma Client
-let prisma;
-
-if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient();
-} else {
-  if (!global.prisma) {
-    global.prisma = new PrismaClient();
-  }
-  prisma = global.prisma;
-}
 
 export default async function handler(req, res) {
   try {
@@ -137,4 +126,3 @@ export default async function handler(req, res) {
       stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
-}
