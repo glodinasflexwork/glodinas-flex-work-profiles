@@ -241,9 +241,7 @@ export default function Login() {
                 </div>
                 
                 <div className="text-sm">
-                  <Link href="/forgot-password">
-                    <a className="text-orange-600 hover:text-orange-800 font-medium">Forgot your password?</a>
-                  </Link>
+                  <Link href="/forgot-password" className="text-orange-600 hover:text-orange-800 font-medium">Forgot your password?</Link>
                 </div>
               </div>
               
@@ -266,9 +264,7 @@ export default function Login() {
             
             <div className="mt-6 text-center">
               <p className="text-gray-600">Don't have an account?{' '}
-                <Link href="/register">
-                  <a className="text-orange-600 hover:text-orange-800 font-medium">Register here</a>
-                </Link>
+                <Link href="/register" className="text-orange-600 hover:text-orange-800 font-medium">Register here</Link>
               </p>
             </div>
             

@@ -177,16 +177,12 @@ export default function About() {
           Whether you're an employer seeking qualified staff or a job seeker looking for your next opportunity, Glodinas Flex Work is here to help.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link href="/employers">
-            <a className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-lg shadow">
+          <Link href="/employers" className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-lg shadow">
               Find Qualified Staff Today
-            </a>
-          </Link>
-          <Link href="/job-seekers">
-            <a className="bg-white text-orange-600 border border-orange-500 hover:bg-orange-50 font-semibold px-6 py-3 rounded-lg shadow">
+            </Link>
+          <Link href="/job-seekers" className="bg-white text-orange-600 border border-orange-500 hover:bg-orange-50 font-semibold px-6 py-3 rounded-lg shadow">
               Discover Your Next Opportunity
-            </a>
-          </Link>
+            </Link>
         </div>
       </section>
     </>

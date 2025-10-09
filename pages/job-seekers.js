@@ -296,11 +296,9 @@ export default function JobSeekers() {
                 </div>
                 
                 <div className="mt-8 flex flex-wrap gap-4">
-                  <Link href="/register/job-seeker">
-                    <a className="bg-white text-orange-600 px-6 py-3 rounded-md hover:bg-orange-100 transition duration-300 font-semibold">
+                  <Link href="/register/job-seeker" className="bg-white text-orange-600 px-6 py-3 rounded-md hover:bg-orange-100 transition duration-300 font-semibold">
                       Register as Job Seeker
-                    </a>
-                  </Link>
+                    </Link>
                   <a
                     href="#job-listings"
                     className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-md hover:bg-white hover:text-orange-600 transition duration-300 font-semibold"
@@ -433,11 +431,9 @@ export default function JobSeekers() {
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-800 font-semibold">{job.salary}</span>
-                      <Link href="/register/job-seeker">
-                        <a className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 transition duration-300">
+                      <Link href="/register/job-seeker" className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 transition duration-300">
                           Apply Now
-                        </a>
-                      </Link>
+                        </Link>
                     </div>
                   </div>
                 </div>
@@ -451,22 +447,18 @@ export default function JobSeekers() {
               <h3 className="mt-4 text-lg font-medium text-gray-900">No jobs found</h3>
               <p className="mt-2 text-gray-600">Try adjusting your search filters or check back later for new opportunities.</p>
               <div className="mt-6">
-                <Link href="/register/job-seeker">
-                  <a className="btn btn-primary">
+                <Link href="/register/job-seeker" className="btn btn-primary">
                     Register for Job Alerts
-                  </a>
-                </Link>
+                  </Link>
               </div>
             </div>
           )}
           
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-6">Don't see what you're looking for? Register to get notified about new opportunities that match your profile.</p>
-            <Link href="/register/job-seeker">
-              <a className="btn btn-primary btn-lg">
+            <Link href="/register/job-seeker" className="btn btn-primary btn-lg">
                 Register as Job Seeker
-              </a>
-            </Link>
+              </Link>
           </div>
         </div>
       </section>
@@ -549,11 +541,9 @@ export default function JobSeekers() {
             </div>
             
             <div className="text-center mt-16">
-              <Link href="/register/job-seeker">
-                <a className="btn btn-primary btn-lg">
+              <Link href="/register/job-seeker" className="btn btn-primary btn-lg">
                   Start Your Journey Today
-                </a>
-              </Link>
+                </Link>
             </div>
           </div>
         </div>
@@ -592,11 +582,9 @@ export default function JobSeekers() {
           
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-6">Join thousands of satisfied job seekers who have found their ideal positions through Glodinas Flex Work.</p>
-            <Link href="/register/job-seeker">
-              <a className="btn btn-primary">
+            <Link href="/register/job-seeker" className="btn btn-primary">
                 Register Now
-              </a>
-            </Link>
+              </Link>
           </div>
         </div>
       </section>
@@ -639,16 +627,12 @@ export default function JobSeekers() {
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-6">Have more questions? Contact our support team or register to speak with a personal advisor.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/contact">
-                <a className="btn btn-outline">
+              <Link href="/contact" className="btn btn-outline">
                   Contact Us
-                </a>
-              </Link>
-              <Link href="/register/job-seeker">
-                <a className="btn btn-primary">
+                </Link>
+              <Link href="/register/job-seeker" className="btn btn-primary">
                   Register as Job Seeker
-                </a>
-              </Link>
+                </Link>
             </div>
           </div>
         </div>
@@ -661,16 +645,12 @@ export default function JobSeekers() {
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Find Your Next Opportunity?</h2>
             <p className="text-xl mb-8">Join thousands of satisfied job seekers who have found their ideal positions through Glodinas Flex Work.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/register/job-seeker">
-                <a className="btn btn-white btn-lg">
+              <Link href="/register/job-seeker" className="btn btn-white btn-lg">
                   Register Now
-                </a>
-              </Link>
-              <Link href="/contact">
-                <a className="btn btn-outline-white btn-lg">
+                </Link>
+              <Link href="/contact" className="btn btn-outline-white btn-lg">
                   Contact Us
-                </a>
-              </Link>
+                </Link>
             </div>
           </div>
         </div>

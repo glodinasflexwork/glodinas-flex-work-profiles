@@ -133,33 +133,25 @@ export default function AdminDashboard() {
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Employers</h2>
               <p className="mt-2 text-4xl font-semibold text-gray-900">{stats.totalEmployers}</p>
-              <Link href="/admin/employers">
-                <a className="mt-3 text-sm font-medium text-orange-600 hover:text-orange-500">View all</a>
-              </Link>
+              <Link href="/admin/employers" className="mt-3 text-sm font-medium text-orange-600 hover:text-orange-500">View all</Link>
             </div>
             
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-gray-500 text-sm font-medium uppercase tracking-wide">Pending Employers</h2>
               <p className="mt-2 text-4xl font-semibold text-orange-600">{stats.pendingEmployers}</p>
-              <Link href="/admin/employers?status=pending">
-                <a className="mt-3 text-sm font-medium text-orange-600 hover:text-orange-500">View pending</a>
-              </Link>
+              <Link href="/admin/employers?status=pending" className="mt-3 text-sm font-medium text-orange-600 hover:text-orange-500">View pending</Link>
             </div>
             
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-gray-500 text-sm font-medium uppercase tracking-wide">Total Job Seekers</h2>
               <p className="mt-2 text-4xl font-semibold text-gray-900">{stats.totalJobSeekers}</p>
-              <Link href="/admin/job-seekers">
-                <a className="mt-3 text-sm font-medium text-orange-600 hover:text-orange-500">View all</a>
-              </Link>
+              <Link href="/admin/job-seekers" className="mt-3 text-sm font-medium text-orange-600 hover:text-orange-500">View all</Link>
             </div>
             
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-gray-500 text-sm font-medium uppercase tracking-wide">Pending Job Seekers</h2>
               <p className="mt-2 text-4xl font-semibold text-orange-600">{stats.pendingJobSeekers}</p>
-              <Link href="/admin/job-seekers?status=pending">
-                <a className="mt-3 text-sm font-medium text-orange-600 hover:text-orange-500">View pending</a>
-              </Link>
+              <Link href="/admin/job-seekers?status=pending" className="mt-3 text-sm font-medium text-orange-600 hover:text-orange-500">View pending</Link>
             </div>
           </div>
           
@@ -169,8 +161,7 @@ export default function AdminDashboard() {
               <h3 className="text-lg font-medium text-gray-900">Quick Actions</h3>
             </div>
             <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Link href="/admin/employers">
-                <a className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+              <Link href="/admin/employers" className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
                   <div className="flex-shrink-0 bg-orange-100 rounded-md p-3">
                     <svg className="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -180,11 +171,9 @@ export default function AdminDashboard() {
                     <p className="text-base font-medium text-gray-900">Manage Employers</p>
                     <p className="text-sm text-gray-500">Review and process employer submissions</p>
                   </div>
-                </a>
-              </Link>
+                </Link>
               
-              <Link href="/admin/job-seekers">
-                <a className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+              <Link href="/admin/job-seekers" className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
                   <div className="flex-shrink-0 bg-orange-100 rounded-md p-3">
                     <svg className="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -194,8 +183,7 @@ export default function AdminDashboard() {
                     <p className="text-base font-medium text-gray-900">Manage Job Seekers</p>
                     <p className="text-sm text-gray-500">Review and process job seeker applications</p>
                   </div>
-                </a>
-              </Link>
+                </Link>
               
               <div className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
                 <div className="flex-shrink-0 bg-orange-100 rounded-md p-3">
@@ -206,16 +194,12 @@ export default function AdminDashboard() {
                 <div className="ml-4">
                   <p className="text-base font-medium text-gray-900">Export Data</p>
                   <div className="mt-2 space-y-2">
-                    <Link href="/admin/export">
-                      <a className="block text-sm text-orange-600 hover:text-orange-500">
+                    <Link href="/admin/export" className="block text-sm text-orange-600 hover:text-orange-500">
                         Export Employers CSV
-                      </a>
-                    </Link>
-                    <Link href="/admin/export">
-                      <a className="block text-sm text-orange-600 hover:text-orange-500">
+                      </Link>
+                    <Link href="/admin/export" className="block text-sm text-orange-600 hover:text-orange-500">
                         Export Job Seekers CSV
-                      </a>
-                    </Link>
+                      </Link>
                   </div>
                 </div>
               </div>

@@ -64,11 +64,9 @@ export default function Services() {
             <p className="text-lg md:text-xl mb-8 text-shadow">
               A comprehensive solution for workforce management, candidate selection, and digital agreements
             </p>
-            <Link href="/employers">
-              <a className="btn bg-white text-orange-600 hover:bg-gray-100">
+            <Link href="/employers" className="btn bg-white text-orange-600 hover:bg-gray-100">
                 Get Started Today
-              </a>
-            </Link>
+              </Link>
           </div>
         </div>
       </section>
@@ -274,16 +272,12 @@ export default function Services() {
               Join hundreds of companies already using our digital staffing platform to streamline their workforce management
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/employers">
-                <a className="btn btn-primary">
+              <Link href="/employers" className="btn btn-primary">
                   Register Your Company
-                </a>
-              </Link>
-              <Link href="/contact">
-                <a className="btn btn-secondary">
+                </Link>
+              <Link href="/contact" className="btn btn-secondary">
                   Request a Demo
-                </a>
-              </Link>
+                </Link>
             </div>
           </div>
         </div>

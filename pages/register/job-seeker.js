@@ -146,14 +146,12 @@ export default function JobSeekerRegistration() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="mb-8">
-              <Link href="/register">
-                <a className="text-orange-600 hover:text-orange-700 flex items-center">
+              <Link href="/register" className="text-orange-600 hover:text-orange-700 flex items-center">
                   <svg className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                   Back to registration options
-                </a>
-              </Link>
+                </Link>
             </div>
 
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -436,9 +434,7 @@ export default function JobSeekerRegistration() {
             <div className="text-center mt-8">
               <p className="text-gray-600">
                 Already have an account?{' '}
-                <Link href="/login">
-                  <a className="text-orange-600 hover:text-orange-700 font-medium">Login here</a>
-                </Link>
+                <Link href="/login" className="text-orange-600 hover:text-orange-700 font-medium">Login here</Link>
               </p>
             </div>
           </div>

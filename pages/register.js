@@ -58,9 +58,7 @@ export default function Register() {
                   </li>
                 </ul>
                 <div className="text-center">
-                  <Link href="/register/job-seeker">
-                    <a className="btn btn-primary btn-lg w-full">Register as Job Seeker</a>
-                  </Link>
+                  <Link href="/register/job-seeker" className="btn btn-primary btn-lg w-full">Register as Job Seeker</Link>
                 </div>
               </div>
             </div>
@@ -103,9 +101,7 @@ export default function Register() {
                   </li>
                 </ul>
                 <div className="text-center">
-                  <Link href="/register/employer">
-                    <a className="btn btn-secondary btn-lg w-full">Register as Employer</a>
-                  </Link>
+                  <Link href="/register/employer" className="btn btn-secondary btn-lg w-full">Register as Employer</Link>
                 </div>
               </div>
             </div>
@@ -114,9 +110,7 @@ export default function Register() {
           <div className="text-center mt-12">
             <p className="text-gray-600">
               Already have an account?{' '}
-              <Link href="/login">
-                <a className="text-orange-600 hover:text-orange-700 font-medium">Login here</a>
-              </Link>
+              <Link href="/login" className="text-orange-600 hover:text-orange-700 font-medium">Login here</Link>
             </p>
           </div>
         </div>

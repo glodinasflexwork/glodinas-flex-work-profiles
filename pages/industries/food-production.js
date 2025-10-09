@@ -61,16 +61,12 @@ export default function FoodProduction() {
           <h2 className="text-2xl font-bold mb-4">Find Jobs or Staff in Food Production</h2>
           <p className="mb-6">Join our network or find qualified food industry professionals today.</p>
           <div className="flex justify-center gap-4 flex-wrap">
-            <Link href="/register">
-              <a className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded shadow">
+            <Link href="/register" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded shadow">
                 I'm Looking for Work
-              </a>
-            </Link>
-            <Link href="/contact">
-              <a className="bg-white text-orange-600 border border-orange-500 font-semibold px-6 py-3 rounded shadow">
+              </Link>
+            <Link href="/contact" className="bg-white text-orange-600 border border-orange-500 font-semibold px-6 py-3 rounded shadow">
                 I Need Workers
-              </a>
-            </Link>
+              </Link>
           </div>
         </div>
       </section>

@@ -198,16 +198,12 @@ export default function Logistics() {
           Whether you need qualified logistics staff or you're looking for opportunities in the logistics sector, Glodinas Flex Work is your trusted partner.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link href="/employers">
-            <a className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-lg shadow">
+          <Link href="/employers" className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-lg shadow">
               Need Qualified Logistics Staff?
-            </a>
-          </Link>
-          <Link href="/job-seekers">
-            <a className="bg-white text-orange-600 border border-orange-500 hover:bg-orange-50 font-semibold px-6 py-3 rounded-lg shadow">
+            </Link>
+          <Link href="/job-seekers" className="bg-white text-orange-600 border border-orange-500 hover:bg-orange-50 font-semibold px-6 py-3 rounded-lg shadow">
               Looking for Logistics Work?
-            </a>
-          </Link>
+            </Link>
         </div>
       </section>
     </>

@@ -381,9 +381,7 @@ export default function Employers() {
               <span>Finalize the hiring process and welcome your new workers</span>
             </li>
           </ol>
-          <Link href="/">
-            <a className="btn btn-primary">Return to Homepage</a>
-          </Link>
+          <Link href="/" className="btn btn-primary">Return to Homepage</Link>
         </div>
       );
     }
@@ -1045,11 +1043,9 @@ export default function Employers() {
                 </div>
                 
                 <div className="mt-6">
-                  <Link href="/register/employer">
-                    <a className="btn btn-primary w-full">
+                  <Link href="/register/employer" className="btn btn-primary w-full">
                       Register to Get Started
-                    </a>
-                  </Link>
+                    </Link>
                 </div>
               </div>
             ) : (
@@ -1105,11 +1101,9 @@ export default function Employers() {
                 <p className="text-xl mb-8">Access a pre-vetted pool of qualified workers across multiple industries with our efficient and reliable staffing solutions.</p>
                 
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/register/employer">
-                    <a className="btn btn-white btn-lg">
+                  <Link href="/register/employer" className="btn btn-white btn-lg">
                       Register as Employer
-                    </a>
-                  </Link>
+                    </Link>
                   <button
                     onClick={() => setShowROICalculator(true)}
                     className="btn btn-outline-white btn-lg"
@@ -1205,11 +1199,9 @@ export default function Employers() {
           </div>
           
           <div className="text-center mt-12">
-            <Link href="/register/employer">
-              <a className="btn btn-primary btn-lg">
+            <Link href="/register/employer" className="btn btn-primary btn-lg">
                 Get Started Today
-              </a>
-            </Link>
+              </Link>
           </div>
         </div>
       </section>
@@ -1416,11 +1408,9 @@ export default function Employers() {
                         "{study.testimonial}"
                       </blockquote>
                       
-                      <Link href="/register/employer">
-                        <a className="btn btn-primary">
+                      <Link href="/register/employer" className="btn btn-primary">
                           Get Similar Results
-                        </a>
-                      </Link>
+                        </Link>
                     </div>
                   </div>
                 </div>
@@ -1537,11 +1527,9 @@ export default function Employers() {
             </div>
             
             <div className="text-center mt-16">
-              <Link href="/register/employer">
-                <a className="btn btn-primary btn-lg">
+              <Link href="/register/employer" className="btn btn-primary btn-lg">
                   Start Hiring Today
-                </a>
-              </Link>
+                </Link>
             </div>
           </div>
         </div>
@@ -1626,16 +1614,12 @@ export default function Employers() {
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-6">Have more questions? Contact our team or register to speak with a staffing consultant.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/contact">
-                <a className="btn btn-outline">
+              <Link href="/contact" className="btn btn-outline">
                   Contact Us
-                </a>
-              </Link>
-              <Link href="/register/employer">
-                <a className="btn btn-primary">
+                </Link>
+              <Link href="/register/employer" className="btn btn-primary">
                   Register as Employer
-                </a>
-              </Link>
+                </Link>
             </div>
           </div>
         </div>
@@ -1648,16 +1632,12 @@ export default function Employers() {
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Workforce?</h2>
             <p className="text-xl mb-8">Join hundreds of businesses that have optimized their staffing with Glodinas Flex Work.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/register/employer">
-                <a className="btn btn-white btn-lg">
+              <Link href="/register/employer" className="btn btn-white btn-lg">
                   Register Now
-                </a>
-              </Link>
-              <Link href="/contact">
-                <a className="btn btn-outline-white btn-lg">
+                </Link>
+              <Link href="/contact" className="btn btn-outline-white btn-lg">
                   Contact Us
-                </a>
-              </Link>
+                </Link>
             </div>
           </div>
         </div>
