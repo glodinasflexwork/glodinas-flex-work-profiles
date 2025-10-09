@@ -15,6 +15,7 @@ model User {
   id              String          @id @default(uuid())
   email           String          @unique
   name            String
+  password        String?         // Hashed password (optional for Stack Auth users)
   role            String          // ADMIN, EMPLOYER, WORKER
   stackAuthId     String?         @unique
   createdAt       DateTime        @default(now())

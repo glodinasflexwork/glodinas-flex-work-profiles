@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { compare } from 'bcrypt';
 import prisma from '../../../lib/prisma';
 
 export const authOptions = {
@@ -196,20 +197,26 @@ export const authOptions = {
             return null;
           }
           
-          // In production, verify password with Stack Auth
-          // For demo, use a simple check
-          if (credentials.password === 'password123') {
-            console.log('Password verified for:', user.email);
-            return {
-              id: user.id,
-              email: user.email,
-              name: user.name,
-              role: user.role
-            };
+          // Verify password with bcrypt
+          if (!user.password) {
+            console.log('User has no password set (Stack Auth user?)');
+            return null;
           }
           
-          console.log('Invalid password');
-          return null;
+          const isPasswordValid = await compare(credentials.password, user.password);
+          
+          if (!isPasswordValid) {
+            console.log('Invalid password');
+            return null;
+          }
+          
+          console.log('Password verified for:', user.email);
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role
+          };
         } catch (error) {
           console.error('Auth error:', error);
           return null;
