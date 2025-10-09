@@ -27,7 +27,6 @@ const Navbar = () => {
 
   // Simulate notifications (in a real app, this would come from an API)
   useEffect(() => {
-    // Simulate receiving notifications
     const timer = setTimeout(() => {
       setUnreadNotifications(2);
       
@@ -76,44 +75,32 @@ const Navbar = () => {
               router.pathname === '/job-seekers' 
                 ? 'text-orange-600' 
                 : 'text-gray-700 hover:text-orange-500'
-            }`}>
-              Job Seekers
-            </Link>
+            }`}>Job Seekers</Link>
             <Link href="/employers" className={`px-3 py-2 rounded-md text-sm font-medium ${
               router.pathname === '/employers' 
                 ? 'text-orange-600' 
                 : 'text-gray-700 hover:text-orange-500'
-            }`}>
-              Employers
-            </Link>
+            }`}>Employers</Link>
             <Link href="/services" className={`px-3 py-2 rounded-md text-sm font-medium ${
               router.pathname === '/services' 
                 ? 'text-orange-600' 
                 : 'text-gray-700 hover:text-orange-500'
-            }`}>
-              Services
-            </Link>
+            }`}>Services</Link>
             <Link href="/employees" className={`px-3 py-2 rounded-md text-sm font-medium ${
               router.pathname === '/employees' 
                 ? 'text-orange-600' 
                 : 'text-gray-700 hover:text-orange-500'
-            }`}>
-              Employees
-            </Link>
+            }`}>Employees</Link>
             <Link href="/about" className={`px-3 py-2 rounded-md text-sm font-medium ${
-              router.pathname === '/about' 
+              router.pathname === '/about'
                 ? 'text-orange-600' 
                 : 'text-gray-700 hover:text-orange-500'
-            }`}>
-              About
-            </Link>
+            }`}>About</Link>
             <Link href="/contact" className={`px-3 py-2 rounded-md text-sm font-medium ${
               router.pathname === '/contact' 
                 ? 'text-orange-600' 
                 : 'text-gray-700 hover:text-orange-500'
-            }`}>
-              Contact
-            </Link>
+            }`}>Contact</Link>
             
             {/* Notification Bell */}
             <button 
@@ -131,12 +118,8 @@ const Navbar = () => {
             
             {/* Login and Register Buttons */}
             <div className="flex items-center ml-4 space-x-2">
-              <Link href="/login" className="btn btn-outline btn-sm">
-                Login
-              </Link>
-              <Link href="/register" className="btn btn-primary btn-sm">
-                Register
-              </Link>
+              <Link href="/login" className="btn btn-outline btn-sm">Login</Link>
+              <Link href="/register" className="btn btn-primary btn-sm">Register</Link>
             </div>
           </div>
           
@@ -188,7 +171,7 @@ const Navbar = () => {
         <div className={`mobile-nav-content ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="p-4">
             <div className="flex items-center justify-between mb-6">
-              <Link href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
+              <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center">
                 <Image 
                   src="/images/logo.png" 
                   alt="Glodinas Flex Work" 
@@ -216,54 +199,38 @@ const Navbar = () => {
                 router.pathname === '/job-seekers' 
                   ? 'text-orange-600 bg-orange-50' 
                   : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-              }`} onClick={() => setIsOpen(false)}>
-                Job Seekers
-              </Link>
+              }`} onClick={() => setIsOpen(false)}>Job Seekers</Link>
               <Link href="/employers" className={`block px-3 py-2 rounded-md text-base font-medium ${
                 router.pathname === '/employers' 
                   ? 'text-orange-600 bg-orange-50' 
                   : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-              }`} onClick={() => setIsOpen(false)}>
-                Employers
-              </Link>
+              }`} onClick={() => setIsOpen(false)}>Employers</Link>
               <Link href="/services" className={`block px-3 py-2 rounded-md text-base font-medium ${
                 router.pathname === '/services' 
                   ? 'text-orange-600 bg-orange-50' 
                   : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-              }`} onClick={() => setIsOpen(false)}>
-                Services
-              </Link>
+              }`} onClick={() => setIsOpen(false)}>Services</Link>
               <Link href="/employees" className={`block px-3 py-2 rounded-md text-base font-medium ${
                 router.pathname === '/employees' 
                   ? 'text-orange-600 bg-orange-50' 
                   : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-              }`} onClick={() => setIsOpen(false)}>
-                Employees
-              </Link>
+              }`} onClick={() => setIsOpen(false)}>Employees</Link>
               <Link href="/about" className={`block px-3 py-2 rounded-md text-base font-medium ${
                 router.pathname === '/about' 
                   ? 'text-orange-600 bg-orange-50' 
                   : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-              }`} onClick={() => setIsOpen(false)}>
-                About
-              </Link>
+              }`} onClick={() => setIsOpen(false)}>About</Link>
               <Link href="/contact" className={`block px-3 py-2 rounded-md text-base font-medium ${
                 router.pathname === '/contact' 
                   ? 'text-orange-600 bg-orange-50' 
                   : 'text-gray-700 hover:text-orange-500 hover:bg-orange-50'
-              }`} onClick={() => setIsOpen(false)}>
-                Contact
-              </Link>
+              }`} onClick={() => setIsOpen(false)}>Contact</Link>
             </div>
             
             <div className="mt-6 pt-6 border-t border-gray-200">
               <div className="flex flex-col space-y-3">
-                <Link href="/login" className="btn btn-outline w-full justify-center" onClick={() => setIsOpen(false)}>
-                  Login
-                </Link>
-                <Link href="/register" className="btn btn-primary w-full justify-center" onClick={() => setIsOpen(false)}>
-                  Register
-                </Link>
+                <Link href="/login" className="btn btn-outline w-full justify-center" onClick={() => setIsOpen(false)}>Login</Link>
+                <Link href="/register" className="btn btn-primary w-full justify-center" onClick={() => setIsOpen(false)}>Register</Link>
               </div>
             </div>
           </div>
@@ -274,3 +241,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

@@ -381,106 +381,93 @@ export default function Employees() {
                       </svg>
                       Persoonlijke Informatie
                     </h3>
-                    <div className="space-y-3 text-sm">
-                      <div><span className="font-semibold">Leeftijd:</span> {selectedEmployee.age} jaar</div>
-                      <div><span className="font-semibold">Geboortedatum:</span> {selectedEmployee.birthDate}</div>
-                      <div><span className="font-semibold">Nationaliteit:</span> {selectedEmployee.nationality}</div>
-                      <div><span className="font-semibold">Ervaring:</span> {selectedEmployee.experience}</div>
-                      <div>
-                        <span className="font-semibold">Beschikbaarheid:</span> 
-                        <span className="ml-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs">
-                          {selectedEmployee.availability}
-                        </span>
-                      </div>
+                    <div className="space-y-2 text-sm">
+                      <p><strong>Leeftijd:</strong> {selectedEmployee.age} jaar</p>
+                      <p><strong>Geboortedatum:</strong> {selectedEmployee.birthDate}</p>
+                      <p><strong>Nationaliteit:</strong> {selectedEmployee.nationality}</p>
+                      <p><strong>Ervaring:</strong> {selectedEmployee.experience}</p>
+                      <p><strong>Beschikbaarheid:</strong> <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">{selectedEmployee.availability}</span></p>
                     </div>
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h3 className="text-lg font-semibold mb-4 flex items-center">
                       <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       Certificeringen
                     </h3>
-                    <ul className="space-y-2 text-sm">
+                    <ul className="space-y-2 text-sm list-disc list-inside">
                       {selectedEmployee.certifications.map((cert, index) => (
-                        <li key={index} className="flex items-start">
-                          <div className="w-2 h-2 bg-orange-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                          <span>{cert}</span>
-                        </li>
+                        <li key={index}>{cert}</li>
                       ))}
                     </ul>
                   </div>
                 </div>
 
-                {/* Right Column - Skills and Summary */}
+                {/* Right Column - Profile & Skills */}
                 <div className="lg:col-span-2 space-y-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold mb-4">Professioneel Profiel</h3>
-                    <p className="text-gray-700 leading-relaxed">{selectedEmployee.summary}</p>
+                    <h3 className="text-lg font-semibold mb-4 flex items-center">
+                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Professioneel Profiel
+                    </h3>
+                    <p className="text-sm text-gray-700">
+                      {selectedEmployee.summary}
+                    </p>
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h3 className="text-lg font-semibold mb-4 flex items-center">
                       <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.293 2.293a1 1 0 010 1.414L11 15.414l-2.293-2.293a1 1 0 010-1.414L11 9.414l2.293 2.293a1 1 0 010 1.414L11 15.414l-2.293-2.293a1 1 0 010-1.414L11 9.414" />
                       </svg>
                       Vaardigheden en Specialisaties
                     </h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      {selectedEmployee.skills.map((skill, index) => (
-                        <div key={index} className="flex items-center p-3 bg-white rounded-lg border">
-                          <div className="w-2 h-2 bg-orange-600 rounded-full mr-3"></div>
-                          <span className="font-medium text-gray-800 text-sm">{skill}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h3 className="text-lg font-semibold mb-4">Gesproken Talen</h3>
                     <div className="flex flex-wrap gap-2">
-                      {selectedEmployee.languages.map((language, index) => (
-                        <span key={index} className="bg-white border border-gray-300 px-3 py-1 rounded-full text-sm">
-                          {language}
+                      {selectedEmployee.skills.map((skill, index) => (
+                        <span key={index} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                          {skill}
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  <div className="flex gap-4 pt-4">
-                    <Link href="/employers" className="flex-1 bg-orange-600 hover:bg-orange-700 text-white py-3 px-4 rounded-lg font-medium text-center transition duration-300">
-                      Contact voor Inhuur
-                    </Link>
-                    <button className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-4 rounded-lg font-medium transition duration-300">
-                      Download CV
-                    </button>
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h3 className="text-lg font-semibold mb-4 flex items-center">
+                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.06 5.06l-2.12 2.12M15.94 15.94l-2.12-2.12M12 19v-2m-6.94-6.94l2.12-2.12M3 12h2m14 0h2M6.06 6.06l2.12 2.12" />
+                      </svg>
+                      Gesproken Talen
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedEmployee.languages.map((lang, index) => (
+                        <span key={index} className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">
+                          {lang}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+                <h3 className="text-lg font-semibold mb-4">Interesse in deze professional?</h3>
+                <Link href="/contact" className="bg-green-600 hover:bg-green-700 text-white py-3 px-8 rounded-lg font-medium transition duration-300 inline-flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  Contact voor Inhuur
+                </Link>
               </div>
             </div>
           </div>
         </div>
       )}
-
-      {/* CTA Section */}
-      <section className="py-16 bg-orange-600 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Klaar om te Beginnen?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Neem contact met ons op om deze gekwalificeerde werknemers in te huren voor uw projecten.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/employers" className="bg-white text-orange-600 hover:bg-gray-100 py-3 px-6 rounded-md font-medium">
-              Voor Werkgevers
-            </Link>
-            <Link href="/about" className="bg-transparent hover:bg-orange-700 border border-white py-3 px-6 rounded-md font-medium">
-              Meer Informatie
-            </Link>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
+

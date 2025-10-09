@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
+import Image from 'next/image'; // Import Image component
 
 export default function Header() {
   const { data: session, status } = useSession();
@@ -11,25 +12,15 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
-            <Link href="/">
-              <a className="flex items-center">
-                <img src="/images/logo.png" alt="Glodinas Flex Work" className="h-10" />
-                <span className="ml-2 text-xl font-bold text-gray-800">Glodinas Flex Work</span>
-              </a>
+            <Link href="/" className="flex items-center">
+              <Image src="/images/logo.png" alt="Glodinas Flex Work" width={40} height={40} className="h-10 w-auto" />
+              <span className="ml-2 text-xl font-bold text-gray-800">Glodinas Flex Work</span>
             </Link>
             <nav className="hidden md:flex ml-10 space-x-8">
-              <Link href="/about">
-                <a className="text-gray-600 hover:text-orange-500">About</a>
-              </Link>
-              <Link href="/services">
-                <a className="text-gray-600 hover:text-orange-500">Services</a>
-              </Link>
-              <Link href="/industries">
-                <a className="text-gray-600 hover:text-orange-500">Industries</a>
-              </Link>
-              <Link href="/contact">
-                <a className="text-gray-600 hover:text-orange-500">Contact</a>
-              </Link>
+              <Link href="/about" className="text-gray-600 hover:text-orange-500">About</Link>
+              <Link href="/services" className="text-gray-600 hover:text-orange-500">Services</Link>
+              <Link href="/industries" className="text-gray-600 hover:text-orange-500">Industries</Link>
+              <Link href="/contact" className="text-gray-600 hover:text-orange-500">Contact</Link>
             </nav>
           </div>
           
@@ -48,19 +39,13 @@ export default function Header() {
                   </button>
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden group-hover:block">
                     {session.user.role === 'ADMIN' && (
-                      <Link href="/admin">
-                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Admin Dashboard</a>
-                      </Link>
+                      <Link href="/admin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Admin Dashboard</Link>
                     )}
                     {session.user.role === 'EMPLOYER' && (
-                      <Link href="/employer/dashboard">
-                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Employer Dashboard</a>
-                      </Link>
+                      <Link href="/employer/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Employer Dashboard</Link>
                     )}
                     {session.user.role === 'WORKER' && (
-                      <Link href="/worker/dashboard">
-                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Worker Dashboard</a>
-                      </Link>
+                      <Link href="/worker/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Worker Dashboard</Link>
                     )}
                     <button
                       onClick={() => signOut({ callbackUrl: '/' })}
@@ -73,9 +58,7 @@ export default function Header() {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Link href="/login">
-                  <a className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md">Login</a>
-                </Link>
+                <Link href="/login" className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md">Login</Link>
               </div>
             )}
           </div>
@@ -84,3 +67,4 @@ export default function Header() {
     </header>
   );
 }
+

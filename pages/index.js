@@ -67,15 +67,9 @@ export default function Home() {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Connecting Top Talent with Leading Employers Across Europe</h1>
             <p className="text-xl mb-8">Specialized recruitment solutions tailored to your industry needs with multilingual support in Dutch, English, Polish, Romanian, and Bulgarian</p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/job-seekers" className="bg-white text-orange-600 hover:bg-gray-100 py-3 px-6 rounded-md font-medium text-center">
-                Find Your Next Career
-              </Link>
-              <Link href="/employers" className="bg-transparent hover:bg-orange-700 border border-white py-3 px-6 rounded-md font-medium text-center">
-                Hire Qualified Talent
-              </Link>
-              <Link href="/employees" className="bg-orange-500 hover:bg-orange-400 border border-orange-300 py-3 px-6 rounded-md font-medium text-center">
-                View Available Workers
-              </Link>
+              <Link href="/job-seekers" className="bg-white text-orange-600 hover:bg-gray-100 py-3 px-6 rounded-md font-medium text-center">Find Your Next Career</Link>
+              <Link href="/employers" className="bg-transparent hover:bg-orange-700 border border-white py-3 px-6 rounded-md font-medium text-center">Hire Qualified Talent</Link>
+              <Link href="/employees" className="bg-orange-500 hover:bg-orange-400 border border-orange-300 py-3 px-6 rounded-md font-medium text-center">View Available Workers</Link>
             </div>
           </div>
           <div className="md:w-1/2">
@@ -182,9 +176,7 @@ export default function Home() {
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-3">Temporary Staffing</h3>
                 <p className="text-gray-600 mb-4">Flexible workforce solutions for seasonal peaks, special projects, or temporary replacements.</p>
-                <Link href="/services#temporary-staffing" className="text-orange-600 hover:text-orange-800 font-medium">
-                  Learn more →
-                </Link>
+                <Link href="/services#temporary-staffing" className="text-orange-600 hover:text-orange-800 font-medium">Learn more →</Link>
               </div>
             </div>
             
@@ -200,9 +192,7 @@ export default function Home() {
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-3">Permanent Recruitment</h3>
                 <p className="text-gray-600 mb-4">End-to-end recruitment services to find the perfect long-term additions to your team.</p>
-                <Link href="/services#permanent-recruitment" className="text-orange-600 hover:text-orange-800 font-medium">
-                  Learn more →
-                </Link>
+                <Link href="/services#permanent-recruitment" className="text-orange-600 hover:text-orange-800 font-medium">Learn more →</Link>
               </div>
             </div>
             
@@ -218,9 +208,7 @@ export default function Home() {
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-3">Housing Solutions</h3>
                 <p className="text-gray-600 mb-4">Quality accommodation options for international workers relocating to the Netherlands.</p>
-                <Link href="/services#housing-solutions" className="text-orange-600 hover:text-orange-800 font-medium">
-                  Learn more →
-                </Link>
+                <Link href="/services#housing-solutions" className="text-orange-600 hover:text-orange-800 font-medium">Learn more →</Link>
               </div>
             </div>
           </div>
@@ -281,15 +269,9 @@ export default function Home() {
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Find Your Perfect Match?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">Whether you're looking for your next career opportunity or seeking qualified talent, we're here to help.</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/job-seekers" className="bg-white text-orange-600 hover:bg-gray-100 py-3 px-6 rounded-md font-medium">
-              For Job Seekers
-            </Link>
-            <Link href="/employers" className="bg-transparent hover:bg-orange-700 border border-white py-3 px-6 rounded-md font-medium">
-              For Employers
-            </Link>
-            <Link href="/employees" className="bg-orange-500 hover:bg-orange-400 border border-orange-300 py-3 px-6 rounded-md font-medium">
-              Available Workers
-            </Link>
+            <Link href="/job-seekers" className="bg-white text-orange-600 hover:bg-gray-100 py-3 px-6 rounded-md font-medium">For Job Seekers</Link>
+            <Link href="/employers" className="bg-transparent hover:bg-orange-700 border border-white py-3 px-6 rounded-md font-medium">For Employers</Link>
+            <Link href="/employees" className="bg-orange-500 hover:bg-orange-400 border border-orange-300 py-3 px-6 rounded-md font-medium">Available Workers</Link>
           </div>
         </div>
       </section>

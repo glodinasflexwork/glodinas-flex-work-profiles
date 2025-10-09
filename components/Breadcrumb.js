@@ -11,9 +11,7 @@ export default function Breadcrumb({ currentPage }) {
     <nav className="text-sm text-gray-500 mb-6">
       <ol className="flex space-x-2">
         <li>
-          <Link href="/">
-            <a className="hover:underline text-orange-600">Home</a>
-          </Link>
+          <Link href="/" className="hover:underline text-orange-600">Home</Link>
         </li>
         {pathParts.map((part, index) => {
           const href = '/' + pathParts.slice(0, index + 1).join('/');
@@ -22,9 +20,7 @@ export default function Breadcrumb({ currentPage }) {
           return (
             <li key={href} className="flex items-center space-x-2">
               <span>/</span>
-              <Link href={href}>
-                <a className="hover:underline">{label}</a>
-              </Link>
+              <Link href={href} className="hover:underline">{label}</Link>
             </li>
           );
         })}
@@ -32,3 +28,4 @@ export default function Breadcrumb({ currentPage }) {
     </nav>
   );
 }
+

@@ -37,29 +37,19 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/">
-                  <a className="text-gray-400 hover:text-white">Home</a>
-                </Link>
+                <Link href="/" className="text-gray-400 hover:text-white">Home</Link>
               </li>
               <li>
-                <Link href="/about">
-                  <a className="text-gray-400 hover:text-white">About Us</a>
-                </Link>
+                <Link href="/about" className="text-gray-400 hover:text-white">About Us</Link>
               </li>
               <li>
-                <Link href="/services">
-                  <a className="text-gray-400 hover:text-white">Services</a>
-                </Link>
+                <Link href="/services" className="text-gray-400 hover:text-white">Services</Link>
               </li>
               <li>
-                <Link href="/industries">
-                  <a className="text-gray-400 hover:text-white">Industries</a>
-                </Link>
+                <Link href="/industries" className="text-gray-400 hover:text-white">Industries</Link>
               </li>
               <li>
-                <Link href="/contact">
-                  <a className="text-gray-400 hover:text-white">Contact Us</a>
-                </Link>
+                <Link href="/contact" className="text-gray-400 hover:text-white">Contact Us</Link>
               </li>
             </ul>
           </div>
@@ -68,34 +58,22 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">For Clients & Candidates</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/login">
-                  <a className="text-gray-400 hover:text-white">Login</a>
-                </Link>
+                <Link href="/login" className="text-gray-400 hover:text-white">Login</Link>
               </li>
               <li>
-                <Link href="/job-seekers">
-                  <a className="text-gray-400 hover:text-white">Job Seekers</a>
-                </Link>
+                <Link href="/job-seekers" className="text-gray-400 hover:text-white">Job Seekers</Link>
               </li>
               <li>
-                <Link href="/employers">
-                  <a className="text-gray-400 hover:text-white">Employers</a>
-                </Link>
+                <Link href="/employers" className="text-gray-400 hover:text-white">Employers</Link>
               </li>
               <li>
-                <Link href="/faq">
-                  <a className="text-gray-400 hover:text-white">FAQ</a>
-                </Link>
+                <Link href="/faq" className="text-gray-400 hover:text-white">FAQ</Link>
               </li>
               <li>
-                <Link href="/privacy-policy">
-                  <a className="text-gray-400 hover:text-white">Privacy Policy</a>
-                </Link>
+                <Link href="/privacy-policy" className="text-gray-400 hover:text-white">Privacy Policy</Link>
               </li>
               <li>
-                <Link href="/terms">
-                  <a className="text-gray-400 hover:text-white">Terms of Service</a>
-                </Link>
+                <Link href="/terms" className="text-gray-400 hover:text-white">Terms of Service</Link>
               </li>
             </ul>
           </div>
@@ -133,3 +111,4 @@ export default function Footer() {
     </footer>
   );
 }
+
