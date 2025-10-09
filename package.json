@@ -15,7 +15,7 @@
     "@prisma/adapter-neon": "^6.17.0",
     "@prisma/client": "^5.10.0",
     "axios": "^1.6.5",
-    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
     "cloudinary": "^2.6.1",
     "cloudinary-react": "^1.8.1",
     "csv-stringify": "^6.5.2",

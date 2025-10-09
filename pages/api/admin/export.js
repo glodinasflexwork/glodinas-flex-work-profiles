@@ -1,9 +1,8 @@
 import { getSession } from "next-auth/react";
-
-export const runtime = 'edge';
 import prisma from '../../../lib/prisma';
 import { stringify } from 'csv-stringify';
 
+export const runtime = 'edge';
 export default async function handler(req, res) {
   // Check authentication
   const session = await getSession({ req });

@@ -1,8 +1,7 @@
-import { PrismaClient } from '@prisma/client';
-
-export const runtime = 'edge';
+import prisma from '../../../lib/prisma';
 import { getSession } from 'next-auth/react';
 
+export const runtime = 'edge';
 // Initialize Prisma Client
 let prisma;
 

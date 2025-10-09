@@ -1,9 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-
-export const runtime = 'edge';
 import prisma from '../../../lib/prisma';
 import { uploadToCloudinary } from '../../../lib/cloudinary';
 
+export const runtime = 'edge';
 // Enable built-in Next.js body parser for multipart form data
 export const config = {
   api: {

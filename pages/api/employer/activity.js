@@ -1,9 +1,8 @@
 import { getServerSession } from 'next-auth/next';
-
-export const runtime = 'edge';
 import { authOptions } from '../auth/[...nextauth]';
 import prisma from '../../../lib/prisma';
 
+export const runtime = 'edge';
 export default async function handler(req, res) {
   // Check authentication and authorization
   const session = await getServerSession(req, res, authOptions);
