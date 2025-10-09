@@ -867,7 +867,7 @@ export default function Employers() {
                   </div>
                   <div className="ml-3 text-sm">
                     <label htmlFor="privacyAccepted" className="text-gray-700">
-                      I accept the <a href="/privacy" className="text-orange-600 hover:text-orange-500">Privacy Policy</a> *
+                      I accept the <a href="/privacy-policy" className="text-orange-600 hover:text-orange-500">Privacy Policy</a> *
                     </label>
                     {errors.privacyAccepted && <p className="text-red-500 text-xs mt-1">{errors.privacyAccepted}</p>}
                   </div>
