@@ -97,9 +97,7 @@ export default function EmployerDashboard() {
             </div>
           </div>
           <div className="mt-4">
-            <Link href="/employer/job-postings" legacyBehavior>
-              <a className="text-sm text-blue-600 hover:text-blue-800">View all job postings →</a>
-            </Link>
+            <Link href="/employer/job-postings" className="text-sm text-blue-600 hover:text-blue-800">View all job postings →</Link>
           </div>
         </div>
         
@@ -117,9 +115,7 @@ export default function EmployerDashboard() {
             </div>
           </div>
           <div className="mt-4">
-            <Link href="/employer/candidates" legacyBehavior>
-              <a className="text-sm text-blue-600 hover:text-blue-800">View all candidates →</a>
-            </Link>
+            <Link href="/employer/candidates" className="text-sm text-blue-600 hover:text-blue-800">View all candidates →</Link>
           </div>
         </div>
         
@@ -139,9 +135,7 @@ export default function EmployerDashboard() {
             </div>
           </div>
           <div className="mt-4">
-            <Link href="/employer/subscription" legacyBehavior>
-              <a className="text-sm text-blue-600 hover:text-blue-800">Manage subscription →</a>
-            </Link>
+            <Link href="/employer/subscription" className="text-sm text-blue-600 hover:text-blue-800">Manage subscription →</Link>
           </div>
         </div>
       </div>
@@ -193,9 +187,8 @@ export default function EmployerDashboard() {
         <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Link href="/employer/job-postings/new" legacyBehavior>
-            <a className={`flex items-center p-4 border rounded-lg hover:bg-gray-50 ${
-              dashboardData.profile?.subscription?.activeJobsCount >= dashboardData.profile?.subscription?.jobPostingLimit
+          <Link href="/employer/job-postings/new" className={`flex items-center p-4 border rounded-lg hover:bg-gray-50 ${
+              dashboardData.profile?.subscription?.activeJobsCount>= dashboardData.profile?.subscription?.jobPostingLimit
                 ? 'opacity-50 cursor-not-allowed'
                 : ''
             }`}>
@@ -208,11 +201,9 @@ export default function EmployerDashboard() {
                 <h3 className="font-medium">Post New Job</h3>
                 <p className="text-sm text-gray-500">Create a new job posting</p>
               </div>
-            </a>
-          </Link>
+            </Link>
           
-          <Link href="/employer/candidates" legacyBehavior>
-            <a className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+          <Link href="/employer/candidates" className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
               <div className="p-2 rounded-full bg-green-100 text-green-800 mr-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -222,11 +213,9 @@ export default function EmployerDashboard() {
                 <h3 className="font-medium">View Candidates</h3>
                 <p className="text-sm text-gray-500">Browse matched candidates</p>
               </div>
-            </a>
-          </Link>
+            </Link>
           
-          <Link href="/employer/profile" legacyBehavior>
-            <a className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+          <Link href="/employer/profile" className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
               <div className="p-2 rounded-full bg-purple-100 text-purple-800 mr-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -236,8 +225,7 @@ export default function EmployerDashboard() {
                 <h3 className="font-medium">Edit Profile</h3>
                 <p className="text-sm text-gray-500">Update company information</p>
               </div>
-            </a>
-          </Link>
+            </Link>
         </div>
       </div>
     </EmployerLayout>

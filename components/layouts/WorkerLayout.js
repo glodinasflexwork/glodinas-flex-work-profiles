@@ -71,14 +71,11 @@ export default function WorkerLayout({ children }) {
             
             <nav className="mt-5 px-2 space-y-1">
               {navigation.map((item) => (
-                <Link key={item.name} href={item.href} legacyBehavior>
-                  <a
-                    className={`${
+                <Link key={item.name} href={item.href} className={`${
                       isActive(item.href)
                         ? 'bg-orange-900 text-white'
                         : 'text-orange-100 hover:bg-orange-700'
-                    } group flex items-center px-2 py-2 text-base font-medium rounded-md`}
-                  >
+                    } group flex items-center px-2 py-2 text-base font-medium rounded-md`}>
                     <svg
                       className="mr-4 h-6 w-6 text-orange-300"
                       xmlns="http://www.w3.org/2000/svg"
@@ -90,8 +87,7 @@ export default function WorkerLayout({ children }) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={item.icon} />
                     </svg>
                     {item.name}
-                  </a>
-                </Link>
+                  </Link>
               ))}
             </nav>
           </div>
@@ -141,14 +137,11 @@ export default function WorkerLayout({ children }) {
               
               <nav className="mt-5 flex-1 px-2 space-y-1">
                 {navigation.map((item) => (
-                  <Link key={item.name} href={item.href} legacyBehavior>
-                    <a
-                      className={`${
+                  <Link key={item.name} href={item.href} className={`${
                         isActive(item.href)
                           ? 'bg-orange-900 text-white'
                           : 'text-orange-100 hover:bg-orange-700'
-                      } group flex items-center px-2 py-2 text-sm font-medium rounded-md`}
-                    >
+                      } group flex items-center px-2 py-2 text-sm font-medium rounded-md`}>
                       <svg
                         className="mr-3 h-6 w-6 text-orange-300"
                         xmlns="http://www.w3.org/2000/svg"
@@ -160,8 +153,7 @@ export default function WorkerLayout({ children }) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={item.icon} />
                       </svg>
                       {item.name}
-                    </a>
-                  </Link>
+                    </Link>
                 ))}
               </nav>
             </div>

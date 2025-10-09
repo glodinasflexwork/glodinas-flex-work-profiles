@@ -86,9 +86,7 @@ export default function WorkerDashboard() {
             </div>
           </div>
           <div className="mt-4">
-            <Link href="/worker/applications" legacyBehavior>
-              <a className="text-sm text-orange-600 hover:text-orange-800">View all applications →</a>
-            </Link>
+            <Link href="/worker/applications" className="text-sm text-orange-600 hover:text-orange-800">View all applications →</Link>
           </div>
         </div>
         
@@ -106,9 +104,7 @@ export default function WorkerDashboard() {
             </div>
           </div>
           <div className="mt-4">
-            <Link href="/worker/interviews" legacyBehavior>
-              <a className="text-sm text-orange-600 hover:text-orange-800">View all interviews →</a>
-            </Link>
+            <Link href="/worker/interviews" className="text-sm text-orange-600 hover:text-orange-800">View all interviews →</Link>
           </div>
         </div>
         
@@ -126,9 +122,7 @@ export default function WorkerDashboard() {
             </div>
           </div>
           <div className="mt-4">
-            <Link href="/worker/saved-jobs" legacyBehavior>
-              <a className="text-sm text-orange-600 hover:text-orange-800">View saved jobs →</a>
-            </Link>
+            <Link href="/worker/saved-jobs" className="text-sm text-orange-600 hover:text-orange-800">View saved jobs →</Link>
           </div>
         </div>
       </div>
@@ -180,8 +174,7 @@ export default function WorkerDashboard() {
         <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Link href="/jobs" legacyBehavior>
-            <a className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+          <Link href="/jobs" className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
               <div className="p-2 rounded-full bg-orange-100 text-orange-800 mr-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -191,11 +184,9 @@ export default function WorkerDashboard() {
                 <h3 className="font-medium">Find Jobs</h3>
                 <p className="text-sm text-gray-500">Browse available positions</p>
               </div>
-            </a>
-          </Link>
+            </Link>
           
-          <Link href="/worker/profile" legacyBehavior>
-            <a className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+          <Link href="/worker/profile" className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
               <div className="p-2 rounded-full bg-green-100 text-green-800 mr-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -205,11 +196,9 @@ export default function WorkerDashboard() {
                 <h3 className="font-medium">Update Profile</h3>
                 <p className="text-sm text-gray-500">Edit your information</p>
               </div>
-            </a>
-          </Link>
+            </Link>
           
-          <Link href="/worker/resume" legacyBehavior>
-            <a className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
+          <Link href="/worker/resume" className="flex items-center p-4 border rounded-lg hover:bg-gray-50">
               <div className="p-2 rounded-full bg-purple-100 text-purple-800 mr-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -219,8 +208,7 @@ export default function WorkerDashboard() {
                 <h3 className="font-medium">Manage Resume</h3>
                 <p className="text-sm text-gray-500">Upload or update your CV</p>
               </div>
-            </a>
-          </Link>
+            </Link>
         </div>
       </div>
       
@@ -232,11 +220,9 @@ export default function WorkerDashboard() {
           {/* This would be populated with actual job recommendations */}
           <p className="text-gray-500 py-4">Job recommendations will appear here based on your profile and preferences.</p>
           
-          <Link href="/jobs" legacyBehavior>
-            <a className="inline-block text-orange-600 hover:text-orange-800 font-medium">
+          <Link href="/jobs" className="inline-block text-orange-600 hover:text-orange-800 font-medium">
               Browse all jobs →
-            </a>
-          </Link>
+            </Link>
         </div>
       </div>
     </WorkerLayout>
