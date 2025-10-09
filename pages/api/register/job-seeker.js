@@ -1,4 +1,6 @@
 import { hash } from 'bcrypt';
+
+export const runtime = 'edge';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();

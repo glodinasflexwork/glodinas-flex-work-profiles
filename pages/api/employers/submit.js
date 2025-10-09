@@ -1,5 +1,7 @@
 import prisma from '../../../lib/prisma';
 
+export const runtime = 'edge';
+
 export default async function handler(req, res) {
   // Only allow POST method
   if (req.method !== 'POST') {

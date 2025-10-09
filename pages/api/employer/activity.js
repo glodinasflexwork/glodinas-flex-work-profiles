@@ -1,4 +1,6 @@
 import { getServerSession } from 'next-auth/next';
+
+export const runtime = 'edge';
 import { authOptions } from '../auth/[...nextauth]';
 import prisma from '../../../lib/prisma';
 

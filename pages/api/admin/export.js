@@ -1,4 +1,6 @@
 import { getSession } from "next-auth/react";
+
+export const runtime = 'edge';
 import prisma from '../../../lib/prisma';
 import { stringify } from 'csv-stringify';
 

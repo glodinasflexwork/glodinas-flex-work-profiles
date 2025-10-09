@@ -2,6 +2,8 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { signOut } from "next-auth/react";
 
+export const runtime = 'edge';
+
 export default function Dashboard({ user }) {
   return (
     <div className="max-w-2xl mx-auto mt-20 p-6 border rounded shadow-sm">

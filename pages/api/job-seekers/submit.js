@@ -1,4 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
+
+export const runtime = 'edge';
 import prisma from '../../../lib/prisma';
 import { uploadToCloudinary } from '../../../lib/cloudinary';
 

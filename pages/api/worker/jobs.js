@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client';
+
+export const runtime = 'edge';
 import { getSession } from 'next-auth/react';
 
 // Initialize Prisma Client

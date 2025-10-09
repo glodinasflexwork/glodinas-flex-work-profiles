@@ -1,4 +1,6 @@
 import cloudinary from '../../lib/cloudinary';
+
+export const runtime = 'edge';
 import { IncomingForm } from 'formidable';
 import fs from 'fs';
 
