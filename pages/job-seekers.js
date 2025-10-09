@@ -314,8 +314,8 @@ export default function JobSeekers() {
                   <Image
                     src="/images/hero.jpg"
                     alt="Diverse professionals in a workplace setting"
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    className="object-cover"
                     priority
                   />
                 </div>

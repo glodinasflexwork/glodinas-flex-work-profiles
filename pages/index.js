@@ -169,8 +169,8 @@ export default function Home() {
                 <Image
                   src="/images/temp-staffing.jpg"
                   alt="Temporary Staffing"
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <div className="p-6">
@@ -185,8 +185,8 @@ export default function Home() {
                 <Image
                   src="/images/recruitment.jpg"
                   alt="Permanent Recruitment"
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <div className="p-6">
@@ -201,8 +201,8 @@ export default function Home() {
                 <Image
                   src="/images/housing.jpg"
                   alt="Housing Solutions"
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <div className="p-6">

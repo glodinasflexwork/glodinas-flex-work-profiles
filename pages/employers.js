@@ -1121,10 +1121,10 @@ export default function Employers() {
               <div className="md:w-1/2">
                 <div className="relative h-80 md:h-96 w-full rounded-lg overflow-hidden shadow-xl">
                   <Image
-                    src="/images/employer-hero.jpg"
+                    src="/images/hero-employers.jpg"
                     alt="Business professionals in a meeting"
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    className="object-cover"
                     priority
                   />
                 </div>
@@ -1384,8 +1384,8 @@ export default function Employers() {
                       <Image
                         src={study.image}
                         alt={study.title}
-                        layout="fill"
-                        objectFit="cover"
+                        fill
+                        className="object-cover"
                       />
                     </div>
                     <div className="md:w-2/3 p-6">
