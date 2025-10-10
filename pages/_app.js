@@ -1,5 +1,4 @@
 import '../styles/globals.css';
-import { ClerkProvider } from '@clerk/nextjs';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NotificationProvider } from '../components/NotificationContext';
@@ -34,23 +33,19 @@ function MyApp({ Component, pageProps }) {
   );
   
   return (
-    <ClerkProvider 
-      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-      {...pageProps}
-    >
-      <NotificationProvider>
-        {needsSpecialLayout ? (
-          // For pages with their own layout or no layout
+    <NotificationProvider>
+      {needsSpecialLayout ? (
+        // For pages with their own layout or no layout
+        <Component {...pageProps} />
+      ) : (
+        // Default layout for most pages
+        <Layout pageTitle={Component.pageTitle}>
           <Component {...pageProps} />
-        ) : (
-          // Default layout for most pages
-          <Layout pageTitle={Component.pageTitle}>
-            <Component {...pageProps} />
-          </Layout>
-        )}
-      </NotificationProvider>
-    </ClerkProvider>
+        </Layout>
+      )}
+    </NotificationProvider>
   );
 }
 
 export default MyApp;
+
