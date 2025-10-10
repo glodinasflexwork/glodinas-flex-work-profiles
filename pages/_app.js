@@ -1,10 +1,11 @@
 import '../styles/globals.css';
+import { SessionProvider } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NotificationProvider } from '../components/NotificationContext';
 import Layout from '../components/Layout';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
   
   // Special pages that need custom layouts or no layout
@@ -33,17 +34,19 @@ function MyApp({ Component, pageProps }) {
   );
   
   return (
-    <NotificationProvider>
-      {needsSpecialLayout ? (
-        // For pages with their own layout or no layout
-        <Component {...pageProps} />
-      ) : (
-        // Default layout for most pages
-        <Layout pageTitle={Component.pageTitle}>
+    <SessionProvider session={session}>
+      <NotificationProvider>
+        {needsSpecialLayout ? (
+          // For pages with their own layout or no layout
           <Component {...pageProps} />
-        </Layout>
-      )}
-    </NotificationProvider>
+        ) : (
+          // Default layout for most pages
+          <Layout pageTitle={Component.pageTitle}>
+            <Component {...pageProps} />
+          </Layout>
+        )}
+      </NotificationProvider>
+    </SessionProvider>
   );
 }
 
