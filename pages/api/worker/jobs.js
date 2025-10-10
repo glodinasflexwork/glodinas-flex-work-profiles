@@ -1,7 +1,7 @@
 import prisma from '../../../lib/prisma';
-import { getSession } from 'next-auth/react';
+import { authOptions } from '../auth/[...nextauth]';
+import { getServerSession } from 'next-auth/next';
 
-export const runtime = 'edge';
 
 export default async function handler(req, res) {
   // Only allow GET requests
@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
   try {
     // Get the user session
-    const session = await getSession({ req });
+    const session = await getServerSession(req, res, authOptions);
     
     // Check if user is authenticated and is a worker
     if (!session || session.user.role !== 'WORKER') {

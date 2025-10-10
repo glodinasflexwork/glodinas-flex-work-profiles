@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from 'uuid';
 import prisma from '../../../lib/prisma';
 // TODO: Replace with R2 upload functionality
 
-export const runtime = 'edge';
 
 // Enable built-in Next.js body parser for multipart form data
 export const config = {

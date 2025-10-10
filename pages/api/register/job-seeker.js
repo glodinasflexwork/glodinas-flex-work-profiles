@@ -1,7 +1,6 @@
 import { hash } from 'bcryptjs';
 import prisma from '../../../lib/prisma';
 
-export const runtime = 'edge';
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });

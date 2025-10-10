@@ -4,7 +4,6 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { compare } from 'bcryptjs';
 import prisma from '../../../lib/prisma';
 
-export const runtime = 'edge';
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
