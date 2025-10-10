@@ -1,39 +1,69 @@
-import { useUser, useAuth } from '@clerk/nextjs';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
-export default function Dashboard() {
-  const { user, isLoaded } = useUser();
-  const { signOut } = useAuth();
+export default function DashboardPage() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    if (isLoaded && !user) {
-      router.push('/sign-in');
-    }
-  }, [isLoaded, user, router]);
+    const fetchUser = async () => {
+      try {
+        const response = await fetch('/api/auth/me');
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data.user);
+        } else {
+          router.push('/login'); // Redirect to login if not authenticated
+        }
+      } catch (error) {
+        console.error('Failed to fetch user:', error);
+        router.push('/login');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (!isLoaded || !user) {
-    return (
-      <div className="max-w-2xl mx-auto mt-20 p-6 text-center">
-        <p>Loading...</p>
-      </div>
-    );
+    fetchUser();
+  }, [router]);
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+      });
+      if (response.ok) {
+        router.push('/login');
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
+  if (!user) {
+    return null; // Should be redirected by router.push('/login')
   }
 
   return (
-    <div className="max-w-2xl mx-auto mt-20 p-6 border rounded shadow-sm">
-      <h1 className="text-3xl font-bold mb-4">
-        Welcome, {user.firstName || user.emailAddresses[0].emailAddress} 👋
-      </h1>
-      <p className="text-gray-600">This is your protected dashboard.</p>
-
-      <button
-        onClick={() => signOut(() => router.push('/'))}
-        className="mt-6 bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
-      >
-        Logout
-      </button>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md text-center">
+        <h1 className="text-2xl font-bold mb-4">Welcome, {user.name || user.email}!</h1>
+        <p className="text-gray-700 mb-2">User ID: {user.id}</p>
+        <p className="text-gray-700 mb-2">Email: {user.email}</p>
+        <p className="text-gray-700 mb-4">Role: {user.role}</p>
+        <button
+          onClick={handleLogout}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 }

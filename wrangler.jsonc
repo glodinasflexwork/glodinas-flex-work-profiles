@@ -23,12 +23,10 @@
     }
   ],
   "r2_buckets": [
-    // Create a R2 binding with the binding name "NEXT_INC_CACHE_R2_BUCKET"
-    // Uncomment and configure when ready to enable caching
-    // {
-    //   "binding": "NEXT_INC_CACHE_R2_BUCKET",
-    //   "bucket_name": "glodinas-flex-work-cache"
-    // }
+        {
+      "binding": "BUCKET_ASSETS",
+      "bucket_name": "glodinas-flex-work-assets"
+    }
   ],
   "d1_databases": [
     {
