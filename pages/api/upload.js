@@ -2,7 +2,6 @@ import cloudinary from '../../lib/cloudinary';
 import { IncomingForm } from 'formidable';
 import fs from 'fs';
 
-export const runtime = 'edge';
 export const config = {
   api: {
     bodyParser: false,
