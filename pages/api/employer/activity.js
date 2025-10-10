@@ -1,16 +1,31 @@
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../auth/[...nextauth]';
+import { getAuth } from '@clerk/nextjs/server';
 import prisma from '../../../lib/prisma';
 
 export default async function handler(req, res) {
-  // Check authentication and authorization
-  const session = await getServerSession(req, res, authOptions);
+  // Check authentication with Clerk
+  const { userId } = getAuth(req);
   
-  if (!session) {
+  if (!userId) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  // Get user from database
+  const user = await prisma.user.findUnique({
+    where: { clerkId: userId },
+    select: { role: true, id: true }
+  });
+
+  if (!user) {
+    return res.status(403).json({ message: 'User not found' });
+  }
+  // Check authentication and authorization
+  const session = await auth();
+  
+  if (!user) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
   
-  if (session.user.role !== 'EMPLOYER') {
+  if (user.role !== 'EMPLOYER') {
     return res.status(403).json({ message: 'Forbidden: Employer access only' });
   }
 
@@ -20,7 +35,7 @@ export default async function handler(req, res) {
       // Get employer profile ID
       const employerProfile = await prisma.employerProfile.findUnique({
         where: {
-          userId: session.user.id
+          userId: user.id
         }
       });
       

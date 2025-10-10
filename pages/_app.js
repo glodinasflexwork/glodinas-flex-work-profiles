@@ -1,11 +1,11 @@
 import '../styles/globals.css';
-import { SessionProvider } from 'next-auth/react';
+import { ClerkProvider } from '@clerk/nextjs';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NotificationProvider } from '../components/NotificationContext';
 import Layout from '../components/Layout';
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+function MyApp({ Component, pageProps }) {
   const router = useRouter();
   
   // Special pages that need custom layouts or no layout
@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   );
   
   return (
-    <SessionProvider session={session}>
+    <ClerkProvider {...pageProps}>
       <NotificationProvider>
         {needsSpecialLayout ? (
           // For pages with their own layout or no layout
@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           </Layout>
         )}
       </NotificationProvider>
-    </SessionProvider>
+    </ClerkProvider>
   );
 }
 

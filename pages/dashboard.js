@@ -1,15 +1,35 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./api/auth/[...nextauth]";
-import { signOut } from "next-auth/react";
+import { useUser, useAuth } from '@clerk/nextjs';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
-export default function Dashboard({ user }) {
+export default function Dashboard() {
+  const { user, isLoaded } = useUser();
+  const { signOut } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && !user) {
+      router.push('/sign-in');
+    }
+  }, [isLoaded, user, router]);
+
+  if (!isLoaded || !user) {
+    return (
+      <div className="max-w-2xl mx-auto mt-20 p-6 text-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-2xl mx-auto mt-20 p-6 border rounded shadow-sm">
-      <h1 className="text-3xl font-bold mb-4">Welcome, {user.name || user.email} 👋</h1>
+      <h1 className="text-3xl font-bold mb-4">
+        Welcome, {user.firstName || user.emailAddresses[0].emailAddress} 👋
+      </h1>
       <p className="text-gray-600">This is your protected dashboard.</p>
 
       <button
-        onClick={() => signOut({ callbackUrl: "/auth/login" })}
+        onClick={() => signOut(() => router.push('/'))}
         className="mt-6 bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
       >
         Logout
@@ -18,21 +38,3 @@ export default function Dashboard({ user }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const session = await getServerSession(context.req, context.res, authOptions);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {
-      user: session.user,
-    },
-  };
-}
