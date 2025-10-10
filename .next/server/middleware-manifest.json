@@ -20,6 +20,23 @@
       "assets": []
     }
   },
-  "functions": {},
+  "functions": {
+    "/api/auth/[...nextauth]": {
+      "files": [
+        "server/edge-runtime-webpack.js",
+        "server/pages/api/auth/[...nextauth].js"
+      ],
+      "name": "pages/api/auth/[...nextauth]",
+      "page": "/api/auth/[...nextauth]",
+      "matchers": [
+        {
+          "regexp": "^/api/auth/(?<nextauth>.+?)$",
+          "originalSource": "/api/auth/[...nextauth]"
+        }
+      ],
+      "wasm": [],
+      "assets": []
+    }
+  },
   "version": 2
 }
