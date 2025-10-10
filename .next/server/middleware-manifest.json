@@ -1,6 +1,106 @@
 {
   "version": 3,
   "middleware": {},
-  "functions": {},
+  "functions": {
+    "/api/auth/logout": {
+      "files": [
+        "server/edge-runtime-webpack.js",
+        "server/edge-chunks/888.js",
+        "server/pages/api/auth/logout.js"
+      ],
+      "name": "pages/api/auth/logout",
+      "page": "/api/auth/logout",
+      "matchers": [
+        {
+          "regexp": "^/api/auth/logout$",
+          "originalSource": "/api/auth/logout"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "EoJ91m_oIbBYSL9vCsoxu",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "bRgQgq8rIuKs1P7n/+S1Z566CVR2GBt9m5W5PKcJkDA=",
+        "__NEXT_PREVIEW_MODE_ID": "cea275402ec11ffbd77603a72f973461",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "08db20283613203d66d6c945970c03283250f71efd96caa47ed4403e6cedc15b",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "05c0280957415ab4ecb3f9eb4b4b0f771d3c5a1c006f34abd61b4ce17352f95b"
+      }
+    },
+    "/api/auth/me": {
+      "files": [
+        "server/edge-runtime-webpack.js",
+        "server/edge-chunks/888.js",
+        "server/edge-chunks/903.js",
+        "server/pages/api/auth/me.js"
+      ],
+      "name": "pages/api/auth/me",
+      "page": "/api/auth/me",
+      "matchers": [
+        {
+          "regexp": "^/api/auth/me$",
+          "originalSource": "/api/auth/me"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "EoJ91m_oIbBYSL9vCsoxu",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "bRgQgq8rIuKs1P7n/+S1Z566CVR2GBt9m5W5PKcJkDA=",
+        "__NEXT_PREVIEW_MODE_ID": "cea275402ec11ffbd77603a72f973461",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "08db20283613203d66d6c945970c03283250f71efd96caa47ed4403e6cedc15b",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "05c0280957415ab4ecb3f9eb4b4b0f771d3c5a1c006f34abd61b4ce17352f95b"
+      }
+    },
+    "/api/auth/login": {
+      "files": [
+        "server/edge-runtime-webpack.js",
+        "server/edge-chunks/888.js",
+        "server/edge-chunks/903.js",
+        "server/pages/api/auth/login.js"
+      ],
+      "name": "pages/api/auth/login",
+      "page": "/api/auth/login",
+      "matchers": [
+        {
+          "regexp": "^/api/auth/login$",
+          "originalSource": "/api/auth/login"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "EoJ91m_oIbBYSL9vCsoxu",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "bRgQgq8rIuKs1P7n/+S1Z566CVR2GBt9m5W5PKcJkDA=",
+        "__NEXT_PREVIEW_MODE_ID": "cea275402ec11ffbd77603a72f973461",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "08db20283613203d66d6c945970c03283250f71efd96caa47ed4403e6cedc15b",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "05c0280957415ab4ecb3f9eb4b4b0f771d3c5a1c006f34abd61b4ce17352f95b"
+      }
+    },
+    "/api/auth/register": {
+      "files": [
+        "server/edge-runtime-webpack.js",
+        "server/edge-chunks/888.js",
+        "server/edge-chunks/903.js",
+        "server/pages/api/auth/register.js"
+      ],
+      "name": "pages/api/auth/register",
+      "page": "/api/auth/register",
+      "matchers": [
+        {
+          "regexp": "^/api/auth/register$",
+          "originalSource": "/api/auth/register"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "EoJ91m_oIbBYSL9vCsoxu",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "bRgQgq8rIuKs1P7n/+S1Z566CVR2GBt9m5W5PKcJkDA=",
+        "__NEXT_PREVIEW_MODE_ID": "cea275402ec11ffbd77603a72f973461",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "08db20283613203d66d6c945970c03283250f71efd96caa47ed4403e6cedc15b",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "05c0280957415ab4ecb3f9eb4b4b0f771d3c5a1c006f34abd61b4ce17352f95b"
+      }
+    }
+  },
   "sortedMiddleware": []
 }
