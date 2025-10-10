@@ -1,94 +1,167 @@
 import { getAuth } from '@clerk/nextjs/server';
-import prisma from '../../../lib/prisma';
+import { query, queryOne, execute, now } from '../../../lib/d1';
 
-export default async function handler(req, res) {
+export const runtime = 'edge';
+
+export default async function handler(req) {
   // Check authentication with Clerk
   const { userId } = getAuth(req);
   
   if (!userId) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    return new Response(JSON.stringify({ message: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  // Get DB instance
+  const db = req.env?.DB || process.env.DB;
+  if (!db) {
+    return new Response(JSON.stringify({ message: 'Database not available' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   // Get user from database to check role
-  const user = await prisma.user.findUnique({
-    where: { clerkId: userId },
-    select: { role: true }
-  });
+  const user = await queryOne(db, 
+    'SELECT role FROM User WHERE clerkId = ?',
+    [userId]
+  );
 
   if (!user || user.role !== 'ADMIN') {
-    return res.status(403).json({ message: 'Forbidden: Admin access required' });
+    return new Response(JSON.stringify({ message: 'Forbidden: Admin access required' }), {
+      status: 403,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   if (req.method === 'GET') {
     try {
-      const { status, page = 1, limit = 10 } = req.query;
-      const skip = (parseInt(page) - 1) * parseInt(limit);
+      const url = new URL(req.url);
+      const status = url.searchParams.get('status');
+      const page = parseInt(url.searchParams.get('page') || '1');
+      const limit = parseInt(url.searchParams.get('limit') || '10');
+      const offset = (page - 1) * limit;
 
-      const where = status ? { status } : {};
+      let employersSql = `
+        SELECT 
+          e.*,
+          u.email as userEmail,
+          u.name as userName,
+          u.createdAt as userCreatedAt,
+          s.tier as subscriptionTier,
+          s.jobPostingLimit,
+          s.activeJobsCount
+        FROM EmployerProfile e
+        LEFT JOIN User u ON e.userId = u.id
+        LEFT JOIN Subscription s ON e.id = s.employerId
+      `;
+      
+      const params = [];
+      if (status) {
+        employersSql += ' WHERE e.status = ?';
+        params.push(status);
+      }
+      
+      employersSql += ' ORDER BY e.createdAt DESC LIMIT ? OFFSET ?';
+      params.push(limit, offset);
 
-      const [employers, total] = await Promise.all([
-        prisma.employerProfile.findMany({
-          where,
-          skip,
-          take: parseInt(limit),
-          include: {
-            user: {
-              select: {
-                email: true,
-                name: true,
-                createdAt: true
-              }
-            },
-            subscription: true
+      const employers = await query(db, employersSql, params);
+
+      // Get total count
+      let countSql = 'SELECT COUNT(*) as total FROM EmployerProfile';
+      const countParams = [];
+      if (status) {
+        countSql += ' WHERE status = ?';
+        countParams.push(status);
+      }
+      const countResult = await queryOne(db, countSql, countParams);
+      const total = countResult?.total || 0;
+
+      return new Response(JSON.stringify({
+        employers: employers.map(e => ({
+          ...e,
+          user: {
+            email: e.userEmail,
+            name: e.userName,
+            createdAt: e.userCreatedAt
           },
-          orderBy: { createdAt: 'desc' }
-        }),
-        prisma.employerProfile.count({ where })
-      ]);
-
-      return res.status(200).json({
-        employers,
+          subscription: e.subscriptionTier ? {
+            tier: e.subscriptionTier,
+            jobPostingLimit: e.jobPostingLimit,
+            activeJobsCount: e.activeJobsCount
+          } : null
+        })),
         pagination: {
           total,
-          page: parseInt(page),
-          limit: parseInt(limit),
-          totalPages: Math.ceil(total / parseInt(limit))
+          page,
+          limit,
+          totalPages: Math.ceil(total / limit)
         }
+      }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
       });
     } catch (error) {
       console.error('Error fetching employers:', error);
-      return res.status(500).json({ message: 'Error fetching employers' });
+      return new Response(JSON.stringify({ message: 'Error fetching employers' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
   }
 
   if (req.method === 'PUT') {
     try {
-      const { id, status } = req.body;
+      const body = await req.json();
+      const { id, status } = body;
 
       if (!id || !status) {
-        return res.status(400).json({ message: 'Missing required fields' });
+        return new Response(JSON.stringify({ message: 'Missing required fields' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        });
       }
 
-      const updatedEmployer = await prisma.employerProfile.update({
-        where: { id },
-        data: { status },
-        include: {
-          user: {
-            select: {
-              email: true,
-              name: true
-            }
-          }
-        }
-      });
+      await execute(db,
+        'UPDATE EmployerProfile SET status = ?, updatedAt = ? WHERE id = ?',
+        [status, now(), id]
+      );
 
-      return res.status(200).json(updatedEmployer);
+      // Fetch updated employer with user info
+      const updatedEmployer = await queryOne(db, `
+        SELECT 
+          e.*,
+          u.email as userEmail,
+          u.name as userName
+        FROM EmployerProfile e
+        LEFT JOIN User u ON e.userId = u.id
+        WHERE e.id = ?
+      `, [id]);
+
+      return new Response(JSON.stringify({
+        ...updatedEmployer,
+        user: {
+          email: updatedEmployer.userEmail,
+          name: updatedEmployer.userName
+        }
+      }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
     } catch (error) {
       console.error('Error updating employer:', error);
-      return res.status(500).json({ message: 'Error updating employer' });
+      return new Response(JSON.stringify({ message: 'Error updating employer' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
   }
 
-  return res.status(405).json({ message: 'Method not allowed' });
+  return new Response(JSON.stringify({ message: 'Method not allowed' }), {
+    status: 405,
+    headers: { 'Content-Type': 'application/json' }
+  });
 }
 

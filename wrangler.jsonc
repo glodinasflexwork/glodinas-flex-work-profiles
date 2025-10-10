@@ -29,6 +29,13 @@
     //   "binding": "NEXT_INC_CACHE_R2_BUCKET",
     //   "bucket_name": "glodinas-flex-work-cache"
     // }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "glodinas-flex-db",
+      "database_id": "e10dc058-1d04-4787-a69a-9ec48e0acc93"
+    }
   ]
 }
 

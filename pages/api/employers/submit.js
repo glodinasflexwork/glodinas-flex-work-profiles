@@ -1,12 +1,25 @@
-import prisma from '../../../lib/prisma';
+import { execute, generateId, now } from '../../../lib/d1';
 
-export default async function handler(req, res) {
-  // Only allow POST method
+export const runtime = 'edge';
+
+export default async function handler(req) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
+    return new Response(JSON.stringify({ message: 'Method not allowed' }), {
+      status: 405,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  const db = req.env?.DB || process.env.DB;
+  if (!db) {
+    return new Response(JSON.stringify({ message: 'Database not available' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   try {
+    const body = await req.json();
     const {
       companyName,
       contactPerson,
@@ -16,44 +29,64 @@ export default async function handler(req, res) {
       jobRequirements,
       workersNeeded,
       location
-    } = req.body;
+    } = body;
 
     // Validate required fields
     if (!companyName || !contactPerson || !email || !phone || !industry || !jobRequirements || !workersNeeded || !location) {
-      return res.status(400).json({ message: 'Missing required fields' });
+      return new Response(JSON.stringify({ message: 'Missing required fields' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
 
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ message: 'Invalid email format' });
+      return new Response(JSON.stringify({ message: 'Invalid email format' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
 
-    // Create employer record in database
-    const employer = await prisma.employer.create({
-      data: {
-        companyName,
-        contactPerson,
-        email,
-        phone,
-        industry,
-        jobRequirements,
-        workersNeeded: parseInt(workersNeeded),
-        location,
-        status: 'pending'
-      }
-    });
+    // Insert employer submission
+    const id = generateId();
+    await execute(db, `
+      INSERT INTO Employer (
+        id, companyName, contactPerson, email, phone, 
+        industry, jobRequirements, workersNeeded, location, 
+        createdAt, status
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `, [
+      id,
+      companyName,
+      contactPerson,
+      email,
+      phone,
+      industry,
+      jobRequirements,
+      parseInt(workersNeeded),
+      location,
+      now(),
+      'pending'
+    ]);
 
-    return res.status(201).json({ 
-      success: true, 
+    return new Response(JSON.stringify({ 
+      success: true,
       message: 'Employer submission received successfully',
-      data: employer 
+      data: { id }
+    }), {
+      status: 201,
+      headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
     console.error('Error submitting employer form:', error);
-    return res.status(500).json({ 
+    return new Response(JSON.stringify({ 
       success: false,
-      message: 'An error occurred while processing your submission' 
+      message: 'An error occurred while processing your submission'
+    }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
     });
   }
 }
+

@@ -1,153 +1,206 @@
 import { getAuth } from '@clerk/nextjs/server';
-import prisma from '../../../lib/prisma';
+import { query, queryOne, execute, now } from '../../../lib/d1';
 
-export default async function handler(req, res) {
+export const runtime = 'edge';
+
+export default async function handler(req) {
   // Check authentication with Clerk
   const { userId } = getAuth(req);
   
   if (!userId) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    return new Response(JSON.stringify({ message: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
-  // Get user from database
-  const user = await prisma.user.findUnique({
-    where: { clerkId: userId },
-    select: { role: true, id: true }
-  });
-
-  if (!user) {
-    return res.status(403).json({ message: 'User not found' });
-  }
-  // Check authentication
-  const session = await auth();
-  if (!user || !user.user) {
-    return res.status(401).json({ message: 'Unauthorized' });
+  // Get DB instance
+  const db = req.env?.DB || process.env.DB;
+  if (!db) {
+    return new Response(JSON.stringify({ message: 'Database not available' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
-  // Verify admin role
-  const admin = await prisma.admin.findUnique({
-    where: { email: user.email }
-  });
+  // Get user from database to check role
+  const user = await queryOne(db, 
+    'SELECT role FROM User WHERE clerkId = ?',
+    [userId]
+  );
 
-  if (!admin) {
-    return res.status(403).json({ message: 'Forbidden: Admin access required' });
+  if (!user || user.role !== 'ADMIN') {
+    return new Response(JSON.stringify({ message: 'Forbidden: Admin access required' }), {
+      status: 403,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   // Handle different HTTP methods
   switch (req.method) {
     case 'GET':
-      return getJobSeekers(req, res);
+      return getJobSeekers(req, db);
     case 'PUT':
-      return updateJobSeeker(req, res);
+      return updateJobSeeker(req, db);
     case 'DELETE':
-      return deleteJobSeeker(req, res);
+      return deleteJobSeeker(req, db);
     default:
-      return res.status(405).json({ message: 'Method not allowed' });
+      return new Response(JSON.stringify({ message: 'Method not allowed' }), {
+        status: 405,
+        headers: { 'Content-Type': 'application/json' }
+      });
   }
 }
 
 // Get job seekers with filtering and pagination
-async function getJobSeekers(req, res) {
+async function getJobSeekers(req, db) {
   try {
-    const { page = 1, limit = 10, status, search } = req.query;
-    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const url = new URL(req.url);
+    const page = parseInt(url.searchParams.get('page') || '1');
+    const limit = parseInt(url.searchParams.get('limit') || '10');
+    const status = url.searchParams.get('status');
+    const search = url.searchParams.get('search');
+    const offset = (page - 1) * limit;
     
     // Build filter conditions
-    const where = {};
+    let whereClauses = [];
+    let params = [];
+    
     if (status) {
-      where.status = status;
+      whereClauses.push('status = ?');
+      params.push(status);
     }
     
     if (search) {
-      where.OR = [
-        { firstName: { contains: search, mode: 'insensitive' } },
-        { lastName: { contains: search, mode: 'insensitive' } },
-        { email: { contains: search, mode: 'insensitive' } },
-        { skills: { contains: search, mode: 'insensitive' } },
-        { preferredLocation: { contains: search, mode: 'insensitive' } }
-      ];
+      whereClauses.push(`(
+        firstName LIKE ? OR 
+        lastName LIKE ? OR 
+        email LIKE ? OR 
+        skills LIKE ? OR 
+        preferredLocation LIKE ?
+      )`);
+      const searchPattern = `%${search}%`;
+      params.push(searchPattern, searchPattern, searchPattern, searchPattern, searchPattern);
     }
     
-    // Log the query parameters for debugging
-    console.log('Job seekers query:', { where, skip, take: parseInt(limit) });
+    const whereClause = whereClauses.length > 0 ? 'WHERE ' + whereClauses.join(' AND ') : '';
     
     // Get job seekers with pagination
-    const jobSeekers = await prisma.jobSeeker.findMany({
-      where,
-      skip,
-      take: parseInt(limit),
-      orderBy: { createdAt: 'desc' }
-    });
+    const jobSeekers = await query(db, `
+      SELECT * FROM JobSeeker
+      ${whereClause}
+      ORDER BY createdAt DESC
+      LIMIT ? OFFSET ?
+    `, [...params, limit, offset]);
     
     // Get total count for pagination
-    const total = await prisma.jobSeeker.count({ where });
+    const countResult = await queryOne(db, `
+      SELECT COUNT(*) as total FROM JobSeeker
+      ${whereClause}
+    `, params);
+    const total = countResult?.total || 0;
     
-    console.log(`Found ${total} job seekers matching criteria`);
-    
-    return res.status(200).json({
+    return new Response(JSON.stringify({
       data: jobSeekers,
       pagination: {
         total,
-        page: parseInt(page),
-        limit: parseInt(limit),
-        totalPages: Math.ceil(total / parseInt(limit))
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
       }
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
     console.error('Error fetching job seekers:', error);
-    return res.status(500).json({ message: 'Error fetching job seekers', error: error.message });
+    return new Response(JSON.stringify({ message: 'Error fetching job seekers', error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }
 
 // Update job seeker status
-async function updateJobSeeker(req, res) {
+async function updateJobSeeker(req, db) {
   try {
-    const { id } = req.query;
-    const { status } = req.body;
+    const url = new URL(req.url);
+    const id = url.searchParams.get('id');
+    const body = await req.json();
+    const { status } = body;
     
     if (!id) {
-      return res.status(400).json({ message: 'Job seeker ID is required' });
+      return new Response(JSON.stringify({ message: 'Job seeker ID is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
     
     if (!status || !['pending', 'reviewed', 'matched'].includes(status)) {
-      return res.status(400).json({ message: 'Valid status is required' });
+      return new Response(JSON.stringify({ message: 'Valid status is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
     
-    const jobSeeker = await prisma.jobSeeker.update({
-      where: { id },
-      data: { status }
-    });
+    await execute(db, 
+      'UPDATE JobSeeker SET status = ? WHERE id = ?',
+      [status, id]
+    );
     
-    return res.status(200).json({ 
+    const jobSeeker = await queryOne(db, 
+      'SELECT * FROM JobSeeker WHERE id = ?',
+      [id]
+    );
+    
+    return new Response(JSON.stringify({ 
       success: true,
       message: 'Job seeker status updated successfully',
       data: jobSeeker
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
     console.error('Error updating job seeker:', error);
-    return res.status(500).json({ message: 'Error updating job seeker', error: error.message });
+    return new Response(JSON.stringify({ message: 'Error updating job seeker', error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }
 
 // Delete job seeker
-async function deleteJobSeeker(req, res) {
+async function deleteJobSeeker(req, db) {
   try {
-    const { id } = req.query;
+    const url = new URL(req.url);
+    const id = url.searchParams.get('id');
     
     if (!id) {
-      return res.status(400).json({ message: 'Job seeker ID is required' });
+      return new Response(JSON.stringify({ message: 'Job seeker ID is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
     
-    await prisma.jobSeeker.delete({
-      where: { id }
-    });
+    await execute(db, 
+      'DELETE FROM JobSeeker WHERE id = ?',
+      [id]
+    );
     
-    return res.status(200).json({ 
+    return new Response(JSON.stringify({ 
       success: true,
       message: 'Job seeker deleted successfully'
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
     });
   } catch (error) {
     console.error('Error deleting job seeker:', error);
-    return res.status(500).json({ message: 'Error deleting job seeker', error: error.message });
+    return new Response(JSON.stringify({ message: 'Error deleting job seeker', error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }
+
