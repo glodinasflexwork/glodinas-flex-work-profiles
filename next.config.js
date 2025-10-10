@@ -19,3 +19,4 @@ module.exports = nextConfig
 // Initialize OpenNext Cloudflare for local development
 const { initOpenNextCloudflareForDev } = require("@opennextjs/cloudflare");
 initOpenNextCloudflareForDev();
+// Trigger a new build
